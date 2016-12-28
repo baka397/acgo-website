@@ -4,15 +4,19 @@ const pkg = require('../package.json');
 // 默认配置
 let defaultConfig = {
 	project: {
-		port: 5500,										    // 项目端口
+		port: 8001,										    // 项目端口
 		name: pkg.name,								        // 项目名称
 		version: pkg.version								// 项目版本
 	},
 	log: {
-		path: './',		    					            // 日志路径
+		path: './logs/',		    					    // 日志路径
 		type: 'console',									// 日志打印类型：console、fileLog、dateFileLog
 		level: 'debug'										// 日志打印级别：trace、debug、info、warn、error、fatal
-	}
+	},
+	//api信息
+	apiPath:'http://127.0.0.1:8000/api/v1',                 // API地址
+    apiAlias:'client',                                      // API项目名称
+    apiKey:'58635a0551d5f413bc969616'                       // API秘钥
 }
 
 // 启动配置，部署环境变量：dev、test、uat、online
