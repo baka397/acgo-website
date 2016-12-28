@@ -1,0 +1,37 @@
+.table,.table-modal{
+    width: 100%;
+    margin: 10px 0;
+    background: @color-content-block;
+    border: solid #F2F2F2;
+    border-width: 0 0 1px 1px;
+    td,th{
+        padding: 10px;
+        border: solid #F2F2F2;
+        border-width: 1px 1px 0 0;
+        word-break:break-all;
+    }
+    th{
+        background: #FCFCFC;
+        text-align: center;
+    }
+    td{
+        color: #606060;
+    }
+    tbody{
+        tr:hover td{
+            background: #F9F9F9;
+        }
+    }
+}
+.table{
+    tbody{
+        tr:nth-child(even) td{
+            background: #FDFDFD;
+        }
+    }
+}
+.table-modal{
+    th{
+        font-weight: bold;
+    }
+}
