@@ -6,6 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
+    "pack": "webpack -p && gulp clean && gulp build && node archive.js",
     "test": "set NODE_ENV=case&& node ./node_modules/mocha/bin/mocha --timeout 200000",
     "test-cov": "set NODE_ENV=case&& node ./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha"
   },
@@ -23,12 +24,14 @@
   },
   "homepage": "https://github.com/baka397/acgo-website#readme",
   "devDependencies": {
+    "archiver": "^1.3.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-plugin-transform-object-assign": "^6.8.0",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "del": "^2.2.2",
     "gulp": "^3.9.1",
     "gulp-filter": "^4.0.0",
     "gulp-less": "^3.3.0",
