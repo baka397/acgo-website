@@ -10,7 +10,8 @@
 @color-light:#999;
 @color-danger:#ED5565;
 @color-success:#009966;
-
+//content
+@color-content-block:#FFF;
 //button
 @color-btn-primary:@color-primary;
 @color-btn-info:@color-info;
@@ -52,8 +53,24 @@ a{
     }
 }
 
+//通用
+.app-tip{
+    text-align: center;
+    .app-tip-title{
+        padding: 10px 0 20px;
+        font-size: 1.4em;
+        line-height: 2em;
+    }
+    .app-tip-message{
+        color: #666;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}
+
 //公共样式
 @import './include/typesetting.less'; //排版
 @import './include/button.less'; //按钮
 @import './include/table.less'; //表格
 @import './include/modal.less'; //模态窗口
+@import './include/page.less'; //分页

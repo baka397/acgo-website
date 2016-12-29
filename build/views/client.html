@@ -7,11 +7,15 @@
     <title>ACGO</title>
     <meta name="keywords" content="acgo">
     <meta name="description" content="ACGO">
+    <link rel="stylesheet" href="/css/main.css?version=<%= version %>" />
 </head>
-
 <body>
+<div id="app">
+</div>
+<script type="text/javascript" src="/js/plugins/md5.min.js?version=<%= version %>"></script>
 <script type="text/javascript">
-    var user=<%- JSON.stringify(user) %>
+    var user=<%- user?JSON.stringify(user):'{}' %>
 </script>
+<script type="text/javascript" src="/js/app.min.js?version=<%= version %>"></script>
 </body>
 </html>

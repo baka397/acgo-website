@@ -6,7 +6,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const log = require('./log');
+const tool = require('./common/tool');
 const router = require('./router');
+const pkg = require('./package.json');
 
 // 全局请求地址前缀
 global.__CONTEXT_PATH = '/';
@@ -29,6 +31,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 全局设置
+app.use(function(req, res, next) {
+    //设置模板变量
+    res.locals.version = pkg.version;
+    next();
+})
+
 // 设置日志记录
 log.use(app);
 // 加载系统路由
@@ -43,9 +52,6 @@ app.use(function (req, res, next) {
 
 // error handlers
 app.use(function (err, req, res, next) {
-    if(apmClient&&err.apiDomin){
-        apmClient.sendApiRequest(req,err);
-    }
 	if(err.code!==404) LOG.error(err);
     let code = err.code || err.status || 500;
     let message = err.message || err.stack;
