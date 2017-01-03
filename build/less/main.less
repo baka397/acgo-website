@@ -1,22 +1,23 @@
 //基础参数
 @font-size:14px;
-@color-default:#333;
-@color-link:#08C;
-@color-bg:#F3F3F5;
+@color-default:#CFCFCF;
+@color-link:#CFCFCF;
 @line-height:1.5;
 
-@color-primary:#0EA6F9;
-@color-info:#666;
-@color-light:#999;
-@color-danger:#ED5565;
-@color-success:#009966;
+@color-primary:#0296D5;
+@color-info:#FDBC40;
+@color-light:#616266;
+@color-danger:#FC625D;
+@color-success:#34C849;
 //content
-@color-content-block:#FFF;
+@color-content-block:#202020;
+@color-content-dark:#000;
 //button
 @color-btn-primary:@color-primary;
 @color-btn-info:@color-info;
 @color-btn-light:@color-light;
 @color-btn-danger:@color-danger;
+@color-btn-success:@color-success;
 @color-btn-font:#FFF;
 //form
 @color-form-border:#DCDCDC;
@@ -24,17 +25,29 @@
 //公共方法
 @import './include/function.less'; //函数方法
 @import './include/reset.less'; //样式重置
+@import './include/flex.less'; //分页
+
+//公共样式
+@import './include/typesetting.less'; //排版
+@import './include/button.less'; //按钮
+@import './include/table.less'; //表格
+@import './include/modal.less'; //模态窗口
+@import './include/page.less'; //分页
+@import './include/icon.less'; //按钮
+@import './include/form.less'; //表单
+
+//页面
+@import './page/app.less'; //页面
+@import './page/login.less'; //登录
 
 //主要页面样式
-html{
+html,body{
     height: 100%;
 }
 body{
     position: relative;
     z-index: 1;
-    min-width: 1100px;
     min-height: 100%;
-    background: @color-bg;
     color: @color-default;
     font-size: @font-size;
     line-height: @line-height;
@@ -46,31 +59,6 @@ a{
     color:@color-link;
     text-decoration: none;
     &:hover{
-        color: darken(@color-link,10%);
-    }
-    &.loader-link{
-        cursor: pointer;
+        color: lighten(@color-link,10%);
     }
 }
-
-//通用
-.app-tip{
-    text-align: center;
-    .app-tip-title{
-        padding: 10px 0 20px;
-        font-size: 1.4em;
-        line-height: 2em;
-    }
-    .app-tip-message{
-        color: #666;
-        max-width: 400px;
-        margin: 0 auto;
-    }
-}
-
-//公共样式
-@import './include/typesetting.less'; //排版
-@import './include/button.less'; //按钮
-@import './include/table.less'; //表格
-@import './include/modal.less'; //模态窗口
-@import './include/page.less'; //分页

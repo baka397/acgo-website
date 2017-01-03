@@ -1,6 +1,6 @@
 .btn{
     display: inline-block;
-    padding: 5px 15px;
+    padding: 5px 10px;
     color: @color-btn-font;
     border: none;
     cursor: pointer;
@@ -11,27 +11,39 @@
 .btn-primary{
     background: @color-btn-primary;
     &:hover{
-        background: darken(@color-btn-primary, 10%)
+        background: lighten(@color-btn-primary, 10%)
     }
 }
 .btn-info{
     background: @color-btn-info;
     &:hover{
-        background: darken(@color-btn-info, 10%)
+        background: lighten(@color-btn-info, 10%)
     }
 }
 .btn-light{
     background: @color-btn-light;
     &:hover{
-        background: darken(@color-btn-light, 10%)
+        background: lighten(@color-btn-light, 10%)
     }
 }
 .btn-danger{
     background: @color-btn-danger;
     &:hover{
-        background: darken(@color-btn-danger, 10%)
+        background: lighten(@color-btn-danger, 10%)
     }
+}
+.btn-success{
+    background: @color-btn-success;
+    &:hover{
+        background: lighten(@color-btn-success, 10%)
+    }
+}
+.btn-lg{
+    padding: 10px 20px;
 }
 button.btn:disabled,.btn-disable{
     .opacity(0.8);
+}
+.btn-round{
+    .cround(5px);
 }

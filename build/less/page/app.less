@@ -1,0 +1,68 @@
+.app{
+    height: 100%;
+    .flex();
+}
+.app-layout{
+    background: @color-content-block;
+    overflow: hidden;
+    .cround(5px);
+}
+.app-default{
+    width: 400px;
+}
+.app-header{
+    margin: 10px;
+    overflow: hidden;
+    .app-header-icon{
+        float: right;
+        a{
+            display: inline-block;
+            margin-left: 5px;
+            width: 15px;
+            height: 15px;
+            line-height: 15px;
+            color: @color-btn-font;
+            font-size: 7px;
+            text-align: center;
+            overflow: hidden;
+            .cround(50%);
+            .getIcon('');
+            &:hover{
+                &.header-icon-close::before{
+                    .getIcon('\e633');
+                }
+                &.header-icon-min::before{
+                    .getIcon('\e709');
+                }
+            }
+        }
+    }
+}
+.app-content{
+    margin: 10px;
+}
+.app-footer{
+    height: 30px;
+    padding: 10px;
+    background: @color-content-dark;
+    overflow: hidden;
+    line-height: 30px;
+    img{
+        vertical-align: middle;
+    }
+}
+
+//通用
+.app-tip{
+    text-align: center;
+    .app-tip-title{
+        padding: 10px 0 20px;
+        font-size: 1.4em;
+        line-height: 2em;
+    }
+    .app-tip-message{
+        color: #666;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+}

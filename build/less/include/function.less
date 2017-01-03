@@ -10,18 +10,27 @@
 }
 //圆角
 .cround(@radius:3px) {
-  border-radius: @radius;
-  -moz-border-radius: @radius;
-  -webkit-border-radius: @radius;
+    border-radius: @radius;
+    -moz-border-radius: @radius;
+    -webkit-border-radius: @radius;
 }
 //超出隐藏
 .ellipsis(){
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 //透明
 .opacity(@opacity:0.5){
-  opacity: @opacity;
-  filter: "alpha(opacity=@{opacity-ie*100})";
+    opacity: @opacity;
+    filter: "alpha(opacity=@{opacity-ie*100})";
+}
+//获取图标
+.getIcon(@icon) when (@icon=''){
+    font-family:"iconfont" !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.getIcon(@icon){
+    content: @icon;
 }

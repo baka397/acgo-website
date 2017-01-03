@@ -1,0 +1,36 @@
+@form-height:40px;
+.app-form{
+    .app-form-control{
+        display: block;
+        margin: 0 0 10px;
+        background: @color-content-dark;
+        overflow: hidden;
+        .cround(5px);
+    }
+    .app-form-label{
+        float: left;
+        width: 60px;
+        height: @form-height;
+        padding: 0 10px;
+        box-sizing: border-box;
+        line-height: @form-height;
+        .ellipsis();
+    }
+    .app-form-content{
+        padding: 10px;
+        margin-left: 60px;
+        input{
+            width: 100%;
+            height: @form-height - 20px;
+            background: none;
+            border: none;
+            line-height: @form-height - 20px;
+        }
+    }
+    .app-form-footer{
+        .btn{
+            height: @form-height;
+            line-height: @form-height - 20px;
+        }
+    }
+}
