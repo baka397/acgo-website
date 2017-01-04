@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import {apiPath} from '../config';
-exports.fetchUrls={
+import {nextPromise} from './tool';
+const URLS={
     register:'/register'
 }
 let customHeader=new Headers({
@@ -14,7 +15,9 @@ let customHeader=new Headers({
  * @param  {String} method 请求类型
  * @return {Object}        Promise对象
  */
-function fetchPost(path,data,method){
+function fetchPost(action,data,method){
+    let path = URLS[action];
+    if(!path) return nextPromise(new Error('无效的API地址'));
     let option={
         method:'get',
         headers:customHeader
@@ -29,6 +32,9 @@ function fetchPost(path,data,method){
                 option.body=JSON.stringify(data);
         }
     }
-    return fetch(apiPath+path,option).then(response => response.json())
+    return fetch(apiPath+path,option).then(response => response.json()).then(function(data){
+        if(data.code!==200) return nextPromise(new Error(data.msg));
+        return nextPromise(null,data.data);
+    })
 }
 exports.fetch=fetchPost;

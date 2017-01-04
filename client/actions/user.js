@@ -1,7 +1,7 @@
 //加载依赖
 import {push} from 'react-router-redux'; //router跳转方法
 import md5 from 'md5';
-import {fetchUrls,fetch} from '../common/api';
+import {fetch} from '../common/api';
 import {modalUpdate} from './modal';
 
 /**
@@ -16,8 +16,12 @@ export function userReg(data){
             code:data.code,
             password:md5(data.password).toUpperCase()
         }
-        fetch(fetchUrls.register,sendData,'POST').then((data)=>{
+        fetch('register',sendData,'POST').then((data)=>{
             console.log(data);
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message
+            }))
         })
     }
 }
