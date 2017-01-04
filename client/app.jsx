@@ -35,23 +35,30 @@ const history = syncHistoryWithStore(browserHistory,store);
 
 //加载页面
 import Layout from './pages/layout.jsx'; //框架
-import FrameDefault from './pages/frame_default.jsx'; //默认框架
+import Common from './pages/common/layout.jsx'; //默认框架
 
-import Home from './pages/home.jsx'; //首页
+import Index from './pages/index.jsx'; //首页
 
 //创建路由
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
         <Route path="client" component={Layout}>
-            <IndexRoute component={Home}/>
-            <Route path="common" component={FrameDefault} getIndexRoute={(partialNextState, callback)=>{
+            <IndexRoute component={Index}/>
+            <Route path="common" component={Common} getIndexRoute={(partialNextState, callback)=>{
                 require.ensure([], function (require) {
                     callback(null, {
-                        component: require('./pages/login.jsx').default,
+                        component: require('./pages/common/login.jsx').default,
                     })
                 })
             }}>
+                <Route path="register" getIndexRoute={(partialNextState, callback)=>{
+                    require.ensure([], function (require) {
+                        callback(null, {
+                            component: require('./pages/common/register.jsx').default,
+                        })
+                    })
+                }} />
             </Route>
         </Route>
     </Router>

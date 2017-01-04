@@ -13,8 +13,13 @@ class Header extends Component {
         let title='';
         switch(routeInfo.locationBeforeTransitions.pathname){
             case '/client/common/':
-                title='登录'
+                title='登录';
                 break;
+            case '/client/common/register':
+                title='注册';
+                break;
+            default:
+                title='未定义';
         }
         return (
             <div className="app-header">

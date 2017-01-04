@@ -22,10 +22,10 @@ class Form extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     render() {
-        const { rules } = this.props;
+        const { rules,longlabel } = this.props;
         const { result } = this.state;
         return (
-            <form className="app-form" onSubmit={this.handleSubmit}>
+            <form className={longlabel?'app-form app-form-long':'app-form'} onSubmit={this.handleSubmit}>
                 {rules.map((rule,index)=>{
                     switch(rule.type){
                         case 'text':
@@ -35,7 +35,7 @@ class Form extends Component {
                             return <Password key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'submit':
-                            return <Button key={index} label={rule.label} />
+                            return <Button key={index} label={rule.label} icon={rule.icon} />
                         default:
                             return null;
                     }
@@ -61,7 +61,8 @@ class Form extends Component {
 
 Form.propTypes={
     rules:PropTypes.array.isRequired,
-    onSubmit:PropTypes.func.isRequired
+    onSubmit:PropTypes.func.isRequired,
+    longlabel:PropTypes.bool
 }
 
 export default Form;

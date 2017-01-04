@@ -33,7 +33,8 @@ module.exports = {
         ]
     },
     externals:{
-        'user':'user'
+        'user':'user',
+        'md5':'md5'
     },
     plugins: [
         new webpack.DefinePlugin({

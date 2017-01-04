@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { authLoginStatus } from '../actions/auth';
-import { isObjEmpty } from '../common/tool';
-import FormList from '../components/form/index.jsx';
 import {Link} from 'react-router';
 import {isEmail} from 'validator';
+import { authLoginStatus } from '../../actions/auth';
+import { isObjEmpty } from '../../common/tool';
+import FormList from '../../components/form/index.jsx';
 
 const FORM_RULE = [
     {
@@ -21,7 +21,8 @@ const FORM_RULE = [
     },
     {
         label:'登录',
-        type:'submit'
+        type:'submit',
+        icon:'confirm'
     }
 ]
 
@@ -32,7 +33,7 @@ function propMap(state){
 }
 
 //封装组件
-class Home extends Component {
+class Login extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -62,4 +63,4 @@ class Home extends Component {
     }
 }
 
-export default connect(propMap)(Home);
+export default connect(propMap)(Login);

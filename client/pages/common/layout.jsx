@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Header from '../components/common/header.jsx';
+import Header from '../../components/common/header.jsx';
 
 const YEAR = new Date().getFullYear();
 

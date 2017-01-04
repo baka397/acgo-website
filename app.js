@@ -77,11 +77,16 @@ app.use(function (err, req, res, next) {
 
 	// 返回数据
 	let params = {
-		title: err.title || code,
 		code: code,
 		msg: message
 	};
-
+    switch(code){
+        case 403:
+        case 404:
+        case 500:
+            res.status(code);
+            break;
+    }
 	try {
         let reqAjaxInfo=tool.isAjaxRequest(req);
 		if (reqAjaxInfo.needJson) { //判定是否需要以json形式返回

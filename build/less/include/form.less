@@ -1,4 +1,6 @@
 @form-height:40px;
+@form-label-width:60px;
+@form-label-long-width:80px;
 .app-form{
     .app-form-control{
         display: block;
@@ -9,7 +11,7 @@
     }
     .app-form-label{
         float: left;
-        width: 60px;
+        width: @form-label-width;
         height: @form-height;
         padding: 0 10px;
         box-sizing: border-box;
@@ -18,7 +20,7 @@
     }
     .app-form-content{
         padding: 10px;
-        margin-left: 60px;
+        margin-left: @form-label-width;
         input{
             width: 100%;
             height: @form-height - 20px;
@@ -31,6 +33,14 @@
         .btn{
             height: @form-height;
             line-height: @form-height - 20px;
+        }
+    }
+    &.app-form-long{
+        .app-form-label{
+            width: @form-label-long-width;
+        }
+        .app-form-content{
+            margin-left: @form-label-long-width;
         }
     }
 }

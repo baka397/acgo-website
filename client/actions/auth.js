@@ -1,6 +1,6 @@
 //加载依赖
-import { replace } from 'react-router-redux'; //router跳转方法
-import { isObjEmpty } from '../common/tool';
+import {replace} from 'react-router-redux'; //router跳转方法
+import {isObjEmpty} from '../common/tool';
 
 /**
  * 验证登录状态
