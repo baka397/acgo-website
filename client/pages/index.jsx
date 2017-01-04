@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { authLoginStatus } from '../actions/auth';
-import { push } from 'react-router-redux'; //router跳转方法
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {push} from 'react-router-redux';
+
+import {authLoginStatus} from '../actions/auth';
 
 function propMap(state){
     return {

@@ -1,5 +1,5 @@
 //导入action常量
-import { MODAL_UPDATE,MODAL_CLEAN } from '../actions/modal';
+import {MODAL_UPDATE,MODAL_CLEAN} from '../actions/modal';
 
 //初始化state
 const INIT_STATE = {

@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail} from 'validator';
-import { authLoginStatus } from '../../actions/auth';
-import { isObjEmpty } from '../../common/tool';
+
 import FormList from '../../components/form/index.jsx';
+
+import {isObjEmpty} from '../../common/tool';
+
+import {authLoginStatus} from '../../actions/auth';
+import {modalUpdate} from '../../actions/modal';
 
 const FORM_RULE = [
     {
@@ -57,8 +61,18 @@ class Login extends Component {
         )
     }
     handleSubmit(data){
-        if(!isEmail(data.email)){
-            alert('请输入正确的邮箱');
+        const {dispatch} = this.props;
+        if(!data.email||!isEmail(data.email)){
+            dispatch(modalUpdate({
+                tip:'请输入正确的邮箱'
+            }));
+            return;
+        }
+        if(!data.password){
+            dispatch(modalUpdate({
+                tip:'请输入正确的密码'
+            }))
+            return;
         }
     }
 }

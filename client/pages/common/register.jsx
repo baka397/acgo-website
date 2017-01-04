@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail,isMongoId} from 'validator';
-import {authLoginStatus} from '../../actions/auth';
-import {isObjEmpty} from '../../common/tool';
+
 import FormList from '../../components/form/index.jsx';
+
+import {isObjEmpty} from '../../common/tool';
+
+import {authLoginStatus} from '../../actions/auth';
 import {modalUpdate} from '../../actions/modal';
 import {userReg} from '../../actions/user';
 
@@ -70,7 +73,7 @@ class Register extends Component {
         )
     }
     handleSubmit(data){
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
         if(!data.email||!isEmail(data.email)){
             dispatch(modalUpdate({
                 tip:'请输入正确的邮箱'

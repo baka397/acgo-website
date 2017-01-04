@@ -6,12 +6,12 @@ class Loading extends Component {
         super(props);
     }
     shouldComponentUpdate(nextProps, nextState){
-        const { tip } = this.props;
+        const {tip} = this.props;
         if(status===nextProps.status) return false;
         return true;
     }
     render() {
-        const { status } = this.props;
+        const {status} = this.props;
         if(!status) return null;
         return (
             <div className="app-modal-sub modal-loading">

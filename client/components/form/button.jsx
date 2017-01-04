@@ -6,7 +6,7 @@ class Text extends Component {
         return false;
     }
     render() {
-        const { label,icon } = this.props;
+        const {label,icon} = this.props;
         let iconInfo=null;
         if(icon){
             iconInfo=<i className={'m-r-sm icon icon-'+icon}></i>

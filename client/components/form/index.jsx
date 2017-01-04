@@ -1,4 +1,5 @@
 import React, {PropTypes,Component} from 'react';
+
 import Text from './text.jsx';
 import Password from './password.jsx';
 import Button from './button.jsx';
@@ -22,8 +23,8 @@ class Form extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     render() {
-        const { rules,longlabel } = this.props;
-        const { result } = this.state;
+        const {rules,longlabel} = this.props;
+        const {result} = this.state;
         return (
             <form className={longlabel?'app-form app-form-long':'app-form'} onSubmit={this.handleSubmit}>
                 {rules.map((rule,index)=>{
@@ -44,7 +45,7 @@ class Form extends Component {
         )
     }
     handleChangeVal(name,value){
-        const { result } = this.state;
+        const {result} = this.state;
         let data = Object.assign({},result);
         data[name]=value;
         this.setState({
@@ -53,8 +54,8 @@ class Form extends Component {
     }
     handleSubmit(e){
         e.preventDefault();
-        const { onSubmit } = this.props;
-        const { result } = this.state;
+        const {onSubmit} = this.props;
+        const {result} = this.state;
         onSubmit(result);
     }
 }

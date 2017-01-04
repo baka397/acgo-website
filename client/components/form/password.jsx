@@ -7,12 +7,12 @@ class Password extends Component {
         this.handleChangeVal = this.handleChangeVal.bind(this);
     }
     shouldComponentUpdate(nextProps, nextState){
-        const { value } = this.props;
+        const {value} = this.props;
         if(value===nextProps.value) return false;
         return true;
     }
     render() {
-        const { name,label,placeholder,value } = this.props;
+        const {name,label,placeholder,value} = this.props;
         return (
             <label className="app-form-control">
                 <div className="app-form-label">{label}</div>
@@ -23,7 +23,7 @@ class Password extends Component {
         )
     }
     handleChangeVal(e){
-        const { name,onChangeVal } = this.props;
+        const {name,onChangeVal} = this.props;
         onChangeVal(name,this.refs.text.value);
     }
 }

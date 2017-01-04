@@ -1,39 +1,38 @@
 import React, {PropTypes,Component} from 'react';
+
 import Icon from './header_icon.jsx';
 
 //封装组件
 class Header extends Component {
+    constructor(props){
+        super(props);
+        this.handleIconClick = this.handleIconClick.bind(this);
+    }
     shouldComponentUpdate(nextProps, nextState){
-        const { routeInfo } = this.props;
-        if(routeInfo.locationBeforeTransitions.pathname===nextProps.routeInfo.locationBeforeTransitions.pathname) return false;
+        const {title} = this.props;
+        if(title===nextProps.title) return false;
         return true;
     }
     render() {
-        const { icons,routeInfo } = this.props;
-        let title='';
-        switch(routeInfo.locationBeforeTransitions.pathname){
-            case '/client/common/':
-                title='登录';
-                break;
-            case '/client/common/register':
-                title='注册';
-                break;
-            default:
-                title='未定义';
-        }
+        const {icons,title} = this.props;
         return (
             <div className="app-header">
-                <Icon icons={icons} />
+                <Icon icons={icons} onIconClick={this.handleIconClick} />
                 {title}
             </div>
         )
+    }
+    handleIconClick(iconName){
+        const {onIconClick} = this.props;
+        onIconClick(iconName);
     }
 }
 
 
 Header.propTypes={
-    routeInfo: PropTypes.object.isRequired,
-    icons: PropTypes.array.isRequired
+    title: PropTypes.string.isRequired,
+    icons: PropTypes.array.isRequired,
+    onIconClick: PropTypes.func.isRequired
 }
 
 export default Header;

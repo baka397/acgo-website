@@ -1,4 +1,5 @@
 import React, {PropTypes,Component} from 'react';
+
 import Tip from './tip.jsx';
 import Loading from './loading.jsx';
 
@@ -9,7 +10,7 @@ class Modal extends Component {
         this.handleHide = this.handleHide.bind(this);
     }
     render() {
-        const { modals } = this.props;
+        const {modals} = this.props;
         return (
             <div className="app-modal">
                 {Object.keys(modals).map((key)=>{
@@ -28,7 +29,7 @@ class Modal extends Component {
         )
     }
     handleHide(name){
-        const { onHide } = this.props;
+        const {onHide} = this.props;
         onHide(name);
     }
 }

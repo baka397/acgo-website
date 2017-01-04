@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
 import Modal from '../components/modal/index.jsx';
-import { modalClean } from '../actions/modal';
+
+import {modalClean} from '../actions/modal';
 
 function propMap(state){
     return {
@@ -16,7 +18,7 @@ class Layout extends Component {
         this.handleHide = this.handleHide.bind(this);
     }
     render() {
-        const { modal } = this.props;
+        const {modal} = this.props;
         return (
             <div className="app-layout">
                 <Modal modals={modal} onHide={this.handleHide} />
@@ -25,7 +27,7 @@ class Layout extends Component {
         )
     }
     handleHide(name){
-        const { dispatch } = this.props;
+        const {dispatch} = this.props;
         dispatch(modalClean(name));
     }
 }

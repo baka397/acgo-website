@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Header from '../../components/common/header.jsx';
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+
+import HeaderPage from '../../components/common/header_page.jsx';
 
 const YEAR = new Date().getFullYear();
 
@@ -12,11 +13,15 @@ function propMap(state){
 
 //封装组件
 class FrameDefault extends Component {
+    constructor(props){
+        super(props);
+        this.handleIconClick = this.handleIconClick.bind(this);
+    }
     render() {
-        const { routing } = this.props;
+        const {routing} = this.props;
         return (
             <div className="app-default">
-                <Header routeInfo={routing} icons={['min','close']} />
+                <HeaderPage route={routing} icons={['min','close']} onIconClick={this.handleIconClick} />
                 <div className="app-content">
                     {this.props.children}
                 </div>
@@ -26,6 +31,9 @@ class FrameDefault extends Component {
                 </div>
             </div>
         )
+    }
+    handleIconClick(iconName){
+        console.log(iconName);
     }
 }
 export default connect(propMap)(FrameDefault);
