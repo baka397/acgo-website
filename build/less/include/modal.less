@@ -16,17 +16,12 @@
             left: 0;
             right: 0;
         }
-        .modal-header{
-            .app-header{
-                margin: 0 0 10px;
-            }
-        }
     }
 }
 .modal-loading{
     z-index: 1000;
 }
-.modal-info,.modal-tip{
+.modal-tip{
     .modal-mask{
         background: #000;
         .opacity(0.3);
@@ -34,26 +29,18 @@
 }
 .modal-tip{
     .modal-content{
-        padding: 10px;
         width: 300px;
         background: @color-content-block;
         line-height: 30px;
+        border: 1px solid darken(@color-content-block, 5%);
         .cround();
-        .modal-main{
-          padding: 10px;
-        }
-        .modal-main-loading{
-            padding: 20px 0;
+        .modal-body{
+            margin: 10px;
         }
         .modal-footer{
-            margin: 10px 0 0;
-            overflow: hidden;
-            .cround();
+            margin: 10px;
         }
     }
-}
-.modal-hide{
-    display: none;
 }
 
 .app-spinner {

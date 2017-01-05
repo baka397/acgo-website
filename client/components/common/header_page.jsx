@@ -3,6 +3,8 @@ import React, {PropTypes,Component} from 'react';
 import Icon from './header_icon.jsx';
 import Header from './header.jsx';
 
+import {clientPath} from '../../config';
+
 //封装组件
 class HeaderPage extends Component {
     constructor(props){
@@ -17,12 +19,16 @@ class HeaderPage extends Component {
     render() {
         const {icons,route} = this.props;
         let title='';
-        switch(route.locationBeforeTransitions.pathname){
-            case '/client/common/':
+        let regRule=new RegExp('^'+clientPath);
+        switch(route.locationBeforeTransitions.pathname.replace(regRule,'')){
+            case '/common/':
                 title='登录';
                 break;
-            case '/client/common/register':
+            case '/common/register':
                 title='注册';
+                break;
+            case '/dashboard':
+                title='控制台';
                 break;
             default:
                 title='未定义';
@@ -30,16 +36,14 @@ class HeaderPage extends Component {
         return <Header icons={icons} title={title} onIconClick={this.handleIconClick} />
     }
     handleIconClick(iconName){
-        const {onIconClick} = this.props;
-        onIconClick(iconName);
+        console.log(iconName);
     }
 }
 
 
 HeaderPage.propTypes={
     route: PropTypes.object.isRequired,
-    icons: PropTypes.array.isRequired,
-    onIconClick: PropTypes.func.isRequired
+    icons: PropTypes.array.isRequired
 }
 
 export default HeaderPage;

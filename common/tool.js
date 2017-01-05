@@ -1,4 +1,5 @@
 'use strict';
+const STATUS_CODE = require('../enums/status_code');
 
 /**
  * 判断当前是否为ajax请求
@@ -6,12 +7,7 @@
  * @returns {boolean}
  */
 exports.isAjaxRequest = function(req) {
-    let requestType = req.headers['X-Requested-With'] || req.headers['x-requested-with'];
-    let acceptType = req.headers['Accept'] || req.headers['accept'];
-    return {
-        result:requestType==='XMLHttpRequest',
-        needJson:requestType==='XMLHttpRequest'&&/application\/json/.test(acceptType)
-    }
+    return req.isAjax?true:false;
 }
 
 /**
@@ -26,4 +22,44 @@ exports.appendContextPath = function(url) {
         fullPath = __CONTEXT_PATH + '/' + url;
     }
     return fullPath;
+}
+
+/**
+ * 请求下个Promise
+ * @param  {Object} err  错误信息
+ * @param  {Object} data 传递数据
+ * @return {Object}      Promise对象
+ */
+exports.nextPromise = function(err,data){
+    return new Promise(function(resolve,reject){
+        if(err) reject(err);
+        else resolve(data);
+    })
+}
+
+/**
+ * 构建成功JSON
+ * @param  {String} msg  返回信息
+ * @param  {Object} data 返回数据
+ * @return {Object}      
+ */
+exports.buildResJson = function(msg,data){
+    let result=Object.create(null);
+    result.msg=msg;
+    result.code=STATUS_CODE.SUCCESS;
+    result.data=data?data:null;
+    return result;
+}
+
+/**
+ * 设置登录token
+ * @param {Object} res         返回对象
+ * @param {String} cookieValue 登录key值
+ */
+exports.setToken = function(res,token){
+    res.cookie(CONFIG.tokenName,token,{
+        maxAge: CONFIG.tokenAge,
+        // httpOnly: true,
+        // secure: CONFIG.tokenSecure
+    })
 }

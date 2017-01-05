@@ -87,25 +87,19 @@ app.use(function (err, req, res, next) {
             res.status(code);
             break;
     }
-	try {
-        let reqAjaxInfo=tool.isAjaxRequest(req);
-		if (reqAjaxInfo.needJson) { //判定是否需要以json形式返回
-			res.send(params);
-		} else {
-            //设置特殊情况下的http状态码，否则为200
-            switch(code){
-                case 403:
-                case 404:
-                case 500:
-                    res.status(code);
-                    break;
-            }
-            params.isAjax=reqAjaxInfo.result; //判定是否为ajax请求
-            if(code===403) res.render('common/403',params);
-			else res.render('common/error',params);
-		}
-	} catch (e) {
-		LOG.error(e);
+    //设置特殊情况下的http状态码，否则为200
+    switch(code){
+        case 403:
+        case 404:
+        case 500:
+            res.status(code);
+            break;
+    }
+	if (tool.isAjaxRequest(req)) { //判定是否需要以json形式返回
+		res.send(params);
+	} else {
+        if(code===403) res.render('common/403',params);
+		else res.render('common/error',params);
 	}
 });
 

@@ -5,10 +5,9 @@ import {isEmail} from 'validator';
 
 import FormList from '../../components/form/index.jsx';
 
-import {isObjEmpty} from '../../common/tool';
-
 import {authLoginStatus} from '../../actions/auth';
 import {modalUpdate} from '../../actions/modal';
+import {userLogin} from '../../actions/user';
 
 const FORM_RULE = [
     {
@@ -30,26 +29,13 @@ const FORM_RULE = [
     }
 ]
 
-function propMap(state){
-    return {
-        user:state.user
-    }
-}
-
 //封装组件
 class Login extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount(){
-        const { user, dispatch } = this.props;
-        dispatch(authLoginStatus(user,false));
-    }
     render() {
-        if(!isObjEmpty(user)){
-            return null;
-        }
         return (
             <div className="app-login">
                 <FormList rules={FORM_RULE} onSubmit={this.handleSubmit} />
@@ -74,7 +60,8 @@ class Login extends Component {
             }))
             return;
         }
+        dispatch(userLogin(data));
     }
 }
 
-export default connect(propMap)(Login);
+export default connect()(Login);

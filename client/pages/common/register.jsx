@@ -5,9 +5,6 @@ import {isEmail,isMongoId} from 'validator';
 
 import FormList from '../../components/form/index.jsx';
 
-import {isObjEmpty} from '../../common/tool';
-
-import {authLoginStatus} from '../../actions/auth';
 import {modalUpdate} from '../../actions/modal';
 import {userReg} from '../../actions/user';
 
@@ -23,6 +20,12 @@ const FORM_RULE = [
         type:'text',
         label:'邀请码',
         placeholder:'请输入邀请码'
+    },
+    {
+        name:'nickname',
+        type:'text',
+        label:'昵称',
+        placeholder:'请输入昵称'
     },
     {
         name:'password',
@@ -43,26 +46,13 @@ const FORM_RULE = [
     }
 ]
 
-function propMap(state){
-    return {
-        user:state.user
-    }
-}
-
 //封装组件
 class Register extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount(){
-        const { user, dispatch } = this.props;
-        dispatch(authLoginStatus(user,false));
-    }
     render() {
-        if(!isObjEmpty(user)){
-            return null;
-        }
         return (
             <div className="app-login">
                 <FormList rules={FORM_RULE} onSubmit={this.handleSubmit} longlabel={true} />
@@ -83,6 +73,12 @@ class Register extends Component {
         if(!data.code||!isMongoId(data.code)){
             dispatch(modalUpdate({
                 tip:'请输入正确的邀请码'
+            }))
+            return;
+        }
+        if(!data.nickname){
+            dispatch(modalUpdate({
+                tip:'请输入正确的昵称'
             }))
             return;
         }
@@ -108,4 +104,4 @@ class Register extends Component {
     }
 }
 
-export default connect(propMap)(Register);
+export default connect()(Register);

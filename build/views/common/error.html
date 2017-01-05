@@ -1,4 +1,3 @@
-<% if(!isAjax){ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,13 +11,14 @@
 </head>
 
 <body>
-<% } %>
-    <div class="app-tip">
-    	<div class="app-tip-title"><%= code %></div>
-    	<div class="app-tip-message"><%= msg %></div>
+    <div class="app">
+        <div class="app-layout">
+            <div class="app-tip">
+            	<div class="app-tip-title"><%= code %></div>
+            	<div class="app-tip-message"><%= msg %></div>
+                <p><a class="btn btn-info btn-round btn-block" href="/">返回首页</a></p>
+            </div>
+        </div>
     </div>
-<% if(!isAjax){ %>
-    <p class="m-t-hg text-center"><a class="btn btn-primary" href="/">返回首页</a></p>
 </body>
 </html>
-<% } %>

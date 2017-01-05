@@ -1,6 +1,7 @@
 //加载依赖
 import {replace} from 'react-router-redux'; //router跳转方法
 import {isObjEmpty} from '../common/tool';
+import {clientPath} from '../config';
 
 /**
  * 验证登录状态
@@ -13,19 +14,19 @@ export function authLoginStatus(user,isLogin,switchStatus=false){
     return function(dispatch){
         if(switchStatus){
             if(isObjEmpty(user)){
-                dispatch(replace('/client/common/'));
+                dispatch(replace(clientPath+'/common/'));
             }else{
-                dispatch(replace('/client/dashboard/'));
+                dispatch(replace(clientPath+'/dashboard/'));
             }
         }else{
             //检测登录
             if(isLogin){
                 if(isObjEmpty(user)){
-                    dispatch(replace('/client/common/'));
+                    dispatch(replace(clientPath+'/common/'));
                 }
             }else{ //检测未登录
                 if(!isObjEmpty(user)){
-                    dispatch(replace('/client/dashboard/'));
+                    dispatch(replace(clientPath+'/dashboard/'));
                 }
             }
         }

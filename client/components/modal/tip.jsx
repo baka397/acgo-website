@@ -26,7 +26,7 @@ class Tip extends Component {
                         {tip}
                     </div>
                     <div className="modal-footer">
-                        <a className="btn btn-info btn-block" onClick={this.handleHide}>我知道了</a>
+                        <a className="btn btn-info btn-block btn-round" onClick={this.handleHide}>我知道了</a>
                     </div>
                 </div>
                 <div className="modal-mask" onClick={this.handleHide}></div>

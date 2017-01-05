@@ -35,9 +35,11 @@ const history = syncHistoryWithStore(browserHistory,store);
 
 //加载页面
 import Layout from './pages/layout.jsx'; //框架
-import Common from './pages/common/layout.jsx'; //默认框架
+import CommonLayout from './pages/common/layout.jsx'; //未登录框架
+import DashboardLayout from './pages/dashboard/layout.jsx'; //登录框架
 
 import Index from './pages/index.jsx'; //首页
+import NotFound from './pages/not_found.jsx'; //首页
 
 //创建路由
 ReactDOM.render(
@@ -45,7 +47,7 @@ ReactDOM.render(
     <Router history={history}>
         <Route path="client" component={Layout}>
             <IndexRoute component={Index}/>
-            <Route path="common" component={Common} getIndexRoute={(partialNextState, callback)=>{
+            <Route path="common" component={CommonLayout} getIndexRoute={(partialNextState, callback)=>{
                 require.ensure([], function (require) {
                     callback(null, {
                         component: require('./pages/common/login.jsx').default,
@@ -60,6 +62,15 @@ ReactDOM.render(
                     })
                 }} />
             </Route>
+            <Route path="dashboard" component={DashboardLayout} getIndexRoute={(partialNextState, callback)=>{
+                require.ensure([], function (require) {
+                    callback(null, {
+                        component: require('./pages/dashboard/index.jsx').default,
+                    })
+                })
+            }}>
+            </Route>
+            <Route path="*" component={NotFound} />
         </Route>
     </Router>
   </Provider>,

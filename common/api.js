@@ -3,18 +3,36 @@ const queryString = require('querystring');
 const PATH = CONFIG.apiPath;
 const request = require('superagent');
 const authTool = require('./auth');
+const tool = require('./tool');
 const STATUS_CODE = require('../enums/status_code');
 const URL = {
-    userInfo: PATH+'/user/me/'
+    userInfo: '/user/me',
+    register: '/user/',
+    login:'/user/login/'
 }
 let apiTokenParams=authTool.getTokenParams(CONFIG.apiKey,CONFIG.apiAlias);
 
-function apiRequest(url,data,method,token){
+/**
+ * 请求接口数据
+ * @param  {String} action 动作名称
+ * @param  {Object} data   发送数据
+ * @param  {String} method 请求类型
+ * @param  {String} token  用户token
+ * @return {Object}        Promise对象
+ */
+function apiRequest(token,action,data,method){
+    let url = URL[action];
+    if(!url){
+        let error = new Error('无效的API请求地址');
+        error.status = STATUS_CODE.ERROR;
+        return tool.nextPromise(error);
+    }
+    url = PATH+url;
     method=method?method.toLowerCase():'get';
     if (method === 'get' && data) {
         url += (/\?/.test(url) ? '&' : '?') + queryString.stringify(data);
     }
-    LOG.info('开始请求API,请求类型:',method,',请求地址:'+url);
+    LOG.info(method.toUpperCase(),url);
     return new Promise(function(resolve,reject){
         let apiLoginParams=Object.assign({},apiTokenParams);
         if(token) apiLoginParams['x-req-key']=token;
@@ -23,18 +41,20 @@ function apiRequest(url,data,method,token){
             response: 5000,  // Wait 5 seconds for the server to start sending,
             deadline: 60000, // but allow 1 minute for the file to finish loading.
         })
-        .set(token)
+        .set(apiLoginParams)
         if(method!=='get'&&data){
             requestObj.send(data);
+            LOG.info('请求数据');
             LOG.info(data);
         }
         requestObj.end(function(err,res){
-            if(err){
+            //处理超时错误
+            if(err&&parseInt(err.status)===408){
                 LOG.error(err);
                 return reject(err);
             }
             LOG.info(res.body);
-            if(res.code!==200||res.body.code!==STATUS_CODE.SUCCESS){
+            if(res.status===200&&res.body.code===STATUS_CODE.SUCCESS){
                 return resolve(res.body.data);
             }else{
                 let error = new Error(res.body.msg||'API处理错误');
@@ -44,6 +64,4 @@ function apiRequest(url,data,method,token){
         })
     })
 }
-
-exports.urls=URL;
 exports.request=apiRequest;

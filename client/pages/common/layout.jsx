@@ -2,38 +2,39 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import HeaderPage from '../../components/common/header_page.jsx';
+import Footer from '../../components/common/footer.jsx';
 
-const YEAR = new Date().getFullYear();
+import {authLoginStatus} from '../../actions/auth';
+
+import {isObjEmpty} from '../../common/tool';
 
 function propMap(state){
     return {
+        user:state.user,
         routing:state.routing
     }
 }
 
 //封装组件
 class FrameDefault extends Component {
-    constructor(props){
-        super(props);
-        this.handleIconClick = this.handleIconClick.bind(this);
+    componentDidMount(){
+        const {user, dispatch} = this.props;
+        dispatch(authLoginStatus(user,false));
     }
     render() {
-        const {routing} = this.props;
+        const {user,routing} = this.props;
+        if(!isObjEmpty(user)){
+            return null;
+        }
         return (
-            <div className="app-default">
-                <HeaderPage route={routing} icons={['min','close']} onIconClick={this.handleIconClick} />
+            <div className="app-common">
+                <HeaderPage route={routing} icons={['min','close']} />
                 <div className="app-content">
                     {this.props.children}
                 </div>
-                <div className="app-footer">
-                    <div className="pull-right">&copy; {YEAR} acgo.club</div>
-                    <img src="/img/logo.png" />
-                </div>
+                <Footer nav={[]} />
             </div>
         )
-    }
-    handleIconClick(iconName){
-        console.log(iconName);
     }
 }
 export default connect(propMap)(FrameDefault);

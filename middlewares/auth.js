@@ -2,13 +2,18 @@
 const api = require('../common/api');
 
 exports.getUser=function(req,res,next){
-    let userToken=req.cookies.token;
-    if(userToken){
-        api.request(api.urls.userInfo,null,'GET',userToken).then(function(data){
+    if(req.token){
+        api.request(req.token,'userInfo').then(function(data){
             req.user=data;
+            next();
         }).catch(function(err){
-            res.clearCookie(token);
+            res.clearCookie(CONFIG.tokenName);
             next();
         })
     }else next();
+}
+
+exports.getToken=function(req,res,next){
+    req.token=req.cookies[CONFIG.tokenName];
+    next();
 }

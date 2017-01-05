@@ -1,28 +1,50 @@
 .app{
     height: 100%;
-    .flex();
 }
 .app-layout{
+    width: 100%;
+    height: 100%;
+    .flex();
+}
+.app-common,.app-dashboard,.app-tip{
     background: @color-content-block;
     overflow: hidden;
     .cround(5px);
 }
-.app-default{
+.app-common,.app-tip{
     width: 400px;
 }
+.app-dashboard{
+    width: 100%;
+    height: 100%;
+    .flex();
+    .app-content{
+        overflow-x: hidden;
+        overflow-y: auto;
+        .flex-child(true);
+    }
+}
+.app-header,.app-content,.app-footer{
+    width: 100%;
+    box-sizing: border-box;
+}
+.app-header,.app-content{
+    padding: 0 10px;
+}
 .app-header{
-    margin: 10px;
+    margin: 10px 0;
     overflow: hidden;
+    line-height: 20px;
     .app-header-icon{
         float: right;
         a{
             display: inline-block;
             margin-left: 5px;
-            width: 15px;
-            height: 15px;
-            line-height: 15px;
+            width: 17px;
+            height: 17px;
             color: @color-btn-font;
-            font-size: 7px;
+            font-size: 12px;
+            line-height: 17px;
             text-align: center;
             overflow: hidden;
             .cround(50%);
@@ -31,6 +53,9 @@
                 &.header-icon-close::before{
                     .getIcon('\e633');
                 }
+                &.header-icon-max::before{
+                    .getIcon('\e6bf');
+                }
                 &.header-icon-min::before{
                     .getIcon('\e709');
                 }
@@ -38,11 +63,8 @@
         }
     }
 }
-.app-content{
-    margin: 10px;
-}
 .app-footer{
-    height: 30px;
+    margin: 10px 0 0;
     padding: 10px;
     background: @color-content-dark;
     overflow: hidden;
@@ -50,19 +72,29 @@
     img{
         vertical-align: middle;
     }
+    .toolbar{
+        font-size: 25px;
+        a{
+            margin-left: 15px;
+            &:hover{
+                color: @color-info;
+            }
+        }
+    }
 }
 
 //通用
 .app-tip{
+    padding: 10px;
+    margin: 0 auto;
+    max-width: 400px;
     text-align: center;
     .app-tip-title{
-        padding: 10px 0 20px;
+        padding: 0 0 20px;
         font-size: 1.4em;
         line-height: 2em;
     }
     .app-tip-message{
-        color: #666;
-        max-width: 400px;
-        margin: 0 auto;
+        padding: 0 0 20px;
     }
 }
