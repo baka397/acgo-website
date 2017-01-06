@@ -19,12 +19,12 @@ class Tip extends Component {
         let pageEnd = pageStart + 4 >= pageTotal ? pageTotal : pageStart + 4;
         let pagePrev,pagePrevMore,pageNext,pageNextMore,pageList=[];
         if(page===1){
-            pagePrev=(<li className='disabled'><a><i className="icon icon-prev"></i></a></li>);
+            pagePrev=(<li className="disabled"><a><i className="icon icon-prev"></i></a></li>);
         }else{
             pagePrev=(<li><a onClick={(e)=>{this.handlePageClick(1)}}><i className="icon icon-prev"></i></a></li>);
         }
         if(pageTotal===pageEnd){
-            pageNext=(<li className='disabled'><a><i className="icon icon-next"></i></a></li>);
+            pageNext=(<li className="disabled"><a><i className="icon icon-next"></i></a></li>);
         }else{
             pageNext=(<li><a onClick={(e)=>{this.handlePageClick(pageTotal)}}><i className="icon icon-next"></i></a></li>);
         }
@@ -43,8 +43,8 @@ class Tip extends Component {
                     {pagePrev}
                     {pagePrevMore}
                     {pageList.map((pageNum)=>{
-                        if(pageNum===page) return <li className='disabled'><a>{pageNum}</a></li>
-                        else return <li><a onClick={(e)=>{this.handlePageClick(pageNum)}}>{pageNum}</a></li>
+                        if(pageNum===page) return <li key={pageNum} className="disabled"><a>{pageNum}</a></li>
+                        else return <li><a key={pageNum} onClick={(e)=>{this.handlePageClick(pageNum)}}>{pageNum}</a></li>
                     })}
                     {pageNextMore}
                     {pageNext}
