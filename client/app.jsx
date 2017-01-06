@@ -69,6 +69,13 @@ ReactDOM.render(
                     })
                 })
             }}>
+                <Route path="search" getIndexRoute={(partialNextState, callback)=>{
+                    require.ensure([], function (require) {
+                        callback(null, {
+                            component: require('./pages/dashboard/search.jsx').default,
+                        })
+                    })
+                }} />
             </Route>
             <Route path="*" component={NotFound} />
         </Route>

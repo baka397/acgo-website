@@ -12,8 +12,8 @@ class Text extends Component {
             iconInfo=<i className={'m-r-sm icon icon-'+icon}></i>
         }
         return (
-            <div className="app-form-footer">
-                <button type="submit" className="btn btn-info btn-lg btn-round">{iconInfo}{label}</button>
+            <div className="app-form-footer app-form-button">
+                <button type="submit" className="btn btn-info btn-round">{iconInfo}{label}</button>
             </div>
         )
     }

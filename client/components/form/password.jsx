@@ -13,9 +13,11 @@ class Password extends Component {
     }
     render() {
         const {name,label,placeholder,value} = this.props;
+        let labelContent;
+        if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
-            <label className="app-form-control">
-                <div className="app-form-label">{label}</div>
+            <label className="app-form-control app-form-password">
+                {labelContent}
                 <div className="app-form-content">
                     <input type="password" placeholder={placeholder} value={value} onChange={this.handleChangeVal} ref="text" />
                 </div>
@@ -30,7 +32,7 @@ class Password extends Component {
 
 Password.propTypes={
     name:PropTypes.string.isRequired,
-    label:PropTypes.string.isRequired,
+    label:PropTypes.string,
     placeholder:PropTypes.string,
     value:PropTypes.string,
     onChangeVal:PropTypes.func.isRequired

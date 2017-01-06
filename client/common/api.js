@@ -6,6 +6,7 @@ const URLS={
     login:'/login', //用户登录
     logout:'/logout', //用户登出
     me:'/me', //用户自有信息
+    animeSearch:'/animeSearch/' //动画搜索
 }
 let customHeader={
   'Accept': 'application/json',

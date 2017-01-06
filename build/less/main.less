@@ -21,6 +21,12 @@
 @color-btn-font:#FFF;
 //form
 @color-form-border:#DCDCDC;
+//page
+@color-page-block:@color-content-block;
+@color-page-border:@color-content-dark;
+@color-page-hover:@color-content-dark;
+@color-page-font:@color-btn-font;
+@color-page-disabled:@color-light;
 
 //公共方法
 @import './include/function.less'; //函数方法
@@ -37,8 +43,9 @@
 @import './include/form.less'; //表单
 
 //页面
-@import './page/app.less'; //页面
-@import './page/login.less'; //登录
+@import './page/app.less'; //通用
+@import './page/common.less';
+@import './page/dashboard.less';
 
 //主要页面样式
 html,body{

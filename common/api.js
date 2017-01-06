@@ -8,7 +8,8 @@ const STATUS_CODE = require('../enums/status_code');
 const URL = {
     userInfo: '/user/me',
     register: '/user/',
-    login:'/user/login/'
+    login:'/user/login/',
+    anime:'/anime/'
 }
 let apiTokenParams=authTool.getTokenParams(CONFIG.apiKey,CONFIG.apiAlias);
 
@@ -49,7 +50,7 @@ function apiRequest(token,action,data,method){
         }
         requestObj.end(function(err,res){
             //处理超时错误
-            if(err&&parseInt(err.status)===408){
+            if((err&&parseInt(err.status)===408)||!res){
                 LOG.error(err);
                 return reject(err);
             }

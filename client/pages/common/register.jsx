@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail,isMongoId} from 'validator';
+import {clientPath} from '../../config';
 
 import FormList from '../../components/form/index.jsx';
 
@@ -54,10 +55,10 @@ class Register extends Component {
     }
     render() {
         return (
-            <div className="app-login">
+            <div className="app-register m">
                 <FormList rules={FORM_RULE} onSubmit={this.handleSubmit} longlabel={true} />
-                <div className="app-login-link text-right">
-                    <Link to="/client/common/">已有账号,立即登录</Link>
+                <div className="app-register-link text-right">
+                    <Link to={clientPath+'/common/'}>已有账号,立即登录</Link>
                 </div>
             </div>
         )

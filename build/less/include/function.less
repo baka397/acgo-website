@@ -26,11 +26,22 @@
     filter: "alpha(opacity=@{opacity-ie*100})";
 }
 //获取图标
-.getIcon(@icon) when (@icon=''){
+.getIcon(@icon:'') when (@icon=''){
     font-family:"iconfont" !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.getIcon(@icon){
+.getIcon(@icon:''){
     content: @icon;
+}
+.trans(@type:all,@time:1s,@func:ease){
+    transition:@type @time @func;
+}
+.rotate(@rotate){
+    transform:rotate(@rotate);
+    transform:rotate(@rotate);
+    -ms-transform:rotate(@rotate);     /* IE 9 */
+    -moz-transform:rotate(@rotate);    /* Firefox */
+    -webkit-transform:rotate(@rotate); /* Safari 和 Chrome */
+    -o-transform:rotate(@rotate); 
 }

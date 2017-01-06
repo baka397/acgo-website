@@ -1,4 +1,4 @@
-@icon-version:1483497301092;
+@icon-version:1483684111805;
 @font-face {font-family: "iconfont";
   src: url('../fonts/iconfont.eot?t=@{icon-version}'); /* IE9*/
   src: url('../fonts/iconfont.eot?t=@{icon-version}#iefix') format('embedded-opentype'), /* IE6-IE8 */
@@ -14,7 +14,14 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-prev:before {
+    content: "\e60d";
+    .rotate(180deg);
+}
+
 .icon-close:before { content: "\e633"; }
+
+.icon-search:before { content: "\e60f"; }
 
 .icon-min:before { content: "\e709"; }
 
@@ -31,3 +38,7 @@
 .icon-config:before { content: "\e637"; }
 
 .icon-max:before { content: "\e6bf"; }
+
+.icon-next:before { content: "\e60d"; }
+
+.icon-prev:before { content: "\e82d"; }

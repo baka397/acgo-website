@@ -6,11 +6,13 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 
-import user from './user';
 import modal from './modal';
+import user from './user';
+import anime from './anime';
 
 export const reducer = combineReducers({
-    user,
     modal,
+    user,
+    anime,
     routing: routerReducer
 })

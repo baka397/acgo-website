@@ -7,8 +7,7 @@
         box-sizing: border-box;
         float: left;
         height: 35px;
-        margin: 10px 0;
-        border: solid #DCDCDC;
+        border: solid @color-page-border;
         border-width: 0 0 1px 1px;
         overflow: hidden;
         li{
@@ -18,25 +17,26 @@
                 width: 25px;
                 height: 35px;
                 padding: 0 5px;
-                background: #FFF;
-                border: solid #DCDCDC;
+                background: @color-page-block;
+                border: solid @color-page-border;
                 border-width: 1px 1px 0 0;
                 text-align: center;
                 color: #333;
+                cursor: pointer;
                 .ellipsis();
                 &:hover{
-                    background: #F3F3F3;
+                    background: @color-page-hover;
                 }
             }
             &.disabled a,&.current a{
                 cursor: default;
             }
             &.disabled a{
-                color: #CCC;
+                color: @color-page-disabled;
             }
             &.current a{
-                background: @color-btn-light;
-                color: @color-btn-font;
+                background: @color-page-hover;
+                color: @color-page-font;
             }
         }
     }
@@ -46,28 +46,5 @@
         margin: 10px;
         padding: 0 5px;
         border: 1px solid #DCDCDC;
-    }
-    .pagination-jump{
-        float: left;
-        margin: 10px;
-        overflow: hidden;
-        input,button{
-            float: left;
-        }
-        input{
-            width: 80px;
-            height: 35px;
-            padding: 5px 5px;
-            box-sizing: border-box;
-            border: 1px solid #DCDCDC;
-        }
-        button{
-            height: 35px;
-            padding: 0 10px;
-        }
-    }
-    .pagination-info{
-        float: left;
-        margin: 10px;
     }
 }

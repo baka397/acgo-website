@@ -57,5 +57,16 @@ router.post('/logout', function(req, res, next){
     })
 });
 
+router.get('/animeSearch', function(req, res, next){
+    api.request(req.token,'anime',{
+        keyword:req.query.keyword,
+        page:req.query.page
+    }).then(function(data){
+        res.send(tool.buildResJson('获取数据成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
 
 exports.router = router;

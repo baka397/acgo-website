@@ -19,7 +19,7 @@ class Footer extends Component {
         let toolbar;
         if(onToolbarClick){
             toolbar=(
-                <div className="toolbar">
+                <div className="app-footer-toolbar">
                     <Link to={clientPath+'/dashboard/config'} activeClassName="active" onlyActiveOnIndex={true}><i className="icon icon-config"></i></Link>
                     <a onClick={()=>this.handleToolbarClick('logout')}><i className="icon icon-logout"></i></a>
                 </div>
@@ -29,13 +29,15 @@ class Footer extends Component {
         }
         return (
             <div className="app-footer">
-                <div className="pull-right">{toolbar}</div>
-                <div className="app-footer-nav">
+                <div className="app-footer-logo">
                     <img src="/img/logo.png" width="100" height="25" />
-                    {nav.map((curNav)=>{
-                        <Link to={clientPath+curNav.link} activeClassName="active" onlyActiveOnIndex={true}>{curNav.name}</Link>
+                </div>
+                <div className="app-footer-nav">
+                    {nav.map((curNav,index)=>{
+                        return <Link key={index} to={clientPath+curNav.link} activeClassName="active" onlyActiveOnIndex={true}>{curNav.name}</Link>
                     })}
                 </div>
+                <div className="pull-right">{toolbar}</div>
             </div>
         )
     }

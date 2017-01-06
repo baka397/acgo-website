@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail} from 'validator';
+import {clientPath} from '../../config';
 
 import FormList from '../../components/form/index.jsx';
 
-import {authLoginStatus} from '../../actions/auth';
 import {modalUpdate} from '../../actions/modal';
 import {userLogin} from '../../actions/user';
 
@@ -37,11 +37,11 @@ class Login extends Component {
     }
     render() {
         return (
-            <div className="app-login">
+            <div className="app-login m">
                 <FormList rules={FORM_RULE} onSubmit={this.handleSubmit} />
                 <div className="app-login-link text-right">
-                    <Link to="/client/common/register">邀请码注册</Link>
-                    <Link to="/client/common/getpwd" className="m-l">忘记密码</Link>
+                    <Link to={clientPath+'/common/register/'}>邀请码注册</Link>
+                    <Link to={clientPath+'/common/getpwd/'} className="m-l">忘记密码</Link>
                 </div>
             </div>
         )

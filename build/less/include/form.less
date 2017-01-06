@@ -31,6 +31,7 @@
     }
     .app-form-footer{
         .btn{
+            padding: 10px 20px;
             height: @form-height;
             line-height: @form-height - 20px;
         }
@@ -41,6 +42,26 @@
         }
         .app-form-content{
             margin-left: @form-label-long-width;
+        }
+    }
+}
+.app-form-search{
+    position: relative;
+    z-index: 1;
+    .app-form-text{
+        .app-form-content{
+            margin-left: 0;
+        }
+    }
+    .app-form-button{
+        position: absolute;
+        z-index: 1;
+        top: 5px;
+        right: 5px;
+        .btn{
+            height: @form-height - 10px;
+            padding: 0 10px;
+            line-height: @form-height - 10px;
         }
     }
 }
