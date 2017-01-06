@@ -1,7 +1,7 @@
 import React, {PropTypes,Component} from 'react';
 
 //封装组件
-class Text extends Component {
+class Button extends Component {
     shouldComponentUpdate(nextProps, nextState){
         return false;
     }
@@ -19,9 +19,9 @@ class Text extends Component {
     }
 }
 
-Text.propTypes={
+Button.propTypes={
     label:PropTypes.string.isRequired,
     icon:PropTypes.string
 }
 
-export default Text;
+export default Button;

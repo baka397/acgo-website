@@ -9,7 +9,8 @@ const URL = {
     userInfo: '/user/me',
     register: '/user/',
     login:'/user/login/',
-    anime:'/anime/'
+    anime:'/anime/',
+    uploadToken:'/upload/token/'
 }
 let apiTokenParams=authTool.getTokenParams(CONFIG.apiKey,CONFIG.apiAlias);
 

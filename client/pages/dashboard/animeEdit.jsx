@@ -43,6 +43,11 @@ class animeEdit extends Component {
                 placeholder:'请输入动画介绍'
             },
             {
+                name:'cover',
+                label:'展示图',
+                type:'upload'
+            },
+            {
                 name:'showStatus',
                 label:'连载状态',
                 type:'radio',

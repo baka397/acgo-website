@@ -1,4 +1,4 @@
-@form-height:40px;
+@form-height:50px;
 @form-label-width:60px;
 @form-label-long-width:80px;
 .app-form{
@@ -49,6 +49,16 @@
         .app-form-content{
             margin-left: @form-label-long-width;
         }
+    }
+}
+.app-form-upload{
+    input{
+        display: none;
+    }
+    .btn{
+        padding: 0 20px;
+        height: @form-height - 20px;
+        line-height: @form-height - 20px;
     }
 }
 .app-form-search{

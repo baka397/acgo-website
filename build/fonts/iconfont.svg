@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata>
-Created by FontForge 20120731 at Fri Jan  6 14:29:24 2017
+Created by FontForge 20120731 at Fri Jan  6 17:11:43 2017
  By admin
 </metadata>
 <defs>
@@ -44,6 +44,9 @@ q-106 0 -181 75t-75 181t75 181t181 75t181 -75t75 -181t-75 -181t-181 -75z" />
 d="M85 427h854v-86h-854v86z" />
     <glyph glyph-name="back" unicode="&#xe608;" 
 d="M768 620l-321 -320l321 -320l-64 -64l-386 384l386 384z" />
+    <glyph glyph-name="image" unicode="&#xe7bc;" 
+d="M960 768v0v-768v0h-896v0v768v0h896zM960 832h-896q-26 0 -45 -19t-19 -45v-768q0 -26 19 -45t45 -19h896q26 0 45 19t19 45v768q0 26 -19 45t-45 19v0zM832 608q0 -40 -28 -68t-68 -28t-68 28t-28 68t28 68t68 28t68 -28t28 -68zM896 64h-768v128l224 384l256 -320h64
+l224 192v-384z" />
     <glyph glyph-name="starempty" unicode="&#xe68d;" 
 d="M282 469q-10 0 -17 6t-9 16q-1 10 5 18.5t16 10.5l90 15l20 40q4 9 14.5 12.5t19.5 -1.5t12.5 -15t-1.5 -19l-25 -51q-6 -12 -19 -14l-102 -17q-2 -1 -4 -1v0zM128 384q-11 0 -18 7l-51 52q-11 11 -6.5 25.5t20.5 17.5l102 17q10 2 19 -4.5t10.5 -16.5t-4.5 -19t-17 -10
 l-53 -9l16 -16q8 -8 8 -18.5t-7.5 -18t-18.5 -7.5v0zM759 128q-9 0 -16 6t-9 15l-17 103q-2 13 7 22l52 51q7 8 17.5 8t18 -7.5t7.5 -18t-7 -18.5l-42 -42l15 -89q1 -11 -5 -19.5t-16 -10.5h-5v0zM794 -77q-7 0 -13 3l-153 84q-10 5 -13 15.5t2.5 19.5t15.5 12t19 -2

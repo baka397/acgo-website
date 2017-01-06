@@ -1,7 +1,7 @@
 import React, {PropTypes,Component} from 'react';
 
 //封装组件
-class Text extends Component {
+class Radio extends Component {
     constructor(props) {
         super(props);
     }
@@ -15,7 +15,7 @@ class Text extends Component {
         let labelContent;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
-            <label className="app-form-control app-form-radio">
+            <div className="app-form-control app-form-radio">
                 {labelContent}
                 <div className="app-form-content">
                     <ul className="app-check app-check-radio">
@@ -25,7 +25,7 @@ class Text extends Component {
                         })}
                     </ul>
                 </div>
-            </label>
+            </div>
         )
     }
     handleChangeVal(value){
@@ -34,7 +34,7 @@ class Text extends Component {
     }
 }
 
-Text.propTypes={
+Radio.propTypes={
     name:PropTypes.string.isRequired,
     label:PropTypes.string,
     list:PropTypes.array.isRequired,
@@ -42,4 +42,4 @@ Text.propTypes={
     onChangeVal:PropTypes.func.isRequired
 }
 
-export default Text;
+export default Radio;

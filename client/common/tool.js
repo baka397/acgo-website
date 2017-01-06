@@ -1,3 +1,6 @@
+import {maxUploadSize,uploadPath} from '../config';
+import {fetch} from './api';
+
 function isObjEmpty(obj) {
     // Speed up calls to hasOwnProperty
     let hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -32,12 +35,13 @@ exports.isObjEmpty = isObjEmpty;
  * @param  {Object} data 传递数据
  * @return {Object}      Promise对象
  */
-exports.nextPromise = function(err,data){
+function nextPromise(err,data){
     return new Promise(function(resolve,reject){
         if(err) reject(err);
         else resolve(data);
     })
 }
+exports.nextPromise = nextPromise;
 
 /**
  * 格式化数据
@@ -75,4 +79,28 @@ exports.getEnumArray = function(enumObj){
             name:enumObj[key]
         }
     })
+}
+
+/**
+ * 上传图片
+ * @param  {Object} file 文件对象
+ * @return {Object}      Promise对象
+ */
+exports.upload = function(file){
+    let error;
+    if(maxUploadSize&&file.size>maxUploadSize){
+        let sOutput;
+        for (let aMultiples = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], nMultiple = 0, nApprox = maxUploadSize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+            sOutput = parseInt(nApprox) + aMultiples[nMultiple];
+        }
+        error = new Error('上传文件超过指定文件限制，文件必须小于' + sOutput);
+        return nextPromise(error);
+    }
+    return fetch('uploadToken').then((data)=>{
+        let formInfo = new FormData();
+        formInfo.append('token',data.data.token);
+        formInfo.append('key',data.data.key);
+        formInfo.append('file',file);
+        return fetch('upload',formInfo,'file')
+    });
 }

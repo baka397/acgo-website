@@ -1,7 +1,7 @@
 import React, {PropTypes,Component} from 'react';
 
 //封装组件
-class Text extends Component {
+class Textarea extends Component {
     constructor(props) {
         super(props);
         this.handleChangeVal = this.handleChangeVal.bind(this);
@@ -30,7 +30,7 @@ class Text extends Component {
     }
 }
 
-Text.propTypes={
+Textarea.propTypes={
     name:PropTypes.string.isRequired,
     label:PropTypes.string,
     placeholder:PropTypes.string,
@@ -38,4 +38,4 @@ Text.propTypes={
     onChangeVal:PropTypes.func.isRequired
 }
 
-export default Text;
+export default Textarea;
