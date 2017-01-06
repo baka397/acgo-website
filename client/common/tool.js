@@ -52,3 +52,27 @@ exports.serialize = function(data){
     str=str.replace(/\&$/,'');
     return str;
 }
+
+/**
+ * 获取查询数据
+ * @param  {Object} routing 路由对象
+ * @return {Object}         查询数据
+ */
+exports.getQuery = function(routing){
+    let query=Object.assign({},routing.locationBeforeTransitions.query);
+    return query;
+}
+
+/**
+ * 获取枚举数组
+ * @param  {Object} enumObj 枚举对象
+ * @return {Array}          格式化后的数组
+ */
+exports.getEnumArray = function(enumObj){
+    return Object.keys(enumObj).map((key)=>{
+        return {
+            value:key,
+            name:enumObj[key]
+        }
+    })
+}

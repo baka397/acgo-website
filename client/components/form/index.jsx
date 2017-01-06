@@ -3,6 +3,8 @@ import React, {PropTypes,Component} from 'react';
 import Text from './text.jsx';
 import Password from './password.jsx';
 import Button from './button.jsx';
+import Textarea from './textarea.jsx';
+import Radio from './radio.jsx';
 
 //封装组件
 class Form extends Component {
@@ -34,6 +36,12 @@ class Form extends Component {
                             break;
                         case 'password':
                             return <Password key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
+                            break;
+                        case 'textarea':
+                            return <Textarea key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
+                            break;
+                        case 'radio':
+                            return <Radio key={index} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'submit':
                             return <Button key={index} label={rule.label} icon={rule.icon} />

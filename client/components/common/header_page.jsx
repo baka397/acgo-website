@@ -31,6 +31,9 @@ function getTitle(channel,service){
                 case '/search':
                     return '探索';
                     break;
+                case '/anime/add':
+                    return '添加动画';
+                    break;
             }
             break;
     }

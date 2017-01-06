@@ -1,0 +1,42 @@
+@check-size:16px;
+.app-check{
+    li{
+        position: relative;
+        z-index: 1;
+        display: inline-block;
+        line-height: 20px;
+        margin-right: 10px;
+        &::before{
+            content:'';
+            display: inline-block;
+            width: @check-size;
+            height: @check-size;
+            margin-right: 5px;
+            border: 1px solid @color-check-block;
+            vertical-align: sub;
+        }
+        &.checked{
+            &::after{
+                content:'';
+                display: inline-block;
+                position: absolute;
+                left: @check-size/4+1;
+                top: @check-size/4+1;
+                z-index: 1;
+                width: @check-size/2;
+                height: @check-size/2;
+                background: @color-check-block;
+            }
+        }
+        &:hover,&.checked{
+            color: @color-link-hover
+        }
+    }
+}
+.app-check-radio{
+    li{
+        &::before,&::after{
+            .cround(50%);
+        }
+    }
+}

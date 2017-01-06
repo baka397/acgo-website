@@ -2,6 +2,7 @@
 @font-size:14px;
 @color-default:#CFCFCF;
 @color-link:#CFCFCF;
+@color-link-hover:lighten(@color-link,10%);
 @line-height:1.5em;
 
 @color-primary:#0296D5;
@@ -27,6 +28,8 @@
 @color-page-hover:@color-content-dark;
 @color-page-font:@color-btn-font;
 @color-page-disabled:@color-light;
+//check
+@color-check-block:@color-info;
 
 //公共方法
 @import './include/function.less'; //函数方法
@@ -41,6 +44,7 @@
 @import './include/page.less'; //分页
 @import './include/icon.less'; //按钮
 @import './include/form.less'; //表单
+@import './include/check.less'; //选择
 
 //页面
 @import './page/app.less'; //通用
@@ -66,6 +70,6 @@ a{
     color:@color-link;
     text-decoration: none;
     &:hover{
-        color: lighten(@color-link,10%);
+        color: @color-link-hover
     }
 }

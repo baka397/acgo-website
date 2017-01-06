@@ -76,6 +76,15 @@ ReactDOM.render(
                         })
                     })
                 }} />
+                <Route path="anime">
+                    <Route path="add" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/animeEdit.jsx').default,
+                            })
+                        })
+                    }} />
+                </Route>
             </Route>
             <Route path="*" component={NotFound} />
         </Route>

@@ -21,12 +21,18 @@
     .app-form-content{
         padding: 10px;
         margin-left: @form-label-width;
-        input{
+        input,textarea{
             width: 100%;
             height: @form-height - 20px;
             background: none;
             border: none;
             line-height: @form-height - 20px;
+        }
+        textarea{
+            height: 100px;
+            &::-webkit-scrollbar-thumb{
+                background:@color-content-block;
+            }
         }
     }
     .app-form-footer{

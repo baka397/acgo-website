@@ -4,7 +4,7 @@ import {push} from 'react-router-redux'
 import {escape,trim} from 'validator';
 import {Link} from 'react-router';
 import {clientPath} from '../../config';
-import {serialize} from '../../common/tool';
+import {serialize,getQuery} from '../../common/tool';
 
 import FormSearch from '../../components/form/search.jsx';
 import Page from '../../components/page/index.jsx';
@@ -17,11 +17,6 @@ function propMap(state){
         anime:state.anime,
         routing:state.routing
     }
-}
-
-function getQuery(routing){
-    let query=Object.assign({},routing.locationBeforeTransitions.query);
-    return query;
 }
 
 //封装组件
