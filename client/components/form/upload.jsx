@@ -55,7 +55,7 @@ class Upload extends Component {
                         <i className="icon icon-image m-r-sm"></i>选择图片
                         <input type="file" ref="upload" onChange={this.handleChangeVal} accept={acceptType} />
                     </label>
-                    <p className="m-t text-light">支持{acceptType}类型上传,最大支持{getSizeInfo(maxUploadSize)},尺寸必须大于{copperWidth}pxx{copperHeight}px</p>
+                    <p className="m-t text-light">支持{acceptType}类型上传,最大支持{getSizeInfo(maxUploadSize)},尺寸必须大于{copperWidth}px <i className="icon icon-close"></i> {copperHeight}px</p>
                 </div>
             )
         }

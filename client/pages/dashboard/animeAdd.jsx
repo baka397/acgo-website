@@ -64,7 +64,7 @@ class animeEdit extends Component {
                 <div className="app-notice m-b">
                     <h2>注意事项</h2>
                     <ol className="app-list app-list-order">
-                        <li>所有的动画信息均由本站用户添加/修改,由社区管理员审核后展示.</li>
+                        <li>所有的动画信息均由本站用户添加,由社区管理员审核后展示.</li>
                         <li>在审核完成之前,用户可以预订阅该动画.</li>
                     </ol>
                 </div>
