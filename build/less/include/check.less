@@ -1,10 +1,10 @@
-@check-size:16px;
+@check-height:@form-height - 20;
 .app-check{
     li{
         position: relative;
         z-index: 1;
         display: inline-block;
-        line-height: 20px;
+        line-height: @check-height;
         margin-right: 10px;
         cursor: default;
         &::before{
@@ -22,7 +22,8 @@
                 display: inline-block;
                 position: absolute;
                 left: @check-size/4+1;
-                top: @check-size/4+1;
+                top: @check-height/2;
+                margin-top: -(@check-size/4+1);
                 z-index: 1;
                 width: @check-size/2;
                 height: @check-size/2;

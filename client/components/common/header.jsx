@@ -7,6 +7,7 @@ class Header extends Component {
     constructor(props){
         super(props);
         this.handleIconClick = this.handleIconClick.bind(this);
+        this.handleBack = this.handleBack.bind(this);
     }
     shouldComponentUpdate(nextProps, nextState){
         const {title} = this.props;
@@ -14,11 +15,17 @@ class Header extends Component {
         return true;
     }
     render() {
-        const {icons,title} = this.props;
+        const {icons,title,back} = this.props;
+        let titleContent;
+        if(back){
+            titleContent=(<a onClick={this.handleBack}><i className="icon icon-back m-r-sm"></i>{title}</a>)
+        }else{
+            titleContent=title;
+        }
         return (
             <div className="app-header">
                 <Icon icons={icons} onIconClick={this.handleIconClick} />
-                {title}
+                {titleContent}
             </div>
         )
     }
@@ -26,11 +33,16 @@ class Header extends Component {
         const {onIconClick} = this.props;
         onIconClick(iconName);
     }
+    handleBack(){
+        const {onIconClick} = this.props;
+        onIconClick('back');
+    }
 }
 
 
 Header.propTypes={
     title: PropTypes.string.isRequired,
+    back: PropTypes.bool.isRequired,
     icons: PropTypes.array.isRequired,
     onIconClick: PropTypes.func.isRequired
 }

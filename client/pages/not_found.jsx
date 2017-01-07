@@ -10,7 +10,7 @@ class NotFound extends Component {
             <div className="app-tip">
                 <h1 className="app-tip-title">404</h1>
                 <p className="app-tip-message">找不到这个页面</p>
-                <p><Link to={clientPath+'/'} className="btn btn-info btn-round btn-block">返回</Link></p>
+                <p><Link to={clientPath+'/'} className="btn btn-info btn-block">返回</Link></p>
             </div>
         )
     }

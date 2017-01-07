@@ -1,4 +1,4 @@
-import {maxUploadSize,uploadPath} from '../config';
+import {maxUploadSize,uploadPath,downloadPath} from '../config';
 import {fetch} from './api';
 
 function isObjEmpty(obj) {
@@ -82,6 +82,20 @@ exports.getEnumArray = function(enumObj){
 }
 
 /**
+ * 获取文件大小信息
+ * @param  {Number} size kb数
+ * @return {String}      实际大小
+ */
+function getSizeInfo(size){
+    let sOutput;
+    for (let aMultiples = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], nMultiple = 0, nApprox = size / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
+        sOutput = parseInt(nApprox) + aMultiples[nMultiple];
+    }
+    return sOutput;
+}
+exports.getSizeInfo=getSizeInfo;
+
+/**
  * 上传图片
  * @param  {Object} file 文件对象
  * @return {Object}      Promise对象
@@ -89,11 +103,7 @@ exports.getEnumArray = function(enumObj){
 exports.upload = function(file){
     let error;
     if(maxUploadSize&&file.size>maxUploadSize){
-        let sOutput;
-        for (let aMultiples = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], nMultiple = 0, nApprox = maxUploadSize / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
-            sOutput = parseInt(nApprox) + aMultiples[nMultiple];
-        }
-        error = new Error('上传文件超过指定文件限制，文件必须小于' + sOutput);
+        error = new Error('上传文件超过指定文件限制，文件必须小于' + getSizeInfo(maxUploadSize));
         return nextPromise(error);
     }
     return fetch('uploadToken').then((data)=>{
@@ -103,4 +113,24 @@ exports.upload = function(file){
         formInfo.append('file',file);
         return fetch('upload',formInfo,'file')
     });
+}
+
+/**
+ * 获取图片地址
+ * @param  {String} key      图片key值
+ * @param  {String} cropInfo 图片裁剪数据
+ * @param  {Number} width    图片缩放宽度
+ * @return {String}          最终图片地址
+ */
+exports.getImageUrl = function(key,cropInfo,width){
+    if(!cropInfo){
+        return downloadPath+'/'+key;
+    }else{
+        let cropArray=cropInfo.split('|');
+        let imageUrl=downloadPath+'/'+key;
+        //裁剪
+        imageUrl+='?imageMogr2/crop/!'+cropArray[2]+'x'+cropArray[3]+'a'+cropArray[0]+'a'+cropArray[1];
+        if(width) imageUrl+='/thumbnail/'+width+'x';
+        return imageUrl;
+    }
 }

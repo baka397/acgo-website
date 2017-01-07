@@ -63,7 +63,7 @@ class Search extends Component {
         let page,animeList,searchTip;
         let animeIds=Object.keys(anime.content);
         if(query.keyword){
-            let addBtn=<Link to={clientPath+'/dashboard/anime/add?name='+escape(query.keyword)} className="btn btn-info m-l btn-round">帮我们添加</Link>;
+            let addBtn=<Link to={clientPath+'/dashboard/anime/add?name='+escape(query.keyword)} className="btn btn-info m-l"><i className="icon icon-plus m-r-sm"></i>我来添加</Link>;
             page=<Page page={anime.page} pageSize={anime.pageSize} total={anime.total} onPageClick={this.handlePageClick} />;
             if(animeIds.length>0){
                 searchTip=<p className="m-t">没有正确的数据?{addBtn}</p>

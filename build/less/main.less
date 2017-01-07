@@ -22,6 +22,9 @@
 @color-btn-font:#FFF;
 //form
 @color-form-border:#DCDCDC;
+@form-height:50px;
+@form-label-width:60px;
+@form-label-long-width:80px;
 //page
 @color-page-block:@color-content-block;
 @color-page-border:@color-content-dark;
@@ -30,6 +33,7 @@
 @color-page-disabled:@color-light;
 //check
 @color-check-block:@color-info;
+@check-size:16px;
 
 //公共方法
 @import './include/function.less'; //函数方法
@@ -44,7 +48,11 @@
 @import './include/page.less'; //分页
 @import './include/icon.less'; //按钮
 @import './include/form.less'; //表单
-@import './include/check.less'; //选择
+@import './include/check.less'; //选择器
+@import './include/list.less'; //列表
+
+//插件
+@import './plugins/cropper.less'; //选择
 
 //页面
 @import './page/app.less'; //通用

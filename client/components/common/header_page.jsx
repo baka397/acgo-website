@@ -1,4 +1,6 @@
 import React, {PropTypes,Component} from 'react';
+import {connect} from 'react-redux';
+import {goBack} from 'react-router-redux';
 
 import Icon from './header_icon.jsx';
 import Header from './header.jsx';
@@ -40,6 +42,19 @@ function getTitle(channel,service){
     return '';
 }
 
+function getBackStatus(channel,service){
+    switch(channel){
+        case 'dashboard':
+            switch(service){
+                case '/anime/add':
+                    return true;
+                    break;
+            }
+            break;
+    }
+    return false;
+}
+
 //封装组件
 class HeaderPage extends Component {
     constructor(props){
@@ -57,11 +72,15 @@ class HeaderPage extends Component {
         let curPath=route.locationBeforeTransitions.pathname.replace(regRule,'');
         let curChannel=curPath.replace(/\/([^\/]+)\/\S*/,'$1');
         let curService=curPath.replace(/\/[^\/]+(\/\S*)/,'$1').replace(/\/$/,'');
-        let title=getTitle(curChannel,curService);
-        return <Header icons={icons} title={title} onIconClick={this.handleIconClick} />
+        return <Header icons={icons} title={getTitle(curChannel,curService)} back={getBackStatus(curChannel,curService)} onIconClick={this.handleIconClick} />
     }
     handleIconClick(iconName){
-        console.log(iconName);
+        const {dispatch} = this.props;
+        switch(iconName){
+            case 'back':
+                dispatch(goBack());
+                break;
+        }
     }
 }
 
@@ -71,4 +90,4 @@ HeaderPage.propTypes={
     icons: PropTypes.array.isRequired
 }
 
-export default HeaderPage;
+export default connect()(HeaderPage);

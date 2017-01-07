@@ -13,7 +13,7 @@ class Button extends Component {
         }
         return (
             <div className="app-form-footer app-form-button">
-                <button type="submit" className="btn btn-info btn-round">{iconInfo}{label}</button>
+                <button type="submit" className="btn btn-info">{iconInfo}{label}</button>
             </div>
         )
     }
