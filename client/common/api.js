@@ -8,7 +8,8 @@ const URLS={
     me:apiPath+'/me', //用户自有信息
     animeSearch:apiPath+'/animeSearch/', //动画搜索
     uploadToken:apiPath+'/uploadToken/', //获取上传token
-    upload:uploadPath+'/' //上传文件地址
+    tag:apiPath+'/tag/', //获取标签
+    upload:uploadPath+'/', //上传文件地址
 }
 let customHeader={
   'Accept': 'application/json',

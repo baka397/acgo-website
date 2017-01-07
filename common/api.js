@@ -10,16 +10,17 @@ const URL = {
     register: '/user/',
     login:'/user/login/',
     anime:'/anime/',
-    uploadToken:'/upload/token/'
+    uploadToken:'/upload/token/',
+    tag:'/tag/'
 }
 let apiTokenParams=authTool.getTokenParams(CONFIG.apiKey,CONFIG.apiAlias);
 
 /**
  * 请求接口数据
+ * @param  {String} token  用户token
  * @param  {String} action 动作名称
  * @param  {Object} data   发送数据
  * @param  {String} method 请求类型
- * @param  {String} token  用户token
  * @return {Object}        Promise对象
  */
 function apiRequest(token,action,data,method){

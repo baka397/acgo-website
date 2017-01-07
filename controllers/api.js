@@ -76,5 +76,16 @@ router.get('/uploadToken', function(req, res, next){
     })
 });
 
+router.get('/tag', function(req, res, next){
+    api.request(req.token,'tag',{
+        type:req.query.type,
+        keyword:req.query.keyword
+    }).then(function(data){
+        res.send(tool.buildResJson('获取标签成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
 
 exports.router = router;

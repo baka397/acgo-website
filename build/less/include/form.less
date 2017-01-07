@@ -3,8 +3,8 @@
         display: block;
         margin: 0 0 10px;
         background: @color-content-dark;
-        overflow: hidden;
         .cround(5px);
+        .clear();
     }
     .app-form-label{
         float: left;
@@ -54,6 +54,15 @@
         padding: 0 20px;
         height: @form-height - 20px;
         line-height: @form-height - 20px;
+    }
+}
+.app-form-tag{
+    .app-form-content{
+        input{
+            padding: 7.5px 0 11.5px;
+            line-height: 1em;
+            height: auto;
+        }
     }
 }
 .app-form-search{

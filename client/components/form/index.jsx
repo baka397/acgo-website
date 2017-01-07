@@ -6,6 +6,7 @@ import Button from './button.jsx';
 import Textarea from './textarea.jsx';
 import Radio from './radio.jsx';
 import Upload from './upload.jsx';
+import Tag from './tag.jsx';
 
 //封装组件
 class Form extends Component {
@@ -47,6 +48,8 @@ class Form extends Component {
                         case 'radio':
                             return <Radio key={index} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />
                             break;
+                        case 'tag':
+                            return <Tag key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} tagType={rule.tagType} onChangeVal={this.handleChangeVal} />
                         case 'submit':
                             return <Button key={index} label={rule.label} icon={rule.icon} />
                         default:

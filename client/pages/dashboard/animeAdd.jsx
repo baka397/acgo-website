@@ -48,6 +48,13 @@ class animeEdit extends Component {
                 type:'upload'
             },
             {
+                name:'tag',
+                label:'标签',
+                type:'tag',
+                placeholder:'请选择标签,最多5个',
+                tagType:1
+            },
+            {
                 name:'showStatus',
                 label:'连载状态',
                 type:'radio',
