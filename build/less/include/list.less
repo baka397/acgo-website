@@ -8,3 +8,28 @@
 .app-list-order{
     list-style-type: decimal;
 }
+
+.app-anime-list{
+    overflow: hidden;
+    .app-anime-item{
+        float: left;
+        width: 150px;
+        margin: 10px 10px 10px 0;
+        .cover{
+            img{
+                width: 100%;
+            }
+            &:hover{
+                img{
+                    .opacity(.9);
+                }
+            }
+        }
+        .alias{
+            color: darken(@color-primary, 10%);
+        }
+        p{
+            .ellipsis();
+        }
+    }
+}

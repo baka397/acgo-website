@@ -49,7 +49,7 @@ class Form extends Component {
                             return <Radio key={index} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'tag':
-                            return <Tag key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} tagType={rule.tagType} onChangeVal={this.handleChangeVal} />
+                            return <Tag key={index} value={result[rule.name]} name={rule.name} maxSize={rule.maxSize} label={rule.label} placeholder={rule.placeholder} tagType={rule.tagType} onChangeVal={this.handleChangeVal} />
                         case 'submit':
                             return <Button key={index} label={rule.label} icon={rule.icon} />
                         default:

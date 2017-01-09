@@ -57,12 +57,20 @@ router.post('/logout', function(req, res, next){
     })
 });
 
-router.get('/animeSearch', function(req, res, next){
+router.get('/anime/', function(req, res, next){
     api.request(req.token,'anime',{
         keyword:req.query.keyword,
         page:req.query.page
     }).then(function(data){
         res.send(tool.buildResJson('获取数据成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
+router.post('/anime/add/', function(req, res, next){
+    api.request(req.token,'anime',req.body,'POST').then(function(data){
+        res.send(tool.buildResJson('添加成功',data));
     }).catch(function(err){
         next(err);
     })
@@ -79,7 +87,8 @@ router.get('/uploadToken', function(req, res, next){
 router.get('/tag', function(req, res, next){
     api.request(req.token,'tag',{
         type:req.query.type,
-        keyword:req.query.keyword
+        keyword:req.query.keyword,
+        ids:req.query.ids
     }).then(function(data){
         res.send(tool.buildResJson('获取标签成功',data));
     }).catch(function(err){

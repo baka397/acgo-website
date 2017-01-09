@@ -126,7 +126,7 @@ exports.getImageUrl = function(key,cropInfo,width){
     if(!cropInfo){
         return downloadPath+'/'+key;
     }else{
-        let cropArray=cropInfo.split('|');
+        let cropArray=Array.isArray(cropInfo)?cropInfo:cropInfo.split(',');
         let imageUrl=downloadPath+'/'+key;
         //裁剪
         imageUrl+='?imageMogr2/crop/!'+cropArray[2]+'x'+cropArray[3]+'a'+cropArray[0]+'a'+cropArray[1];

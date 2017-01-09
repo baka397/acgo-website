@@ -8,6 +8,7 @@ import {serialize,getQuery} from '../../common/tool';
 
 import FormSearch from '../../components/form/search.jsx';
 import Page from '../../components/page/index.jsx';
+import AnimeList from '../../components/anime/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
 import {search,cleanAnime} from '../../actions/anime';
@@ -27,9 +28,10 @@ class Search extends Component {
         this.handlePageClick = this.handlePageClick.bind(this);
     }
     shouldComponentUpdate(nextProps, nextState){
+        const {anime} = this.props;
         let query=getQuery(nextProps.routing);
         let beforeQuery=getQuery(this.props.routing);
-        if(query.keyword===beforeQuery.keyword&&query.page===beforeQuery.page) return false;
+        if(query.keyword===beforeQuery.keyword&&query.page===beforeQuery.page&&anime.total===nextProps.anime.total) return false;
         return true;
     }
     componentDidMount(){
@@ -38,7 +40,11 @@ class Search extends Component {
     }
     componentDidUpdate(prevProps, prevState){
         const {routing,dispatch} = this.props;
-        dispatch(search(getQuery(routing)));
+        let beforeQuery=getQuery(prevProps.routing);
+        let query=getQuery(routing);
+        if(query.keyword!==beforeQuery.keyword||query.page!==beforeQuery.page){
+            dispatch(search(query));
+        }
     }
     componentWillUnmount(){
         const {dispatch} = this.props;
@@ -61,12 +67,16 @@ class Search extends Component {
             }
         ]
         let page,animeList,searchTip;
-        let animeIds=Object.keys(anime.content);
         if(query.keyword){
             let addBtn=<Link to={clientPath+'/dashboard/anime/add?name='+escape(query.keyword)} className="btn btn-info m-l"><i className="icon icon-plus m-r-sm"></i>我来添加</Link>;
             page=<Page page={anime.page} pageSize={anime.pageSize} total={anime.total} onPageClick={this.handlePageClick} />;
-            if(animeIds.length>0){
-                searchTip=<p className="m-t">没有正确的数据?{addBtn}</p>
+            if(anime.order.length>0){
+                searchTip=(
+                    <div className="app-search-content">
+                        <AnimeList order={anime.order} datas={anime.content} type="simple" />
+                        <p className="m-t">没有正确的数据?{addBtn}</p>
+                    </div>
+                )
             }else{
                 searchTip=<p className="text-light m-t">抱歉,没有查找到数据.{addBtn}</p>
             }

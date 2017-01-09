@@ -6,7 +6,8 @@ const URLS={
     login:apiPath+'/login', //用户登录
     logout:apiPath+'/logout', //用户登出
     me:apiPath+'/me', //用户自有信息
-    animeSearch:apiPath+'/animeSearch/', //动画搜索
+    animeSearch:apiPath+'/anime/', //动画搜索
+    animeAdd:apiPath+'/anime/add/', //动画添加
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签

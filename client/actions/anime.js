@@ -1,5 +1,5 @@
 //加载依赖
-import {push} from 'react-router-redux'; //router跳转方法
+import {push,goBack} from 'react-router-redux'; //router跳转方法
 import md5 from 'md5';
 import {fetch} from '../common/api';
 import {modalUpdate,modalClean} from './modal';
@@ -23,9 +23,29 @@ export function search(data){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('animeSearch',sendData).then((data)=>{
-            dispatch(updateUser(data.data));
+        fetch('animeSearch',sendData).then((res)=>{
+            dispatch(updateAnime(res.data));
             dispatch(modalClean('loading'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+export function addAnime(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('animeAdd',data,'POST').then((res)=>{
+            dispatch(modalUpdate({
+                tip:res.msg,
+                loading:null
+            }));
+            dispatch(goBack());
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
@@ -40,7 +60,7 @@ export function search(data){
  * @param  {Object} data 用户数据
  * @return {Object}      action数据
  */
-export function updateUser(data){
+export function updateAnime(data){
     return {
         type: UPDATE_ANIME,
         data: data

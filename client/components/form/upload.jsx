@@ -11,7 +11,7 @@ class Upload extends Component {
     constructor(props) {
         super(props);
         this.state={
-            value:this.props.value?this.props.value.split(','):[]
+            value:this.props.value?this.props.value.split('|'):[]
         }
         this.handleChangeVal = this.handleChangeVal.bind(this);
         this.handleCropper = this.handleCropper.bind(this);
@@ -98,11 +98,11 @@ class Upload extends Component {
         let cropData=this.refs.cropper.getData();
         let cropValue=[value[0]];
         let cropArray=[cropData.x,cropData.y,cropData.width,cropData.height];
-        cropValue.push(cropArray.join('|'));
+        cropValue.push(cropArray.join(','));
         this.setState({
             value:cropValue
         });
-        onChangeVal(name,cropValue.toString());
+        onChangeVal(name,cropValue.join('|'));
     }
     handleCropperEdit(e){
         const {value} = this.state;
