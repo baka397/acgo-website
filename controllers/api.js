@@ -87,5 +87,15 @@ router.get('/tag', function(req, res, next){
     })
 });
 
+router.post('/tag/add', function(req, res, next){
+    api.request(req.token,'tag',{
+        name:req.body.name,
+        type:req.body.type
+    },'POST').then(function(data){
+        res.send(tool.buildResJson('增加标签成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
 
 exports.router = router;

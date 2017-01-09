@@ -1,11 +1,17 @@
 import React, {PropTypes,Component} from 'react';
+import {connect} from 'react-redux';
+import {modalUpdate,modalClean} from '../../actions/modal';
 import Select from 'react-select';
+import {isMongoId} from 'validator';
+
 import {fetch} from '../../common/api';
 import {nextPromise} from '../../common/tool';
+import {searchDelay} from '../../config';
 
 function promptTextCreator(label){
-    return '找不到'+label+',立即创建一个';
+    return '找不到"'+label+'"?立即创建一个';
 }
+let timer;
 
 //封装组件
 class Tag extends Component {
@@ -24,33 +30,60 @@ class Tag extends Component {
         let labelContent;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
-            <label className="app-form-control app-form-tag">
+            <div className="app-form-control app-form-tag">
                 {labelContent}
                 <div className="app-form-content">
-                    <Select.AsyncCreatable multi={true} name={name} autoload={false} valueKey="_id" labelKey="name" value={value} placeholder={placeholder} noResultsText="请输入搜索信息" promptTextCreator={promptTextCreator} loadOptions={this.handleInput} onChange={this.handleChangeVal} />
+                    <Select.AsyncCreatable name={name} autoload={false} cache={false} valueKey="_id" labelKey="name" value={value} placeholder={placeholder} noResultsText="输入搜索内容" promptTextCreator={promptTextCreator} clearAllText="清空" loadOptions={this.handleInput} onChange={this.handleChangeVal} />
                 </div>
-            </label>
+            </div>
         )
     }
     handleChangeVal(val){
-        const {name,onChangeVal} = this.props;
-        if(val.className==='Select-create-option-placeholder'){
+        const {tagType,name,onChangeVal,dispatch} = this.props;
+        if(!val){
+            return onChangeVal(name,'');
+        }
+        if(isMongoId(val._id)){
+            onChangeVal(name,val._id);
         }else{
+            dispatch(modalUpdate({
+                loading:true
+            }))
+            fetch('tagAdd',{
+                name:val.name,
+                type:tagType
+            },'POST').then(data=>{
+                dispatch(modalUpdate({
+                    loading:null,
+                    data:data.msg
+                }))
+            }).catch(err=>{
+                dispatch(modalUpdate({
+                    loading:null,
+                    tip:err.message
+                }))
+            })
         }
     }
-    handleInput(input){
+    handleInput(input,callback){
         const {tagType} = this.props;
         if (!input) {
             return nextPromise(null,[]);
         }
-        return fetch('tag',{
-            type:tagType,
-            keyword:input
-        }).then(data=>{
-            return nextPromise(null,{
-                options: data.data.content
+        if(timer) clearTimeout(timer);
+        timer=setTimeout(function(){
+            fetch('tag',{
+                type:tagType,
+                keyword:input
+            }).then(data=>{
+                callback(null,{
+                    options: data.data.content,
+                    complete: true
+                })
+            }).catch((err)=>{
+                callback(err);
             })
-        })
+        },searchDelay*1000);
     }
 }
 
@@ -63,4 +96,4 @@ Tag.propTypes={
     onChangeVal:PropTypes.func.isRequired
 }
 
-export default Tag;
+export default connect()(Tag);

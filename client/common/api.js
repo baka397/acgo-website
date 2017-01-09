@@ -9,6 +9,7 @@ const URLS={
     animeSearch:apiPath+'/animeSearch/', //动画搜索
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
+    tagAdd:apiPath+'/tag/add', //增加标签
     upload:uploadPath+'/', //上传文件地址
 }
 let customHeader={

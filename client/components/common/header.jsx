@@ -42,7 +42,7 @@ class Header extends Component {
 
 Header.propTypes={
     title: PropTypes.string.isRequired,
-    back: PropTypes.bool.isRequired,
+    back: PropTypes.bool,
     icons: PropTypes.array.isRequired,
     onIconClick: PropTypes.func.isRequired
 }
