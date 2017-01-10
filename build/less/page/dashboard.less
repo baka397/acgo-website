@@ -10,3 +10,32 @@
         margin: 0;
     }
 }
+
+.app-anime{
+    .app-anime-cover{
+        position: relative;
+        z-index: 1;
+        img{
+            .autoImgSize();
+        }
+        .title,.desc{
+            position: absolute;
+            z-index: 2;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: fade(@color-content-dark,80%);
+        }
+        .title{
+            top: 0;
+            height: 30px;
+            line-height: 30px;
+            h1{
+                font-size: 1.5em;
+            }
+        }
+        .desc{
+            bottom:0;
+        }
+    }
+}

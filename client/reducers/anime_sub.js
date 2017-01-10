@@ -1,25 +1,19 @@
 //导入初始化登录状态
 import {pageSize} from '../config';
 
-import {UPDATE_ANIME,CLEAN_ANIME,UPDATE_ANIME_DETAIL} from '../actions/anime';
+import {UPDATE_ANIME_SUB,CLEAN_ANIME_SUB} from '../actions/anime_sub';
 
 const INIT_STATE={
     content:{},
     order:[],
     page:1,
     pageSize:pageSize,
-    total:0,
-    detail:{}
+    total:0
 };
 
-export default function anime(state = INIT_STATE, action) {
+export default function animeSub(state = INIT_STATE, action) {
     switch (action.type) {
-        case UPDATE_ANIME_DETAIL:
-            let detail=Object.assign({},action.data);
-            return Object.assign({},state,{
-                detail
-            });
-        case UPDATE_ANIME:
+        case UPDATE_ANIME_SUB:
             if(!action.data) return state;
             let content = {};
             let order = [];
@@ -35,7 +29,7 @@ export default function anime(state = INIT_STATE, action) {
                 total:action.data.total
             });
             break;
-        case CLEAN_ANIME:
+        case CLEAN_ANIME_SUB:
             return Object.assign({},INIT_STATE);
             break;
         default:

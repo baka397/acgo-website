@@ -63,8 +63,15 @@ exports.serialize = function(data){
  * @return {Object}         查询数据
  */
 exports.getQuery = function(routing){
-    let query=Object.assign({},routing.locationBeforeTransitions.query);
+    if(!routing) return {};
+    let query=Object.assign({},routing.location.query);
     return query;
+}
+
+exports.getParams = function(routing){
+    if(!routing) return {};
+    let params=Object.assign({},routing.params);
+    return params;
 }
 
 /**
@@ -123,6 +130,7 @@ exports.upload = function(file){
  * @return {String}          最终图片地址
  */
 exports.getImageUrl = function(key,cropInfo,width){
+    if(!key) return null;
     if(!cropInfo){
         return downloadPath+'/'+key;
     }else{

@@ -30,10 +30,10 @@ class Tag extends Component {
             fetch('tag',{
                 ids:value,
                 type:tagType
-            }).then(data=>{
+            }).then(res=>{
                 dispatch(modalClean('loading'));
                 let values=[];
-                data.data.content.forEach(option=>{
+                res.data.content.forEach(option=>{
                     values.push({
                         _id:option._id,
                         name:option.name
@@ -93,14 +93,14 @@ class Tag extends Component {
             fetch('tagAdd',{
                 name:addName,
                 type:tagType
-            },'POST').then(data=>{
+            },'POST').then(res=>{
                 dispatch(modalUpdate({
                     loading:null,
-                    data:data.msg
+                    data:res.msg
                 }))
                 values.push({
-                    _id:data.data._id,
-                    name:data.data.name
+                    _id:res.data._id,
+                    name:res.data.name
                 })
                 this.handleUpdateVal(values);
             }).catch(err=>{
@@ -134,9 +134,9 @@ class Tag extends Component {
             fetch('tag',{
                 type:tagType,
                 keyword:input
-            }).then(data=>{
+            }).then(res=>{
                 callback(null,{
-                    options: data.data.content,
+                    options: res.data.content,
                     complete: true
                 })
             }).catch((err)=>{

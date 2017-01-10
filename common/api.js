@@ -10,6 +10,9 @@ const URL = {
     register: '/user/',
     login:'/user/login/',
     anime:'/anime/',
+    animeSub:'/anime/sub/:id',
+    animeSubList:'/anime/sub/me',
+    animeDetail:'/anime/:id',
     uploadToken:'/upload/token/',
     tag:'/tag/'
 }
@@ -31,8 +34,13 @@ function apiRequest(token,action,data,method){
         return tool.nextPromise(error);
     }
     url = PATH+url;
+    let idReg=/\:id/;
+    if(idReg.test(url)){
+        url=url.replace(idReg,data.id);
+        delete data.id;
+    }
     method=method?method.toLowerCase():'get';
-    if (method === 'get' && data) {
+    if (method === 'get' && !tool.isObjEmpty(data)) {
         url += (/\?/.test(url) ? '&' : '?') + queryString.stringify(data);
     }
     LOG.info(method.toUpperCase(),url);
@@ -45,7 +53,7 @@ function apiRequest(token,action,data,method){
             deadline: 60000, // but allow 1 minute for the file to finish loading.
         })
         .set(apiLoginParams)
-        if(method!=='get'&&data){
+        if(method!=='get'&&!tool.isObjEmpty(data)){
             requestObj.send(data);
             LOG.info('请求数据');
             LOG.info(data);

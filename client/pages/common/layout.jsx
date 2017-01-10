@@ -8,10 +8,10 @@ import {authLoginStatus} from '../../actions/auth';
 
 import {isObjEmpty} from '../../common/tool';
 
-function propMap(state){
+function propMap(state,ownProps){
     return {
         user:state.user,
-        routing:state.routing
+        routing:ownProps
     }
 }
 

@@ -9,9 +9,9 @@ import FormList from '../../components/form/index.jsx';
 import {modalUpdate} from '../../actions/modal';
 import {addAnime} from '../../actions/anime';
 
-function propMap(state){
+function propMap(state,ownProps){
     return {
-        routing:state.routing
+        routing:ownProps
     }
 }
 

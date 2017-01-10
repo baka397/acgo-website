@@ -62,6 +62,10 @@
         }
     }
 }
+.app-content-bg{
+    background: center top no-repeat;
+    background-size: 100% auto;
+}
 .app-footer{
     min-height: 50px;
     padding: 0 10px;
@@ -140,5 +144,38 @@
             .getIcon();
             .getIcon('\e630');
         }
+    }
+}
+
+.app-anime-list{
+    overflow: hidden;
+    .app-anime-item{
+        float: left;
+        width: 150px;
+        margin: 10px 10px 10px 0;
+        .cover{
+            img{
+                width: 100%;
+            }
+            &:hover{
+                img{
+                    .opacity(.9);
+                }
+            }
+        }
+        .alias{
+            color: @color-light;
+        }
+        p{
+            .ellipsis();
+        }
+    }
+}
+
+.app-block{
+    margin: 10px 0;
+    .app-title{
+        margin: 10px 0;
+        font-size: 1.2em;
     }
 }

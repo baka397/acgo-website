@@ -4,6 +4,7 @@ let router = express.Router();
 let tool = require('../common/tool');
 let api = require('../common/api');
 let auth = require('../middlewares/auth');
+const STATUS_CODE = require('../enums/status_code');
 
 exports.requestMapping = '/api';
 
@@ -74,6 +75,52 @@ router.post('/anime/add/', function(req, res, next){
     }).catch(function(err){
         next(err);
     })
+});
+
+router.get('/anime/detail/', function(req, res, next){
+    api.request(req.token,'animeDetail',req.query).then(function(data){
+        res.send(tool.buildResJson('添加成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
+router.get('/anime/sub/me', function(req, res, next){
+    api.request(req.token,'animeSubList',{
+        page:req.query.page,
+        pageSize:200
+    }).then(function(data){
+        res.send(tool.buildResJson('查询订阅列表成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
+router.post('/anime/sub/', function(req, res, next){
+    switch(parseInt(req.body.status)){
+        case -1:
+            api.request(req.token,'animeSub',{
+                id:req.body.id
+            },'DELETE').then(function(data){
+                res.send(tool.buildResJson('取消订阅成功',data));
+            }).catch(function(err){
+                next(err);
+            })
+            break;
+        case 1:
+            api.request(req.token,'animeSub',{
+                id:req.body.id
+            },'PUT').then(function(data){
+                res.send(tool.buildResJson('订阅成功',data));
+            }).catch(function(err){
+                next(err);
+            })
+            break;
+        default:
+            let error=new Error('错误的订阅状态');
+            error.status=STATUS_CODE.ERROR;
+            next(error);
+    }
 });
 
 router.get('/uploadToken', function(req, res, next){

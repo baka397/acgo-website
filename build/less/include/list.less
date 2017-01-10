@@ -8,28 +8,35 @@
 .app-list-order{
     list-style-type: decimal;
 }
-
-.app-anime-list{
-    overflow: hidden;
-    .app-anime-item{
-        float: left;
-        width: 150px;
-        margin: 10px 10px 10px 0;
-        .cover{
-            img{
-                width: 100%;
+.app-list-label{
+    li{
+        margin: 5px 0;
+        overflow: hidden;
+        &:last-child{
+            margin: 5px 0 0;
+        }
+        .label{
+            float: left;
+            &::after{
+                content:':';
             }
-            &:hover{
-                img{
-                    .opacity(.9);
+        }
+        .label{
+            width: 40px;
+            .ellipsis();
+        }
+        .content{
+            margin-left: 50px;
+            span{
+                &::after{
+                    content:'、'
+                }
+                &:last-child{
+                    &::after{
+                        content:normal;
+                    }
                 }
             }
-        }
-        .alias{
-            color: darken(@color-primary, 10%);
-        }
-        p{
-            .ellipsis();
         }
     }
 }

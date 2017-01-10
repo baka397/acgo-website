@@ -1,18 +1,12 @@
 //加载依赖
-import {push,goBack} from 'react-router-redux'; //router跳转方法
-import md5 from 'md5';
+import {goBack} from 'react-router-redux'; //router跳转方法
 import {fetch} from '../common/api';
 import {modalUpdate,modalClean} from './modal';
-import {clientPath} from '../config';
 
 export const UPDATE_ANIME = 'UPDATE_ANIME';
 export const CLEAN_ANIME = 'CLEAN_ANIME';
+export const UPDATE_ANIME_DETAIL = 'UPDATE_ANIME_DETAIL';
 
-/**
- * 动画搜索
- * @param  {Object} data 搜索数据
- * @return {function}    thunk函数
- */
 export function search(data){
     return function(dispatch){
         if(!data.keyword) return dispatch(cleanAnime());
@@ -25,6 +19,23 @@ export function search(data){
         }));
         fetch('animeSearch',sendData).then((res)=>{
             dispatch(updateAnime(res.data));
+            dispatch(modalClean('loading'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+export function getAnimeDetail(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('animeDetail',data).then((res)=>{
+            dispatch(updateAnimeDetail(res.data));
             dispatch(modalClean('loading'));
         }).catch((err)=>{
             dispatch(modalUpdate({
@@ -56,7 +67,7 @@ export function addAnime(data){
 }
 
 /**
- * 更新用户数据
+ * 更新动画数据
  * @param  {Object} data 用户数据
  * @return {Object}      action数据
  */
@@ -66,9 +77,20 @@ export function updateAnime(data){
         data: data
     }
 }
+/**
+ * 更新动画详情数据
+ * @param  {Object} data 用户数据
+ * @return {Object}      action数据
+ */
+export function updateAnimeDetail(data){
+    return {
+        type: UPDATE_ANIME_DETAIL,
+        data: data
+    }
+}
 
 /**
- * 清除用户数据
+ * 清除动画数据
  * @return {Object} action数据
  */
 export function cleanAnime(){

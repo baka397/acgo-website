@@ -13,10 +13,10 @@ import AnimeList from '../../components/anime/index.jsx';
 import {modalUpdate} from '../../actions/modal';
 import {search,cleanAnime} from '../../actions/anime';
 
-function propMap(state){
+function propMap(state,ownProps){
     return {
         anime:state.anime,
-        routing:state.routing
+        routing:ownProps
     }
 }
 
@@ -93,7 +93,7 @@ class Search extends Component {
     handleSubmit(data){
         const {routing,dispatch} = this.props;
         let keyword=trim(data.keyword);
-        let query=Object.assign({},routing.locationBeforeTransitions.query);
+        let query=getQuery(routing);
         if(!keyword){
             dispatch(push(clientPath+'/dashboard/search/'));
         }else{
@@ -104,7 +104,7 @@ class Search extends Component {
     }
     handlePageClick(page){
         const {routing,dispatch} = this.props;
-        let query=Object.assign({},routing.locationBeforeTransitions.query);
+        let query=getQuery(routing);
         query.page=page;
         dispatch(push(clientPath+'/dashboard/search/?'+serialize(query)));
     }

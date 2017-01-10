@@ -3,6 +3,8 @@ import {replace} from 'react-router-redux'; //router跳转方法
 import {isObjEmpty} from '../common/tool';
 import {clientPath} from '../config';
 
+import {getAnimeSubList} from './anime_sub';
+
 /**
  * 验证登录状态
  * @param  {Object} user          用户对象
@@ -23,6 +25,9 @@ export function authLoginStatus(user,isLogin,switchStatus=false){
             if(isLogin){
                 if(isObjEmpty(user)){
                     dispatch(replace(clientPath+'/common/'));
+                }else{
+                    //加载订阅列表
+                    dispatch(getAnimeSubList());
                 }
             }else{ //检测未登录
                 if(!isObjEmpty(user)){

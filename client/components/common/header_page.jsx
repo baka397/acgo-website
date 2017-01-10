@@ -36,6 +36,8 @@ function getTitle(channel,service){
                 case '/anime/add':
                     return '添加动画';
                     break;
+                default:
+                    if(/\/anime\/\w+$/.test(service)) return '动画详情';
             }
             break;
     }
@@ -49,6 +51,8 @@ function getBackStatus(channel,service){
                 case '/anime/add':
                     return true;
                     break;
+                default:
+                    if(/\/anime\/\w+$/.test(service)) return true;
             }
             break;
     }
@@ -63,13 +67,13 @@ class HeaderPage extends Component {
     }
     shouldComponentUpdate(nextProps, nextState){
         const {route} = this.props;
-        if(route.locationBeforeTransitions.pathname===nextProps.route.locationBeforeTransitions.pathname) return false;
+        if(route.location.pathname===nextProps.route.location.pathname) return false;
         return true;
     }
     render() {
         const {icons,route} = this.props;
         let regRule=new RegExp('^'+clientPath);
-        let curPath=route.locationBeforeTransitions.pathname.replace(regRule,'');
+        let curPath=route.location.pathname.replace(regRule,'');
         let curChannel=curPath.replace(/\/([^\/]+)\/\S*/,'$1');
         let curService=curPath.replace(/\/[^\/]+(\/\S*)/,'$1').replace(/\/$/,'');
         return <Header icons={icons} title={getTitle(curChannel,curService)} back={getBackStatus(curChannel,curService)} onIconClick={this.handleIconClick} />

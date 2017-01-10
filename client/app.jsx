@@ -39,7 +39,7 @@ import CommonLayout from './pages/common/layout.jsx'; //未登录框架
 import DashboardLayout from './pages/dashboard/layout.jsx'; //登录框架
 
 import Index from './pages/index.jsx'; //首页
-import NotFound from './pages/not_found.jsx'; //首页
+import NotFound from './pages/not_found.jsx'; //404页面
 
 //创建路由
 ReactDOM.render(
@@ -80,7 +80,14 @@ ReactDOM.render(
                     <Route path="add" getIndexRoute={(partialNextState, callback)=>{
                         require.ensure([], function (require) {
                             callback(null, {
-                                component: require('./pages/dashboard/animeAdd.jsx').default,
+                                component: require('./pages/dashboard/animeEdit.jsx').default,
+                            })
+                        })
+                    }} />
+                    <Route path=":id" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/anime.jsx').default,
                             })
                         })
                     }} />

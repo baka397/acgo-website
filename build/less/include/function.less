@@ -45,3 +45,17 @@
     -webkit-transform:rotate(@rotate); /* Safari 和 Chrome */
     -o-transform:rotate(@rotate); 
 }
+.autoImgSize(){
+    display: block;
+    width: 100%;
+    height: auto;
+}
+.blur(@blur:5px){
+    position: absolute;
+    z-index: -1;
+    left: -@blur*2;
+    right: -@blur*2;
+    top: -@blur*2;
+    bottom: -@blur*2;
+    filter: blur(@blur);
+}

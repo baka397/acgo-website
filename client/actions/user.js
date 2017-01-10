@@ -2,8 +2,10 @@
 import {push} from 'react-router-redux'; //router跳转方法
 import md5 from 'md5';
 import {fetch} from '../common/api';
-import {modalUpdate,modalClean} from './modal';
 import {clientPath} from '../config';
+
+import {modalUpdate,modalClean} from './modal';
+import {cleanAnimeSub} from './anime_sub';
 
 export const UPDATE_USER = 'UPDATE_USER';
 export const CLEAN_USER = 'CLEAN_USER';
@@ -24,9 +26,9 @@ export function userReg(data){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('register',sendData,'POST').then((data)=>{
+        fetch('register',sendData,'POST').then((res)=>{
             dispatch(modalUpdate({
-                tip:data.msg,
+                tip:res.msg,
                 loading:null
             }))
             dispatch(push(clientPath+'/common/'));
@@ -53,10 +55,10 @@ export function userLogin(data){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('login',sendData,'POST').then((data)=>{
+        fetch('login',sendData,'POST').then((res)=>{
             return fetch('me');
-        }).then((data)=>{
-            dispatch(updateUser(data.data));
+        }).then((res)=>{
+            dispatch(updateUser(res.data));
             dispatch(modalClean('loading'));
             dispatch(push(clientPath+'/dashboard/'));
         }).catch((err)=>{
@@ -77,8 +79,11 @@ export function userLogout(){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('logout',null,'POST').then((data)=>{
+        fetch('logout',null,'POST').then((res)=>{
+            //清除登录数据
             dispatch(cleanUser());
+            //清除订阅数据
+            dispatch(cleanAnimeSub());
             dispatch(modalClean('loading'));
             dispatch(push(clientPath+'/common/'));
         }).catch((err)=>{

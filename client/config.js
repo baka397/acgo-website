@@ -8,8 +8,8 @@ export const apiPath='/api'; //api地址
 
 //上传
 export const maxUploadSize=2*1024*1024; //最大上传文件大小(KB)
-export const copperWidth=1000; //裁剪宽度
-export const copperHeight=600; //裁剪高度
+export const copperWidth=1920; //裁剪宽度
+export const copperHeight=1152; //裁剪高度
 export const acceptType='.jpg'; //接受的文件类型
 let uploadDefaultPath; //上传地址
 let uploadDownloadPath; //下载地址
