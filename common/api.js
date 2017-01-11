@@ -14,6 +14,7 @@ const URL = {
     animeSubList:'/anime/sub/me',
     animeDetail:'/anime/:id',
     uploadToken:'/upload/token/',
+    animeWatchList:'/anime-group/watch/',
     tag:'/tag/'
 }
 let apiTokenParams=authTool.getTokenParams(CONFIG.apiKey,CONFIG.apiAlias);

@@ -6,6 +6,7 @@ import {clientPath} from '../config';
 
 import {modalUpdate,modalClean} from './modal';
 import {cleanAnimeSub} from './anime_sub';
+import {cleanAnimeWatch} from './anime_watch';
 
 export const UPDATE_USER = 'UPDATE_USER';
 export const CLEAN_USER = 'CLEAN_USER';
@@ -84,6 +85,7 @@ export function userLogout(){
             dispatch(cleanUser());
             //清除订阅数据
             dispatch(cleanAnimeSub());
+            dispatch(cleanAnimeWatch());
             dispatch(modalClean('loading'));
             dispatch(push(clientPath+'/common/'));
         }).catch((err)=>{

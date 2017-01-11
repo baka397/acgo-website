@@ -85,12 +85,17 @@ router.get('/anime/detail/', function(req, res, next){
     })
 });
 
-router.get('/anime/sub/me', function(req, res, next){
-    api.request(req.token,'animeSubList',{
-        page:req.query.page,
-        pageSize:200
-    }).then(function(data){
+router.get('/anime/sub/', function(req, res, next){
+    api.request(req.token,'animeSubList').then(function(data){
         res.send(tool.buildResJson('查询订阅列表成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
+router.get('/anime/watch/', function(req, res, next){
+    api.request(req.token,'animeWatchList').then(function(data){
+        res.send(tool.buildResJson('查询观看历史列表成功',data));
     }).catch(function(err){
         next(err);
     })

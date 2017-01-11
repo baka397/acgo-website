@@ -10,7 +10,8 @@ const URLS={
     animeDetail:apiPath+'/anime/detail/', //动画详情
     animeAdd:apiPath+'/anime/add/', //动画添加
     animeSub:apiPath+'/anime/sub/', //动画订阅
-    animeSubList:apiPath+'/anime/sub/me', //动画订阅数据
+    animeSubList:apiPath+'/anime/sub/', //动画订阅数据
+    animeWatchList:apiPath+'/anime/watch/', //动画观看数据
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签

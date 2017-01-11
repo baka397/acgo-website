@@ -11,6 +11,7 @@ import app from './app';
 import user from './user';
 import anime from './anime';
 import animeSub from './anime_sub';
+import animeWatch from './anime_watch';
 
 export const reducer = combineReducers({
     modal,
@@ -18,5 +19,6 @@ export const reducer = combineReducers({
     user,
     anime,
     animeSub,
+    animeWatch,
     routing: routerReducer
 })

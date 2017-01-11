@@ -19,6 +19,8 @@
     height: 100%;
     .flex(column,space-between,flex-start);
     .app-content{
+        position: relative;
+        z-index: 1;
         overflow-x: hidden;
         overflow-y: auto;
         .flex-child(true);
@@ -124,9 +126,9 @@
     max-width: 400px;
     text-align: center;
     .app-tip-title{
-        padding: 0 0 20px;
-        font-size: 1.4em;
-        line-height: 2em;
+        padding: 0 0 10px;
+        font-size: 50px;
+        line-height: 50px;
     }
     .app-tip-message{
         padding: 0 0 20px;
@@ -154,13 +156,48 @@
         width: 150px;
         margin: 10px 10px 10px 0;
         .cover{
+            position: relative;
+            z-index: 1;
             img{
+                display: block;
                 width: 100%;
             }
             &:hover{
                 img{
                     .opacity(.9);
                 }
+            }
+            .player{
+                display: none;
+                position: absolute;
+                z-index: 2;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: fade(@color-content-dark,50%);
+            }
+            .player-disabled{
+                font-size: @font-size;
+            }
+            &:hover{
+                .player{
+                    display: block;
+                    .flex();
+                }
+            }
+        }
+        .progress{
+            @progress-size:2px;
+            height: @progress-size;
+            margin: 0 0 5px;
+            background: @color-light;
+            span{
+                position: relative;
+                z-index: 1;
+                display: block;
+                height: @progress-size;
+                background: @color-primary;
             }
         }
         .alias{

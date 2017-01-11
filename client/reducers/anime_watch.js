@@ -1,7 +1,7 @@
 //导入初始化登录状态
 import {pageSize} from '../config';
 
-import {UPDATE_ANIME_SUB,CLEAN_ANIME_SUB} from '../actions/anime_sub';
+import {UPDATE_ANIME_WATCH,CLEAN_ANIME_WATCH} from '../actions/anime_watch';
 
 const INIT_STATE={
     content:{},
@@ -10,7 +10,7 @@ const INIT_STATE={
 
 export default function animeSub(state = INIT_STATE, action) {
     switch (action.type) {
-        case UPDATE_ANIME_SUB:
+        case UPDATE_ANIME_WATCH:
             if(!action.data) return state;
             let content = {};
             let order = [];
@@ -23,7 +23,7 @@ export default function animeSub(state = INIT_STATE, action) {
                 order
             });
             break;
-        case CLEAN_ANIME_SUB:
+        case CLEAN_ANIME_WATCH:
             return Object.assign({},INIT_STATE);
             break;
         default:

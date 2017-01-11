@@ -30,9 +30,9 @@ class Anime extends Component {
     }
     shouldComponentUpdate(nextProps, nextState){
         const {animeDetail,animeSub} = this.props;
-        const {tags} = this.state;
+        const {tags} = nextState;
         let animeId=animeDetail._id;
-        let beforeAnimeId=nextProps.animeDetail._id
+        let beforeAnimeId=nextProps.animeDetail._id;
         if(animeId===beforeAnimeId&&animeSub[animeId]===nextProps.animeSub[animeId]&&isObjEmpty(tags)) return false;
         return true;
     }
