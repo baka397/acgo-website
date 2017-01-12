@@ -43,7 +43,7 @@ class FrameDefault extends Component {
         if(user.role==='admin'){
             let adminNav=nav.concat([{
                 name:'审核',
-                link:'/dashboard/audit/'
+                link:'/dashboard/anime/audit/'
             }]);
             this.setState({
                 nav:adminNav

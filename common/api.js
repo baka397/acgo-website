@@ -13,8 +13,10 @@ const URL = {
     animeSub:'/anime/sub/:id',
     animeSubList:'/anime/sub/me',
     animeDetail:'/anime/:id',
-    uploadToken:'/upload/token/',
+    animeAuditGet:'/anime/audit/me',
+    animeAuditPost:'/anime/audit/:id',
     animeWatchList:'/anime-group/watch/',
+    uploadToken:'/upload/token/',
     tag:'/tag/'
 }
 let apiTokenParams=authTool.getTokenParams(CONFIG.apiKey,CONFIG.apiAlias);

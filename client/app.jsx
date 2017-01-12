@@ -84,6 +84,13 @@ ReactDOM.render(
                             })
                         })
                     }} />
+                    <Route path="audit" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/animeAudit.jsx').default,
+                            })
+                        })
+                    }} />
                     <Route path=":id" getIndexRoute={(partialNextState, callback)=>{
                         require.ensure([], function (require) {
                             callback(null, {

@@ -12,10 +12,11 @@ const URLS={
     animeSub:apiPath+'/anime/sub/', //动画订阅
     animeSubList:apiPath+'/anime/sub/', //动画订阅数据
     animeWatchList:apiPath+'/anime/watch/', //动画观看数据
+    animeAudit:apiPath+'/anime/audit/', //动画审核数据
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签
-    upload:uploadPath+'/', //上传文件地址
+    upload:uploadPath+'/' //上传文件地址
 }
 let customHeader={
   'Accept': 'application/json',

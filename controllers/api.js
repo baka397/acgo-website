@@ -101,6 +101,22 @@ router.get('/anime/watch/', function(req, res, next){
     })
 });
 
+router.get('/anime/audit/', function(req, res, next){
+    api.request(req.token,'animeAuditGet').then(function(data){
+        res.send(tool.buildResJson('获取审核数据成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
+router.post('/anime/audit/', function(req, res, next){
+    api.request(req.token,'animeAuditPost',req.body,'PUT').then(function(data){
+        res.send(tool.buildResJson('审核成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
 router.post('/anime/sub/', function(req, res, next){
     switch(parseInt(req.body.status)){
         case -1:

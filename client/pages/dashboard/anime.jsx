@@ -80,7 +80,18 @@ class Anime extends Component {
             return null;
         }
         if(animeDetail.public_status===1){
-            watchBtn=<a>我已看过</a>;
+            if(!animeSub[animeDetail._id]) watchBtn=<a>我已看过</a>;
+            epContent=(
+                <div className="app-block">
+                    <a className="btn btn-info pull-right"><i className="icon icon-plus m-r-sm"></i>添加剧集</a>
+                    <div className="app-title">
+                        <i className="icon icon-list m-r-sm"></i>剧集列表
+                    </div>
+                    <div className="app-content">
+                        <p>暂无剧集数据</p>
+                    </div>
+                </div>
+            )
         }else{
             epContent=(
                 <div className="app-block">
@@ -112,7 +123,7 @@ class Anime extends Component {
                         <ul className="m-t-hg app-list-label">
                             <li>
                                 <div className="label">标签</div>
-                                <div className="content">
+                                <div className="content app-list-inline">
                                     {animeDetail.tag.map(function(id){
                                         return <span key={id}>{tags[id]}</span>;
                                     })}
@@ -120,7 +131,7 @@ class Anime extends Component {
                             </li>
                             <li>
                                 <div className="label">声优</div>
-                                <div className="content">
+                                <div className="content app-list-inline">
                                     {animeDetail.cv.map(function(id){
                                         return <span key={id}>{tags[id]}</span>;
                                     })}
@@ -128,7 +139,7 @@ class Anime extends Component {
                             </li>
                             <li>
                                 <div className="label">制作</div>
-                                <div className="content">
+                                <div className="content app-list-inline">
                                     {animeDetail.staff.map(function(id){
                                         return <span key={id}>{tags[id]}</span>;
                                     })}

@@ -91,4 +91,5 @@ function onListening() {
 		? 'pipe ' + addr
 		: 'port ' + addr.port;
 	LOG.info('Project "' + pkg.name + '" is listening on ' + bind);
+	LOG.info('API path:',CONFIG.apiPath);
 }

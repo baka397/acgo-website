@@ -36,6 +36,9 @@ function getTitle(channel,service){
                 case '/anime/add':
                     return '添加动画';
                     break;
+                case '/anime/audit':
+                    return '审核动画';
+                    break;
                 default:
                     if(/\/anime\/\w+$/.test(service)) return '动画详情';
             }
@@ -50,6 +53,9 @@ function getBackStatus(channel,service){
             switch(service){
                 case '/anime/add':
                     return true;
+                    break;
+                case '/anime/audit':
+                    return false;
                     break;
                 default:
                     if(/\/anime\/\w+$/.test(service)) return true;

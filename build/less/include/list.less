@@ -27,15 +27,17 @@
         }
         .content{
             margin-left: 50px;
-            span{
-                &::after{
-                    content:'、'
-                }
-                &:last-child{
-                    &::after{
-                        content:normal;
-                    }
-                }
+        }
+    }
+}
+.app-list-inline{
+    span{
+        &::after{
+            content:'、'
+        }
+        &:last-child{
+            &::after{
+                content:normal;
             }
         }
     }
