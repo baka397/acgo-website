@@ -12,14 +12,14 @@ class Text extends Component {
         return true;
     }
     render() {
-        const {name,label,placeholder,value} = this.props;
+        const {name,label,placeholder,value,disabled} = this.props;
         let labelContent;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
             <label className="app-form-control app-form-text">
                 {labelContent}
                 <div className="app-form-content">
-                    <input type="text" placeholder={placeholder} value={value} onChange={this.handleChangeVal} ref="text" />
+                    <input type="text" placeholder={placeholder} value={value} onChange={this.handleChangeVal} ref="text" disabled={disabled} />
                 </div>
             </label>
         )
@@ -35,6 +35,7 @@ Text.propTypes={
     label:PropTypes.string,
     placeholder:PropTypes.string,
     value:PropTypes.string,
+    disabled:PropTypes.bool,
     onChangeVal:PropTypes.func.isRequired
 }
 

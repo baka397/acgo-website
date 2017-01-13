@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
+import {clientPath} from '../../config';
 import {getParams,getImageUrl,isObjEmpty} from '../../common/tool';
 import {copperWidth,copperHeight} from '../../config';
 import {fetch} from '../../common/api';
@@ -75,15 +77,16 @@ class Anime extends Component {
     render() {
         const {animeDetail,animeSub} = this.props;
         const {tags} = this.state;
-        let watchBtn,subBtn,epContent;
+        let watchBtn,subBtn,editBtn,epContent;
         if(isObjEmpty(animeDetail)){
             return null;
         }
         if(animeDetail.public_status===1){
             if(!animeSub[animeDetail._id]) watchBtn=<a>我已看过</a>;
+            editBtn=<Link to={clientPath+'/dashboard/anime/edit?id='+animeDetail._id} className="m-l"><i className="icon icon-edit m-r-sm"></i>编辑动画信息</Link>;
             epContent=(
                 <div className="app-block">
-                    <a className="btn btn-info pull-right"><i className="icon icon-plus m-r-sm"></i>添加剧集</a>
+                    <Link className="btn btn-info pull-right" to={clientPath+'/dashboard/anime-group/item/add'}><i className="icon icon-plus m-r-sm"></i>添加剧集</Link>
                     <div className="app-title">
                         <i className="icon icon-list m-r-sm"></i>剧集列表
                     </div>
@@ -116,7 +119,8 @@ class Anime extends Component {
                             {watchBtn}
                             {subBtn}
                         </div>
-                        <h1>{animeDetail.name}</h1>
+                        <h1 className="pull-left">{animeDetail.name}</h1>
+                        {editBtn}
                     </div>
                     <div className="desc">
                         <p>{animeDetail.desc}</p>

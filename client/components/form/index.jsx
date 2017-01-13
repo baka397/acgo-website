@@ -34,24 +34,24 @@ class Form extends Component {
                 {rules.map((rule,index)=>{
                     switch(rule.type){
                         case 'text':
-                            return <Text key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
+                            return <Text key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'password':
-                            return <Password key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
+                            return <Password key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'textarea':
-                            return <Textarea key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
+                            return <Textarea key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'upload':
-                            return <Upload key={index} value={result[rule.name]} name={rule.name} label={rule.label} onChangeVal={this.handleChangeVal} />
+                            return <Upload key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'radio':
-                            return <Radio key={index} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />
+                            return <Radio key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />
                             break;
                         case 'tag':
-                            return <Tag key={index} value={result[rule.name]} name={rule.name} maxSize={rule.maxSize} label={rule.label} placeholder={rule.placeholder} tagType={rule.tagType} onChangeVal={this.handleChangeVal} />
+                            return <Tag key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} maxSize={rule.maxSize} label={rule.label} placeholder={rule.placeholder} tagType={rule.tagType} onChangeVal={this.handleChangeVal} />
                         case 'submit':
-                            return <Button key={index} label={rule.label} icon={rule.icon} />
+                            return <Button key={index} disabled={rule.disabled} label={rule.label} icon={rule.icon} />
                         default:
                             return null;
                     }

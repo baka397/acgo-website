@@ -24,6 +24,10 @@
             background: none;
             border: none;
             line-height: @form-height - 20px;
+            &:disabled{
+                color: @color-light;
+                cursor: no-drop;
+            }
         }
         textarea{
             height: 100px;
@@ -48,6 +52,9 @@
     &.app-form-plain{
         .app-form-content{
             line-height: @form-height - 20px;
+            del{
+                color: @color-light;
+            }
         }
     }
 }

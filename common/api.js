@@ -10,6 +10,7 @@ const URL = {
     register: '/user/',
     login:'/user/login/',
     anime:'/anime/',
+    animeEdit:'/anime/:id',
     animeSub:'/anime/sub/:id',
     animeSubList:'/anime/sub/me',
     animeDetail:'/anime/:id',

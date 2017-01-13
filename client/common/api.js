@@ -9,6 +9,7 @@ const URLS={
     animeSearch:apiPath+'/anime/', //动画搜索
     animeDetail:apiPath+'/anime/detail/', //动画详情
     animeAdd:apiPath+'/anime/add/', //动画添加
+    animeEdit:apiPath+'/anime/edit/', //动画编辑
     animeSub:apiPath+'/anime/sub/', //动画订阅
     animeSubList:apiPath+'/anime/sub/', //动画订阅数据
     animeWatchList:apiPath+'/anime/watch/', //动画观看数据

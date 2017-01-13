@@ -12,14 +12,14 @@ class Textarea extends Component {
         return true;
     }
     render() {
-        const {name,label,placeholder,value} = this.props;
+        const {name,label,placeholder,value,disabled} = this.props;
         let labelContent;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
             <label className="app-form-control app-form-textarea">
                 {labelContent}
                 <div className="app-form-content">
-                    <textarea placeholder={placeholder} onChange={this.handleChangeVal} ref="text" defaultValue={value} />
+                    <textarea placeholder={placeholder} onChange={this.handleChangeVal} ref="text" defaultValue={value} disabled={disabled} />
                 </div>
             </label>
         )
@@ -35,6 +35,7 @@ Textarea.propTypes={
     label:PropTypes.string,
     placeholder:PropTypes.string,
     value:PropTypes.string,
+    disabled:PropTypes.bool,
     onChangeVal:PropTypes.func.isRequired
 }
 

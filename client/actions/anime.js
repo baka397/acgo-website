@@ -46,6 +46,26 @@ export function getAnimeDetail(data){
     }
 }
 
+export function editAnime(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('animeEdit',data,'POST').then((res)=>{
+            dispatch(modalUpdate({
+                tip:res.msg,
+                loading:null
+            }));
+            dispatch(goBack());
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
 export function addAnime(data){
     return function(dispatch){
         dispatch(modalUpdate({

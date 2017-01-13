@@ -33,7 +33,7 @@ class Upload extends Component {
             imageInfo=(
                 <div className="upload-info">
                     <p className="m-b">
-                        <button type="button" className="btn btn-danger m-r" onClick={this.handleDelete}><i className="icon icon-delete m-r-sm"></i>删除图片</button>
+                        <button type="button" className="btn btn-danger m-r" onClick={this.handleDelete}><i className="icon icon-reload m-r-sm"></i>重传图片</button>
                         <button type="button" className="btn btn-primary" onClick={this.handleCropperEdit}><i className="icon icon-crop m-r-sm"></i>编辑裁剪</button>
                     </p>
                     <p><img src={getImageUrl(value[0],value[1],360)} /></p>

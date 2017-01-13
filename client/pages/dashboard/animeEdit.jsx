@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getQuery,getEnumArray} from '../../common/tool';
+import {getQuery,getEnumArray,getObjCompareResult} from '../../common/tool';
 import {showStatus} from '../../enums/anime';
 import {type,typeMax} from '../../enums/tag';
 
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {addAnime} from '../../actions/anime';
+import {addAnime,editAnime,getAnimeDetail,cleanAnime} from '../../actions/anime';
 
 function propMap(state,ownProps){
     return {
+        animeDetail:state.anime.detail,
         routing:ownProps
     }
 }
@@ -82,21 +83,89 @@ const FORM_RULE=[
 class animeEdit extends Component {
     constructor(props){
         super(props);
+        this.state={
+            formRule:[]
+        }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    render() {
-        const {routing} = this.props;
+    componentDidMount(){
+        const {routing,dispatch} = this.props;
         let query=getQuery(routing);
-        let formRule=[];
-        formRule=FORM_RULE.map(rule=>{
-            if(rule.name==='name'){
-                return Object.assign({},rule,{
-                    value:query.name
+        if(query.id){
+            dispatch(getAnimeDetail(query));
+        }else{
+            let newFormRule=FORM_RULE.map(rule=>{
+                if(rule.name==='name'){
+                    return Object.assign({},rule,{
+                        value:query.name
+                    })
+                }else{
+                    return Object.assign({},rule)
+                }
+            })
+            this.setState({
+                formRule:newFormRule
+            });
+        }
+    }
+    componentDidUpdate(prevProps, prevState){
+        const {animeDetail,routing} = this.props;
+        const {formRule} = this.state;
+        let query=getQuery(routing);
+        if(formRule.length===0){
+            //查询缓存数据为空时重组数据
+            if(formRule.length===0&&query.id&&animeDetail._id){
+                let newFormRule=FORM_RULE.map(rule=>{
+                    switch(rule.name){
+                        case 'name':
+                            return Object.assign({},rule,{
+                                value:animeDetail['name'],
+                                disabled:true
+                            })
+                            break;
+                        case 'cover':
+                            return Object.assign({},rule,{
+                                value:animeDetail['cover']+'|'+animeDetail['cover_clip'].toString()
+                            })
+                            break;
+                        case 'tag':
+                        case 'cv':
+                        case 'staff':
+                            return Object.assign({},rule,{
+                                value:animeDetail[rule.name].toString()
+                            })
+                            break;
+                        case 'showStatus':
+                            return Object.assign({},rule,{
+                                value:animeDetail['show_status'].toString()
+                            })
+                            break;
+                        default:
+                            if(rule.name){
+                                return Object.assign({},rule,{
+                                    value:animeDetail[rule.name]
+                                })
+                            }
+                            return Object.assign({},rule);
+                    }
                 })
-            }else{
-                return Object.assign({},rule)
+                this.setState({
+                    formRule:newFormRule
+                });
             }
-        })
+        }
+    }
+    componentWillUnmount(){
+        const {routing,dispatch} = this.props;
+        let query=getQuery(routing);
+        if(query.id){
+            dispatch(cleanAnime());
+        }
+    }
+    render() {
+        const {animeDetail,routing} = this.props;
+        const {formRule} = this.state;
+        if(formRule.length===0) return null;
         return (
             <div className="app-anime-edit m">
                 <div className="app-notice m-b">
@@ -111,7 +180,7 @@ class animeEdit extends Component {
         )
     }
     handleSubmit(data){
-        const {dispatch} = this.props;
+        const {dispatch,animeDetail} = this.props;
         let coverArray=data.cover?data.cover.split('|'):[];
         if(!data.name){
             dispatch(modalUpdate({
@@ -161,10 +230,26 @@ class animeEdit extends Component {
             }));
             return;
         }
-        dispatch(addAnime(Object.assign({},data,{
+        let sendData=Object.assign({},data,{
             cover:coverArray[0],
             coverClip:coverArray[1]
-        })));
+        })
+        //检测是否为编辑
+        if(animeDetail._id){
+            let compareData=getObjCompareResult(sendData,animeDetail);
+            if(compareData){
+                dispatch(editAnime(Object.assign({},compareData,{
+                    id:animeDetail._id
+                })));
+            }else{
+                dispatch(modalUpdate({
+                    tip:'你还没有更改任何内容'
+                }))
+            }
+        }
+        else{
+            dispatch(addAnime(sendData));
+        }
     }
 }
 export default connect(propMap)(animeEdit);

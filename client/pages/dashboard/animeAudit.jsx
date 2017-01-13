@@ -116,7 +116,7 @@ class animeAudit extends Component {
             coverContent=<img src={getImageUrl(animeDetail.cover,animeDetail.cover_clip,360)} />;
         }
         //标签
-        if(auditDetail.tag&&animeDetail.tag.toString()!==auditDetail.tag.toString()){
+        if(auditDetail.tag.length>0&&animeDetail.tag.toString()!==auditDetail.tag.toString()){
             tagContent=(
                 <span className="app-list-inline">
                     <del>
@@ -139,7 +139,7 @@ class animeAudit extends Component {
             )
         }
         //制作
-        if(auditDetail.staff&&animeDetail.staff.toString()!==auditDetail.staff.toString()){
+        if(auditDetail.staff.length>0&&animeDetail.staff.toString()!==auditDetail.staff.toString()){
             staffContent=(
                 <span className="app-list-inline">
                     <del>
@@ -162,7 +162,7 @@ class animeAudit extends Component {
             )
         }
         //声优
-        if(auditDetail.cv&&animeDetail.cv.toString()!==auditDetail.cv.toString()){
+        if(auditDetail.cv.length>0&&animeDetail.cv.toString()!==auditDetail.cv.toString()){
             cvContent=(
                 <span className="app-list-inline">
                     <del>

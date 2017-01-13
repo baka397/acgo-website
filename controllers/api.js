@@ -77,9 +77,17 @@ router.post('/anime/add/', function(req, res, next){
     })
 });
 
+router.post('/anime/edit/', function(req, res, next){
+    api.request(req.token,'animeEdit',req.body,'PUT').then(function(data){
+        res.send(tool.buildResJson('修改成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
 router.get('/anime/detail/', function(req, res, next){
     api.request(req.token,'animeDetail',req.query).then(function(data){
-        res.send(tool.buildResJson('添加成功',data));
+        res.send(tool.buildResJson('获取详情成功',data));
     }).catch(function(err){
         next(err);
     })

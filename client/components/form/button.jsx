@@ -6,14 +6,14 @@ class Button extends Component {
         return false;
     }
     render() {
-        const {label,icon} = this.props;
+        const {label,icon,disabled} = this.props;
         let iconInfo=null;
         if(icon){
             iconInfo=<i className={'m-r-sm icon icon-'+icon}></i>
         }
         return (
             <div className="app-form-footer app-form-button">
-                <button type="submit" className="btn btn-info">{iconInfo}{label}</button>
+                <button type="submit" className="btn btn-info" disabled={disabled}>{iconInfo}{label}</button>
             </div>
         )
     }
@@ -21,7 +21,8 @@ class Button extends Component {
 
 Button.propTypes={
     label:PropTypes.string.isRequired,
-    icon:PropTypes.string
+    icon:PropTypes.string,
+    disabled:PropTypes.bool
 }
 
 export default Button;

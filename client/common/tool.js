@@ -1,7 +1,7 @@
 import {maxUploadSize,uploadPath,downloadPath} from '../config';
 import {fetch} from './api';
 
-function isObjEmpty(obj) {
+export function isObjEmpty(obj) {
     // Speed up calls to hasOwnProperty
     let hasOwnProperty = Object.prototype.hasOwnProperty;
 
@@ -27,7 +27,6 @@ function isObjEmpty(obj) {
 
     return true;
 }
-exports.isObjEmpty = isObjEmpty;
 
 /**
  * 请求下个Promise
@@ -35,20 +34,19 @@ exports.isObjEmpty = isObjEmpty;
  * @param  {Object} data 传递数据
  * @return {Object}      Promise对象
  */
-function nextPromise(err,data){
+export function nextPromise(err,data){
     return new Promise(function(resolve,reject){
         if(err) reject(err);
         else resolve(data);
     })
 }
-exports.nextPromise = nextPromise;
 
 /**
  * 格式化数据
  * @param  {Object} data 数据对象
  * @return {String}      URL用数据
  */
-exports.serialize = function(data){
+export function serialize(data){
     let str='';
     for(let key in data){
         str+=key+'='+encodeURIComponent(data[key])+'&';
@@ -62,13 +60,13 @@ exports.serialize = function(data){
  * @param  {Object} routing 路由对象
  * @return {Object}         查询数据
  */
-exports.getQuery = function(routing){
+export function getQuery(routing){
     if(!routing) return {};
     let query=Object.assign({},routing.location.query);
     return query;
 }
 
-exports.getParams = function(routing){
+export function getParams(routing){
     if(!routing) return {};
     let params=Object.assign({},routing.params);
     return params;
@@ -79,7 +77,7 @@ exports.getParams = function(routing){
  * @param  {Object} enumObj 枚举对象
  * @return {Array}          格式化后的数组
  */
-exports.getEnumArray = function(enumObj){
+export function getEnumArray(enumObj){
     return Object.keys(enumObj).map((key)=>{
         return {
             value:key,
@@ -93,21 +91,20 @@ exports.getEnumArray = function(enumObj){
  * @param  {Number} size kb数
  * @return {String}      实际大小
  */
-function getSizeInfo(size){
+export function getSizeInfo(size){
     let sOutput;
     for (let aMultiples = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], nMultiple = 0, nApprox = size / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
         sOutput = parseInt(nApprox) + aMultiples[nMultiple];
     }
     return sOutput;
 }
-exports.getSizeInfo=getSizeInfo;
 
 /**
  * 上传图片
  * @param  {Object} file 文件对象
  * @return {Object}      Promise对象
  */
-exports.upload = function(file){
+export function upload(file){
     let error;
     if(maxUploadSize&&file.size>maxUploadSize){
         error = new Error('上传文件超过指定文件限制，文件必须小于' + getSizeInfo(maxUploadSize));
@@ -129,7 +126,7 @@ exports.upload = function(file){
  * @param  {Number} width    图片缩放宽度
  * @return {String}          最终图片地址
  */
-exports.getImageUrl = function(key,cropInfo,width){
+export function getImageUrl(key,cropInfo,width){
     if(!key) return null;
     if(!cropInfo){
         return downloadPath+'/'+key;
@@ -141,4 +138,57 @@ exports.getImageUrl = function(key,cropInfo,width){
         if(width) imageUrl+='/thumbnail/'+width+'x';
         return imageUrl;
     }
+}
+
+/**
+ * 获取对象对比数据结果
+ * @param  {Object} newData 新数据
+ * @param  {Object} oldData 旧数据
+ * @return {Object}         结果数据
+ */
+export function getObjCompareResult(newData,oldData){
+    let result = {};
+    for(let key in newData){
+        let oldDataKey=key.replace(/([A-Z])/g,'_$1').toLowerCase();
+        let curData=newData[key];
+        let curOldData=oldData[oldDataKey];
+        switch(getObjType(curOldData)){
+            case 'array':
+                if(curData.toString()!==curOldData.toString()){
+                    result[key]=curData;
+                }
+                break;
+            case 'object':
+                if(JSON.stringify(curData)!==JSON.stringify(curOldData)){
+                    result[key]=curData;
+                }
+                break;
+            case 'number':
+                if(parseFloat(curData)!==parseFloat(curOldData)){
+                    result[key]=curData;
+                }
+                break;
+            default:
+                if(curData!==curOldData){
+                    result[key]=curData;
+                }
+        }
+    }
+    if(isObjEmpty(result)) return null;
+    else return result;
+}
+
+/**
+ * 获取对象类型
+ * @param  {Object} obj 对象
+ * @return {String}     对象类型
+ */
+export function getObjType(obj){
+    let resultType=typeof obj;
+    switch(resultType){
+        case 'object':
+            if(Array.isArray(obj)) resultType='array';
+            break;
+    }
+    return resultType;
 }
