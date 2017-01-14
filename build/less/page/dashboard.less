@@ -11,6 +11,67 @@
     }
 }
 
+.app-anime-list{
+    overflow: hidden;
+    .app-anime-item{
+        float: left;
+        width: 150px;
+        margin: 10px 10px 10px 0;
+        .cover{
+            position: relative;
+            z-index: 1;
+            img{
+                display: block;
+                width: 100%;
+            }
+            &:hover{
+                img{
+                    .opacity(.9);
+                }
+            }
+            .player{
+                display: none;
+                position: absolute;
+                z-index: 2;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: fade(@color-content-dark,50%);
+                font-size: 30px;
+            }
+            .player-disabled{
+                font-size: @font-size;
+            }
+            &:hover{
+                .player{
+                    display: block;
+                    .flex();
+                }
+            }
+        }
+        .progress{
+            @progress-size:2px;
+            height: @progress-size;
+            margin: 0 0 5px;
+            background: @color-light;
+            span{
+                position: relative;
+                z-index: 1;
+                display: block;
+                height: @progress-size;
+                background: @color-primary;
+            }
+        }
+        .alias{
+            color: @color-light;
+        }
+        p{
+            .ellipsis();
+        }
+    }
+}
+
 .app-anime{
     .app-anime-cover{
         position: relative;

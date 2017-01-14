@@ -12,7 +12,8 @@ class Sub extends Component {
         const {data,watchData} = this.props;
         let watchPercent=0,player,link;
         if(data.groups){
-
+            link=clientPath+'/dashboard/anime/'+data._id;
+            player=<span className="player"><i className="icon icon-play"></i></span>
         }else{
             link=clientPath+'/dashboard/anime/'+data._id;
             player=<span className="player player-disabled">暂无剧集</span>
