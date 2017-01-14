@@ -91,6 +91,7 @@
         margin-right: 10px;
     }
     .app-footer-nav{
+        @nav-top-height:5px;
         float: left;
         overflow: hidden;
         a{
@@ -99,20 +100,26 @@
             width: 90px;
             height: 50px;
             text-align: center;
+            &::after{
+                content:'';
+                display: block;
+                position: absolute;
+                z-index: 2;
+                left: 0;
+                right: 0;
+                top: -@nav-top-height;
+                height: @nav-top-height;
+                background: @color-primary;
+            }
             &.active{
                 position: relative;
                 z-index: 1;
                 background: @color-content-block;
+                .trans(background,0.5s);
                 &::after{
-                    content:'';
                     display: block;
-                    position: absolute;
-                    z-index: 2;
-                    left: 0;
-                    right: 0;
                     top: 0;
-                    height: 5px;
-                    background: @color-primary;
+                    .trans(top,0.3s);
                 }
             }
         }

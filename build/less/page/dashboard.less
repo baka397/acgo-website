@@ -51,7 +51,57 @@
 }
 
 .app-group-list{
+    .group-item{
+        margin: 10px 0;
+    }
     .group-item-title{
+        position: relative;
+        z-index: 1;
+        height: 40px;
+        line-height: 40px;
+        padding: 0 10px;
         overflow: hidden;
+        background: darken(@color-light, 20%);
+        h3{
+            cursor: pointer;
+        }
+        .btns{
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 10px;
+            z-index: 2;
+        }
+        &::after{
+            content:'';
+            display: block;
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            background: @color-primary;
+            .trans(width,0.5s); 
+        }
+        &:hover{
+            .btns{
+                display: block;
+            }
+            &::after{
+                width: 100%;
+            }
+        }
+    }
+    .group-item-disabled{
+        .group-item-title{
+            h3{
+                cursor: no-drop;
+            }
+            &::after{
+                background: @color-light;
+            }
+        }
     }
 }

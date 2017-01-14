@@ -165,6 +165,20 @@ router.get('/anime/group/', function(req, res, next){
         next(err);
     })
 })
+router.get('/anime/group/detail', function(req, res, next){
+    api.request(req.token,'animeGroupDetail',req.query).then(function(data){
+        res.send(tool.buildResJson('查询剧集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.post('/anime/group/edit', function(req, res, next){
+    api.request(req.token,'animeGroupDetail',req.body,'PUT').then(function(data){
+        res.send(tool.buildResJson('修改剧集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
 
 router.get('/uploadToken', function(req, res, next){
     api.request(req.token,'uploadToken').then(function(data){

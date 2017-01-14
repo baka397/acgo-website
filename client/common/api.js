@@ -15,7 +15,9 @@ const URLS={
     animeWatchList:apiPath+'/anime/watch/', //动画观看数据
     animeAudit:apiPath+'/anime/audit/', //动画审核数据
     animeGroupAdd:apiPath+'/anime/group/add/', //动画剧集增加
+    animeGroupEdit:apiPath+'/anime/group/edit/', //动画剧集修改
     animeGroupList:apiPath+'/anime/group/', //动画剧集列表
+    animeGroupDetail:apiPath+'/anime/group/detail', //动画剧集列表
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签

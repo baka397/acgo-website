@@ -7,6 +7,23 @@ export const UPDATE_ANIME_GROUP = 'UPDATE_ANIME_GROUP';
 export const CLEAN_ANIME_GROUP = 'CLEAN_ANIME_GROUP';
 export const UPDATE_ANIME_GROUP_DETAIL = 'UPDATE_ANIME_GROUP_DETAIL';
 
+export function getAnimeGroupDetail(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('animeGroupDetail',data).then((res)=>{
+            dispatch(updateAnimeGroupDetail(res.data));
+            dispatch(modalClean('loading'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
 export function getAnimeGroupList(data){
     return function(dispatch){
         dispatch(modalUpdate({
@@ -15,6 +32,26 @@ export function getAnimeGroupList(data){
         fetch('animeGroupList',data).then((res)=>{
             dispatch(updateAnimeGroup(res.data));
             dispatch(modalClean('loading'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+export function editAnimeGroup(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('animeGroupEdit',data,'POST').then((res)=>{
+            dispatch(modalUpdate({
+                tip:res.msg,
+                loading:null
+            }));
+            dispatch(goBack());
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,

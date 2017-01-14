@@ -20,7 +20,11 @@ class Form extends Component {
                 if(!/^[a-zA-Z0-9\_]+$/.test(rule.name)){
                     throw new Error('请输入正确的规则名称');
                 }
-                this.state.result[rule.name]=rule.value||'';
+                if(isNaN(rule.value)){
+                    this.state.result[rule.name]=rule.value||'';
+                }else{
+                    this.state.result[rule.name]=rule.value+'';
+                }
             }
         })
         this.handleChangeVal = this.handleChangeVal.bind(this);

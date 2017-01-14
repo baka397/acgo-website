@@ -34,6 +34,16 @@
             color: @color-link-hover
         }
     }
+    &.app-check-disabled{
+        li{
+            &::before{
+                border-color: @color-check-disabled;
+            }
+            &::after{
+                background: @color-check-disabled;
+            }
+        }
+    }
 }
 .app-check-radio{
     li{

@@ -18,6 +18,7 @@ const URL = {
     animeAuditPost:'/anime/audit/:id',
     animeWatchList:'/anime-group/watch/',
     animeGroup:'/anime-group/',
+    animeGroupDetail:'/anime-group/:id',
     uploadToken:'/upload/token/',
     tag:'/tag/'
 }
@@ -61,7 +62,7 @@ function apiRequest(token,action,data,method){
         if(method!=='get'&&!tool.isObjEmpty(data)){
             requestObj.send(data);
             LOG.info('请求数据');
-            LOG.info(JSON.strigify(data));
+            LOG.info(JSON.stringify(data));
         }
         requestObj.end(function(err,res){
             //处理超时错误

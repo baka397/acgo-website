@@ -18,6 +18,7 @@ function propMap(state,ownProps){
         animeDetail:state.anime.detail,
         animeSub:state.animeSub.content,
         animeGroup:state.animeGroup,
+        animeWatch:state.animeWatch,
         user:state.user,
         routing:ownProps
     }
@@ -27,8 +28,14 @@ function propMap(state,ownProps){
 class Anime extends Component {
     constructor(props){
         super(props);
+        const {role} = this.props.user;
+        let groupBtns=[];
+        if(authRole('admin',role)){
+            groupBtns=groupBtns.concat(['add','task','edit']);
+        }
         this.state={
-            tags:{}
+            tags:{},
+            groupBtns
         }
         this.handleGroupClick = this.handleGroupClick.bind(this);
     }
@@ -36,11 +43,11 @@ class Anime extends Component {
         this.handleGetDetail();
     }
     shouldComponentUpdate(nextProps, nextState){
-        const {animeDetail,animeSub,animeGroup} = this.props;
+        const {animeDetail,animeSub,animeGroup,animeWatch} = this.props;
         const {tags} = nextState;
         let animeId=animeDetail._id;
         let beforeAnimeId=nextProps.animeDetail._id;
-        if(animeId===beforeAnimeId&&animeSub[animeId]===nextProps.animeSub[animeId]&&isObjEmpty(tags)&&animeGroup.page===nextProps.animeGroup.page&&animeGroup.total===nextProps.animeGroup.total) return false;
+        if(animeId===beforeAnimeId&&animeSub[animeId]===nextProps.animeSub[animeId]&&isObjEmpty(tags)&&animeGroup.page===nextProps.animeGroup.page&&animeGroup.total===nextProps.animeGroup.total&&animeWatch.order.length===nextProps.animeWatch.order.length) return false;
         return true;
     }
     componentDidUpdate(prevProps, prevState){
@@ -52,6 +59,7 @@ class Anime extends Component {
             this.setState({
                 tags:{}
             })
+            this.handleClear();
             this.handleGetDetail();
         }
         else if(isObjEmpty(tags)){//获取标签数据
@@ -77,22 +85,17 @@ class Anime extends Component {
     }
     componentWillUnmount(){
         const {dispatch} = this.props;
-        dispatch(cleanAnime());
-        dispatch(cleanAnimeGroup());
+        this.handleClear();
     }
     render() {
-        const {animeDetail,animeSub,animeGroup} = this.props;
-        const {role} = this.props.user;
-        const {tags} = this.state;
-        let subBtn,editBtn,epContent,groupBtns=['list'];
-        if(authRole('admin',role)){
-            groupBtns=groupBtns.concat(['edit']);
-        }
+        const {animeDetail,animeSub,animeGroup,animeWatch} = this.props;
+        const {tags,groupBtns} = this.state;
+        let subBtn,editBtn,epContent;
         if(isObjEmpty(animeDetail)){
             return null;
         }
         if(animeDetail.public_status===1){
-            editBtn=<Link to={clientPath+'/dashboard/anime/edit?id='+animeDetail._id} className="m-l"><i className="icon icon-edit m-r-sm"></i>编辑动画信息</Link>;
+            editBtn=<Link to={clientPath+'/dashboard/anime/edit?id='+animeDetail._id} className="m-l-hg"><i className="icon icon-edit m-r-sm"></i>编辑动画信息</Link>;
             epContent=(
                 <div className="app-block">
                     <Link className="btn btn-info pull-right" to={clientPath+'/dashboard/anime-group/add?animeId='+animeDetail._id}><i className="icon icon-plus m-r-sm"></i>添加剧集</Link>
@@ -100,7 +103,7 @@ class Anime extends Component {
                         <i className="icon icon-list m-r-sm"></i>剧集列表
                     </div>
                     <div className="app-content">
-                        <AnimeGroup group={animeGroup} btns={groupBtns} onGroupClick={this.handleGroupClick} />
+                        <AnimeGroup group={animeGroup} btns={groupBtns} onGroupClick={this.handleGroupClick} watch={animeWatch} />
                     </div>
                 </div>
             )
@@ -173,6 +176,11 @@ class Anime extends Component {
         dispatch(getAnimeGroupList({
             animeId:params.id
         }))
+    }
+    handleClear(){
+        const {dispatch} = this.props;
+        dispatch(cleanAnime());
+        dispatch(cleanAnimeGroup());
     }
     handleSub(status){
         const {animeDetail,dispatch} = this.props;

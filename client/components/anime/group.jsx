@@ -11,12 +11,12 @@ class Group extends Component {
         super(props);
     }
     shouldComponentUpdate(nextProps, nextState){
-        const {group} = this.props;
-        if(group.page===nextProps.group.page&&group.total===nextProps.group.total) return false;
+        const {group,watch} = this.props;
+        if(group.page===nextProps.group.page&&group.total===nextProps.group.total&&watch.order.length===nextProps.watch.order.length) return false;
         return true;
     }
     render() {
-        const {btns} = this.props;
+        const {btns,watch} = this.props;
         const {pageSize,page,total,order,content} = this.props.group;
         let groupContent;
         if(total===0){
@@ -28,24 +28,30 @@ class Group extends Component {
                 <div className="group-content">
                     {order.map((id)=>{
                         let item=content[id];
+                        let watchInfo=watch.content[id]||{};
                         return (
-                            <div key={id} className="group-item">
+                            <div key={id} className={'group-item'+(item.episode_cur?'':' group-item-disabled')}>
                                 <div className="group-item-title">
-                                    <div className="pull-right">
+                                    <h3 onClick={(e)=>{this.handlePageClick(id,1,item.episode_cur)}}>
+                                        {type[item.type]}<span className="m-l">(更新至{item.episode_cur}话,已观看{watchInfo.watch_ep||0}话)</span>
+                                    </h3>
+                                    <div className="btns">
                                         {btns.map((btn)=>{
                                             switch(btn){
-                                                case 'list':
-                                                    return <a key={btn} onClick={(e)=>{this.handlePageClick(id,1)}}><i className="icon icon-list m-r-sm"></i>分集列表</a>;
+                                                case 'add':
+                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/item/add'}><i className="icon icon-plus m-r-sm"></i>添加分集</Link>;
+                                                    break;
+                                                case 'task':
+                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/task/'}><i className="icon icon-search m-r-sm"></i>查询抓取任务</Link>;
                                                     break;
                                                 case 'edit':
-                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/edit?id='+id}><i className="icon icon-edit m-r-sm"></i>编辑</Link>;
+                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/edit?id='+id}><i className="icon icon-edit m-r-sm"></i>编辑剧集信息</Link>;
                                                     break;
                                                 default:
                                                     return null;
                                             }
                                         })}
                                     </div>
-                                    <h3>{type[item.type]}</h3>
                                 </div>
                             </div>
                         )
@@ -59,8 +65,9 @@ class Group extends Component {
             </div>
         )
     }
-    handlePageClick(groupId,page){
+    handlePageClick(groupId,page,curEp){
         const {onGroupClick} = this.props;
+        if(!curEp) return;
         onGroupClick(groupId,page);
     }
 }
@@ -68,6 +75,7 @@ class Group extends Component {
 Group.propTypes={
     group:PropTypes.object.isRequired,
     btns:PropTypes.array.isRequired,
+    watch:PropTypes.object.isRequired,
     onGroupClick:PropTypes.func.isRequired
 }
 
