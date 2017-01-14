@@ -2,18 +2,23 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {clientPath} from '../../config';
-import {getParams,getImageUrl,isObjEmpty} from '../../common/tool';
+import {getParams,getImageUrl,isObjEmpty,authRole} from '../../common/tool';
 import {copperWidth,copperHeight} from '../../config';
 import {fetch} from '../../common/api';
 
+import AnimeGroup from '../../components/anime/group.jsx';
+
 import {getAnimeDetail,cleanAnime} from '../../actions/anime';
 import {subAnime} from '../../actions/anime_sub';
+import {getAnimeGroupList,cleanAnimeGroup} from '../../actions/anime_group';
 import {modalUpdate,modalClean} from '../../actions/modal';
 
 function propMap(state,ownProps){
     return {
         animeDetail:state.anime.detail,
         animeSub:state.animeSub.content,
+        animeGroup:state.animeGroup,
+        user:state.user,
         routing:ownProps
     }
 }
@@ -25,17 +30,17 @@ class Anime extends Component {
         this.state={
             tags:{}
         }
+        this.handleGroupClick = this.handleGroupClick.bind(this);
     }
     componentDidMount(){
-        const {routing,dispatch} = this.props;
-        dispatch(getAnimeDetail(getParams(routing)));
+        this.handleGetDetail();
     }
     shouldComponentUpdate(nextProps, nextState){
-        const {animeDetail,animeSub} = this.props;
+        const {animeDetail,animeSub,animeGroup} = this.props;
         const {tags} = nextState;
         let animeId=animeDetail._id;
         let beforeAnimeId=nextProps.animeDetail._id;
-        if(animeId===beforeAnimeId&&animeSub[animeId]===nextProps.animeSub[animeId]&&isObjEmpty(tags)) return false;
+        if(animeId===beforeAnimeId&&animeSub[animeId]===nextProps.animeSub[animeId]&&isObjEmpty(tags)&&animeGroup.page===nextProps.animeGroup.page&&animeGroup.total===nextProps.animeGroup.total) return false;
         return true;
     }
     componentDidUpdate(prevProps, prevState){
@@ -47,7 +52,7 @@ class Anime extends Component {
             this.setState({
                 tags:{}
             })
-            dispatch(getAnimeDetail(getParams(routing)));
+            this.handleGetDetail();
         }
         else if(isObjEmpty(tags)){//获取标签数据
             let tagsId=[].concat(animeDetail.tag,animeDetail.staff,animeDetail.cv);
@@ -73,25 +78,29 @@ class Anime extends Component {
     componentWillUnmount(){
         const {dispatch} = this.props;
         dispatch(cleanAnime());
+        dispatch(cleanAnimeGroup());
     }
     render() {
-        const {animeDetail,animeSub} = this.props;
+        const {animeDetail,animeSub,animeGroup} = this.props;
+        const {role} = this.props.user;
         const {tags} = this.state;
-        let watchBtn,subBtn,editBtn,epContent;
+        let subBtn,editBtn,epContent,groupBtns=['list'];
+        if(authRole('admin',role)){
+            groupBtns=groupBtns.concat(['edit']);
+        }
         if(isObjEmpty(animeDetail)){
             return null;
         }
         if(animeDetail.public_status===1){
-            if(!animeSub[animeDetail._id]) watchBtn=<a>我已看过</a>;
             editBtn=<Link to={clientPath+'/dashboard/anime/edit?id='+animeDetail._id} className="m-l"><i className="icon icon-edit m-r-sm"></i>编辑动画信息</Link>;
             epContent=(
                 <div className="app-block">
-                    <Link className="btn btn-info pull-right" to={clientPath+'/dashboard/anime-group/item/add'}><i className="icon icon-plus m-r-sm"></i>添加剧集</Link>
+                    <Link className="btn btn-info pull-right" to={clientPath+'/dashboard/anime-group/add?animeId='+animeDetail._id}><i className="icon icon-plus m-r-sm"></i>添加剧集</Link>
                     <div className="app-title">
                         <i className="icon icon-list m-r-sm"></i>剧集列表
                     </div>
                     <div className="app-content">
-                        <p>暂无剧集数据</p>
+                        <AnimeGroup group={animeGroup} btns={groupBtns} onGroupClick={this.handleGroupClick} />
                     </div>
                 </div>
             )
@@ -116,7 +125,6 @@ class Anime extends Component {
                     <img src={getImageUrl(animeDetail.cover,animeDetail.cover_clip,copperWidth)} width={copperWidth} height={copperHeight} />
                     <div className="title">
                         <div className="sub pull-right">
-                            {watchBtn}
                             {subBtn}
                         </div>
                         <h1 className="pull-left">{animeDetail.name}</h1>
@@ -158,9 +166,20 @@ class Anime extends Component {
             </div>
         )
     }
+    handleGetDetail(){
+        const {routing,dispatch} = this.props;
+        let params=getParams(routing);
+        dispatch(getAnimeDetail(params));
+        dispatch(getAnimeGroupList({
+            animeId:params.id
+        }))
+    }
     handleSub(status){
         const {animeDetail,dispatch} = this.props;
         dispatch(subAnime(animeDetail._id,status));
+    }
+    handleGroupClick(id,page){
+        console.log(id,page);
     }
 }
 export default connect(propMap)(Anime);

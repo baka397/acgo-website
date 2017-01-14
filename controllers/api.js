@@ -151,6 +151,20 @@ router.post('/anime/sub/', function(req, res, next){
             next(error);
     }
 });
+router.post('/anime/group/add/', function(req, res, next){
+    api.request(req.token,'animeGroup',req.body,'POST').then(function(data){
+        res.send(tool.buildResJson('添加剧集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.get('/anime/group/', function(req, res, next){
+    api.request(req.token,'animeGroup',req.query).then(function(data){
+        res.send(tool.buildResJson('查询剧集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
 
 router.get('/uploadToken', function(req, res, next){
     api.request(req.token,'uploadToken').then(function(data){

@@ -173,6 +173,7 @@ class animeEdit extends Component {
                     <ol className="app-list app-list-order">
                         <li>所有的动画信息均由本站用户添加,由社区管理员审核后展示.</li>
                         <li>在审核完成之前,用户可以预订阅该动画.</li>
+                        <li>所有编辑和审核记录将会记录并显示.</li>
                     </ol>
                 </div>
                 <FormList rules={formRule} longlabel={true} onSubmit={this.handleSubmit} />

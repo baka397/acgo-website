@@ -7,7 +7,7 @@ import Footer from '../../components/common/footer.jsx';
 import {authLoginStatus} from '../../actions/auth';
 import {userLogout} from '../../actions/user';
 
-import {isObjEmpty} from '../../common/tool';
+import {isObjEmpty,authRole} from '../../common/tool';
 
 function propMap(state,ownProps){
     return {
@@ -40,7 +40,7 @@ class FrameDefault extends Component {
         const {user,dispatch} = this.props;
         const {nav} = this.state;
         dispatch(authLoginStatus(user,true));
-        if(user.role==='admin'){
+        if(authRole('admin',user.role)){
             let adminNav=nav.concat([{
                 name:'审核',
                 link:'/dashboard/anime/audit/'

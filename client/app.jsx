@@ -106,6 +106,22 @@ ReactDOM.render(
                         })
                     }} />
                 </Route>
+                <Route path="anime-group">
+                    <Route path="add" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/animeGroupEdit.jsx').default,
+                            })
+                        })
+                    }} />
+                    <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/animeGroupEdit.jsx').default,
+                            })
+                        })
+                    }} />
+                </Route>
             </Route>
             <Route path="*" component={NotFound} />
         </Route>

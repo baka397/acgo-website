@@ -28,6 +28,11 @@ export function isObjEmpty(obj) {
     return true;
 }
 
+export function authRole(roleName,roleString){
+    let roleArray=roleString.split(',');
+    return roleArray.indexOf(roleName)>=0;
+}
+
 /**
  * 请求下个Promise
  * @param  {Object} err  错误信息

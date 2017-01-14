@@ -3,9 +3,6 @@ import Header from '../common/header.jsx';
 
 //封装组件
 class Tip extends Component {
-    constructor(props){
-        super(props);
-    }
     shouldComponentUpdate(nextProps, nextState){
         const {page,total} = this.props;
         if(page===nextProps.page&&total===nextProps.total) return false;
