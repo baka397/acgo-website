@@ -3,10 +3,21 @@ exports.status={
     '1':'正常',
     '-1':'禁用'
 }
-//合集类型
+//剧集类型
 exports.type={
     '1':'B站',
     '2':'D站'
+}
+//剧集类型说明
+exports.typeTip={
+    '1':{
+        'task':'http://bangumi.bilibili.com/anime/5523',
+        'item':'http://bangumi.bilibili.com/anime/v/96644,http://www.bilibili.com/video/av8028645/,http://bangumi.bilibili.com/anime/5832/play#100381'
+    },
+    '2':{
+        'task':'http://www.dilidili.com/anime/selector/',
+        'item':'http://www.dilidili.com/watch/9076/'
+    }
 }
 //合集任务周期
 exports.taskPeriod={

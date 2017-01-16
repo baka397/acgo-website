@@ -38,10 +38,6 @@
                 left: 0;
                 right: 0;
                 background: fade(@color-content-dark,50%);
-                font-size: 30px;
-            }
-            .player-disabled{
-                font-size: @font-size;
             }
             &:hover{
                 .player{
@@ -123,6 +119,9 @@
         padding: 0 10px;
         overflow: hidden;
         background: darken(@color-light, 20%);
+        .play{
+            display: none;
+        }
         h3{
             cursor: pointer;
         }
@@ -147,6 +146,9 @@
             .trans(width,0.5s); 
         }
         &:hover{
+            .play{
+                display: inline-block;
+            }
             .btns{
                 display: block;
             }
@@ -163,6 +165,31 @@
             &::after{
                 background: @color-light;
             }
+        }
+    }
+}
+
+.app-anime-player{
+    .player-content{
+        margin-right: 210px;
+    }
+    .player-sidebar{
+        position: absolute;
+        z-index: 1;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 200px;
+        background: lighten(@color-content-dark, 5%);
+        border: solid lighten(@color-content-dark, 3%);
+        border-width: 1px 0 0 1px;
+        overflow: hidden;
+        .pagination{
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            right: 0;
+            bottom: 0;
         }
     }
 }

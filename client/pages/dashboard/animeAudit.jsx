@@ -77,7 +77,7 @@ class animeAudit extends Component {
         if(!animeDetail._id||!auditDetail._id) return (
             <div className="app-tip m-t-hg">
                 <div className="app-tip-title">
-                    <p><i className="icon icon-search"></i></p>
+                    <i className="icon icon-search"></i>
                 </div>
                 <div className="app-tip-message">
                     <p className="m-b">暂时没有需要审核的数据</p>

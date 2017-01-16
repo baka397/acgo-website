@@ -15,8 +15,8 @@ export default function animeSub(state = INIT_STATE, action) {
             let content = {};
             let order = [];
             action.data.forEach(function(item){
-                order.push(item._id);
-                content[item._id]=Object.assign({},item);
+                order.push(item.group_id);
+                content[item.group_id]=Object.assign({},item);
             });
             return Object.assign({},state,{
                 content,

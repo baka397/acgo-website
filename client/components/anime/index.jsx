@@ -6,8 +6,8 @@ import Sub from './sub.jsx';
 //封装组件
 class Anime extends Component {
     shouldComponentUpdate(nextProps, nextState){
-        const {order,type} = this.props;
-        if(type===nextProps.type&&order===nextProps.order) return false;
+        const {order,type,watchDatas} = this.props;
+        if(type===nextProps.type&&order.length===nextProps.order.length&&Object.keys(watchDatas).length===Object.keys(nextProps.watchDatas).length) return false;
         return true;
     }
     render() {
@@ -22,6 +22,15 @@ class Anime extends Component {
                         break;
                     case 'sub':
                         let watchData;
+                        animeData.groups.some((group)=>{
+                            if(watchDatas[group.id]){
+                                watchData=Object.assign({},watchDatas[group.id]);
+                                watchData.total=group.episode_cur;
+                                watchData.percent=Math.ceil(watchData.watch_ep/group.episode_cur);
+                                return true;
+                            }
+                            return false;
+                        })
                         //处理观看记录
                         return <Sub key={id} data={animeData} watchData={watchData} />
                     default:

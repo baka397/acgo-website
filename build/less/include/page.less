@@ -1,17 +1,18 @@
 //分页
 .pagination{
     margin: 10px 0;
+    height: 35px;
     line-height: 35px;
-    .clear();
+    overflow: hidden;
     ul{
+        display: inline-block;
         box-sizing: border-box;
-        float: left;
         height: 35px;
         border: solid @color-page-border;
         border-width: 0 0 1px 1px;
         overflow: hidden;
         li{
-            float: left;
+            display: inline-block;
             a{
                 display: inline-block;
                 width: 25px;
@@ -40,11 +41,7 @@
             }
         }
     }
-    select{
-        float: left;
-        height: 35px;
-        margin: 10px;
-        padding: 0 5px;
-        border: 1px solid #DCDCDC;
+    &.pagination-simple{
+        text-align: center;
     }
 }

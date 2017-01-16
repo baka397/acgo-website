@@ -16,9 +16,11 @@ const URL = {
     animeDetail:'/anime/:id',
     animeAuditGet:'/anime/audit/me',
     animeAuditPost:'/anime/audit/:id',
-    animeWatchList:'/anime-group/watch/',
+    animeWatch:'/anime-group/watch/',
     animeGroup:'/anime-group/',
     animeGroupDetail:'/anime-group/:id',
+    animeGroupItem:'/anime-group/item',
+    animeGroupItemDetail:'/anime-group/item/:id',
     uploadToken:'/upload/token/',
     tag:'/tag/'
 }

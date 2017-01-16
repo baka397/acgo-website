@@ -12,12 +12,17 @@ const URLS={
     animeEdit:apiPath+'/anime/edit/', //动画编辑
     animeSub:apiPath+'/anime/sub/', //动画订阅
     animeSubList:apiPath+'/anime/sub/', //动画订阅数据
+    animeWatchAdd:apiPath+'/anime/watch/add/', //动画观看数据添加
     animeWatchList:apiPath+'/anime/watch/', //动画观看数据
     animeAudit:apiPath+'/anime/audit/', //动画审核数据
     animeGroupAdd:apiPath+'/anime/group/add/', //动画剧集增加
     animeGroupEdit:apiPath+'/anime/group/edit/', //动画剧集修改
     animeGroupList:apiPath+'/anime/group/', //动画剧集列表
     animeGroupDetail:apiPath+'/anime/group/detail', //动画剧集列表
+    animeItemAdd:apiPath+'/anime/item/add/', //动画剧集分集增加
+    animeItemEdit:apiPath+'/anime/item/edit/', //动画剧集分集修改
+    animeItemList:apiPath+'/anime/item/', //动画剧集分集列表
+    animeItemDetail:apiPath+'/anime/item/detail', //动画剧集分集列表
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签

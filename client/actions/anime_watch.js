@@ -6,6 +6,22 @@ import {modalUpdate,modalClean} from './modal';
 export const UPDATE_ANIME_WATCH = 'UPDATE_ANIME_WATCH';
 export const CLEAN_ANIME_WATCH = 'CLEAN_ANIME_WATCH';
 
+export function addAnimeWatch(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('animeWatchAdd',data,'POST').then((res)=>{
+            dispatch(getAnimeWatchList());
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
 export function getAnimeWatchList(){
     return function(dispatch){
         dispatch(modalUpdate({

@@ -101,8 +101,16 @@ router.get('/anime/sub/', function(req, res, next){
     })
 });
 
+router.post('/anime/watch/add/', function(req, res, next){
+    api.request(req.token,'animeWatch',req.body,'POST').then(function(data){
+        res.send(tool.buildResJson('更新观看历史成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
 router.get('/anime/watch/', function(req, res, next){
-    api.request(req.token,'animeWatchList').then(function(data){
+    api.request(req.token,'animeWatch').then(function(data){
         res.send(tool.buildResJson('查询观看历史列表成功',data));
     }).catch(function(err){
         next(err);
@@ -175,6 +183,34 @@ router.get('/anime/group/detail', function(req, res, next){
 router.post('/anime/group/edit', function(req, res, next){
     api.request(req.token,'animeGroupDetail',req.body,'PUT').then(function(data){
         res.send(tool.buildResJson('修改剧集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.post('/anime/item/add/', function(req, res, next){
+    api.request(req.token,'animeGroupItem',req.body,'POST').then(function(data){
+        res.send(tool.buildResJson('添加剧集分集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.get('/anime/item/', function(req, res, next){
+    api.request(req.token,'animeGroupItem',req.query).then(function(data){
+        res.send(tool.buildResJson('查询剧集分集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.get('/anime/item/detail', function(req, res, next){
+    api.request(req.token,'animeGroupItemDetail',req.query).then(function(data){
+        res.send(tool.buildResJson('查询剧集分集成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.post('/anime/item/edit', function(req, res, next){
+    api.request(req.token,'animeGroupItemDetail',req.body,'PUT').then(function(data){
+        res.send(tool.buildResJson('修改剧集分集成功',data));
     }).catch(function(err){
         next(err);
     })

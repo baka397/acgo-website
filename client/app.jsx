@@ -91,6 +91,13 @@ ReactDOM.render(
                             })
                         })
                     }} />
+                    <Route path="play" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/animePlay.jsx').default,
+                            })
+                        })
+                    }} />
                     <Route path="audit" getIndexRoute={(partialNextState, callback)=>{
                         require.ensure([], function (require) {
                             callback(null, {
@@ -121,6 +128,22 @@ ReactDOM.render(
                             })
                         })
                     }} />
+                    <Route path="item">
+                        <Route path="add" getIndexRoute={(partialNextState, callback)=>{
+                            require.ensure([], function (require) {
+                                callback(null, {
+                                    component: require('./pages/dashboard/animeGroupItemEdit.jsx').default,
+                                })
+                            })
+                        }} />
+                        <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
+                            require.ensure([], function (require) {
+                                callback(null, {
+                                    component: require('./pages/dashboard/animeGroupItemEdit.jsx').default,
+                                })
+                            })
+                        }} />
+                    </Route>
                 </Route>
             </Route>
             <Route path="*" component={NotFound} />

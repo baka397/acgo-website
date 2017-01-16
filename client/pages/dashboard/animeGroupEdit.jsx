@@ -27,7 +27,7 @@ const FORM_RULE=[
     },
     {
         name:'episodeTotal',
-        label:'分集数',
+        label:'总分集',
         placeholder:'填写总的分集数量.如果未知,请填0',
         type:'text'
     },
@@ -38,6 +38,12 @@ const FORM_RULE=[
     }
 ]
 const FORM_RULE_EDIT=[
+    {
+        name:'episodeCur',
+        label:'当前分集',
+        placeholder:'填写当前分集数量',
+        type:'text'
+    },
     {
         name:'status',
         label:'剧集状态',
@@ -73,44 +79,50 @@ class animeGroupEdit extends Component {
         const {animeGroupDetail,routing} = this.props;
         const {formRule} = this.state;
         let query=getQuery(routing);
-        if(formRule.length===0){
+        if(formRule.length===0&&animeGroupDetail._id){
             //查询缓存数据为空时重组数据
-            if(formRule.length===0&&query.id&&animeGroupDetail._id){
-                let newFormRule=FORM_RULE.map(rule=>{
-                    switch(rule.name){
-                        case 'type':
-                            return Object.assign({},rule,{
-                                value:animeGroupDetail['type'],
-                                disabled:true
-                            })
-                            break;
-                        case 'episodeTotal':
-                            return Object.assign({},rule,{
-                                value:animeGroupDetail['episode_total']
-                            })
-                            break;
-                        default:
-                            if(rule.name){
-                                return Object.assign({},rule,{
-                                    value:animeGroupDetail[rule.name]
-                                })
-                            }
-                            return Object.assign({},rule);
-                    }
-                });
-                let newFormRuleEdit=FORM_RULE_EDIT.map((rule)=>{
-                    if(rule.name){
+            let newFormRule=FORM_RULE.map(rule=>{
+                switch(rule.name){
+                    case 'type':
                         return Object.assign({},rule,{
-                            value:animeGroupDetail[rule.name]
+                            value:animeGroupDetail['type'],
+                            disabled:true
                         })
-                    }
-                    return Object.assign({},rule);
-                })
-                let resultFormRule=[].concat(newFormRule.slice(0,newFormRule.length-1),newFormRuleEdit,newFormRule.slice(newFormRule.length-1));
-                this.setState({
-                    formRule:resultFormRule
-                });
-            }
+                        break;
+                    case 'episodeTotal':
+                        return Object.assign({},rule,{
+                            value:animeGroupDetail['episode_total']
+                        })
+                        break;
+                    default:
+                        if(rule.name){
+                            return Object.assign({},rule,{
+                                value:animeGroupDetail[rule.name]
+                            })
+                        }
+                        return Object.assign({},rule);
+                }
+            });
+            let newFormRuleEdit=FORM_RULE_EDIT.map((rule)=>{
+                switch(rule.name){
+                    case 'episodeCur':
+                        return Object.assign({},rule,{
+                            value:animeGroupDetail['episode_cur']
+                        })
+                        break;
+                    default:
+                        if(rule.name){
+                            return Object.assign({},rule,{
+                                value:animeGroupDetail[rule.name]
+                            })
+                        }
+                        return Object.assign({},rule);
+                }
+            })
+            let resultFormRule=[].concat(newFormRule.slice(0,newFormRule.length-1),newFormRuleEdit,newFormRule.slice(newFormRule.length-1));
+            this.setState({
+                formRule:resultFormRule
+            });
         }
     }
     componentWillUnmount(){
@@ -154,6 +166,12 @@ class animeGroupEdit extends Component {
         let sendData=Object.assign({},data);
         //检测是否为编辑
         if(animeGroupDetail._id){
+            if(!(parseInt(data.episodeCur)>=1)){
+                dispatch(modalUpdate({
+                    tip:'请输入有效的当前分集数量'
+                }));
+                return;
+            }
             let compareData=getObjCompareResult(sendData,animeGroupDetail);
             if(compareData){
                 dispatch(editAnimeGroup(Object.assign({},compareData,{

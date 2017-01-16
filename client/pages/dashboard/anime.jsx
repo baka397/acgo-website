@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {push} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
 import {clientPath} from '../../config';
 import {getParams,getImageUrl,isObjEmpty,authRole} from '../../common/tool';
@@ -186,8 +187,9 @@ class Anime extends Component {
         const {animeDetail,dispatch} = this.props;
         dispatch(subAnime(animeDetail._id,status));
     }
-    handleGroupClick(id,page){
-        console.log(id,page);
+    handleGroupClick(id,ep){
+        const {dispatch} = this.props;
+        dispatch(push(clientPath+'/dashboard/anime/play/?groupId='+id+'&ep='+ep));
     }
 }
 export default connect(propMap)(Anime);

@@ -9,8 +9,8 @@ import {getAnimeSubList} from '../../actions/anime_sub';
 
 function propMap(state){
     return {
-        animeSub:state.animeSub,
-        animeWatch:state.animeWatch
+        animeWatch:state.animeWatch.content,
+        animeSub:state.animeSub
     }
 }
 

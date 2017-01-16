@@ -39,11 +39,20 @@ function getTitle(channel,service){
                 case '/anime/edit':
                     return '编辑动画';
                     break;
+                case '/anime/play':
+                    return '播放动画';
+                    break;
                 case '/anime-group/add':
                     return '添加剧集';
                     break;
                 case '/anime-group/edit':
                     return '编辑剧集';
+                    break;
+                case '/anime-group/item/add':
+                    return '添加剧集分集';
+                    break;
+                case '/anime-group/item/edit':
+                    return '编辑剧集分集';
                     break;
                 case '/anime/audit':
                     return '审核动画';
@@ -62,8 +71,11 @@ function getBackStatus(channel,service){
             switch(service){
                 case '/anime/add':
                 case '/anime/edit':
+                case '/anime/play':
                 case '/anime-group/add':
                 case '/anime-group/edit':
+                case '/anime-group/item/add':
+                case '/anime-group/item/edit':
                     return true;
                     break;
                 case '/anime/audit':

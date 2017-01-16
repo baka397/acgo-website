@@ -13,6 +13,7 @@ import anime from './anime';
 import animeSub from './anime_sub';
 import animeWatch from './anime_watch';
 import animeGroup from './anime_group';
+import animeItem from './anime_item';
 
 export const reducer = combineReducers({
     modal,
@@ -22,5 +23,6 @@ export const reducer = combineReducers({
     animeSub,
     animeWatch,
     animeGroup,
+    animeItem,
     routing: routerReducer
 })

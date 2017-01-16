@@ -1,0 +1,45 @@
+.app-player{
+    width: 970px;
+    height: 610px;
+    margin: 10px auto;
+    overflow: hidden;
+    .flex();
+}
+.app-playlist{
+    ul.item-list{
+        margin: 10px 0;
+        li{
+            position: relative;
+            z-index: 1;
+            height: 30px;
+            margin: 1px 0;
+            padding: 0 10px;
+            cursor: pointer;
+            line-height: 30px;
+            .ellipsis();
+            span{
+                margin: 0 10px 0 0;
+                color: lighten(@color-default, 10%);
+            }
+            &::after{
+                content:'';
+                position: absolute;
+                z-index: -1;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                width: 0;
+                background: @color-primary;
+                .trans(width,0.3s);
+            }
+            &.active,&:hover{
+                &::after{
+                    width: 100%;
+                }
+            }
+            &.active{
+                cursor: no-drop;
+            }
+        }
+    }
+}

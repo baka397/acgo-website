@@ -29,17 +29,24 @@ class Group extends Component {
                     {order.map((id)=>{
                         let item=content[id];
                         let watchInfo=watch.content[id]||{};
+                        let playInfo;
+                        if(item.episode_cur){
+                            playInfo=<span className="play m-r"><i className="icon icon-play m-r-sm"></i>点击{watchInfo.watch_ep?'继续':'开始'}播放</span>;
+                        }else{
+                            playInfo=<span className="play m-r"><i className="icon icon-ban m-r-sm"></i>暂时无法播放</span>;
+                        }
                         return (
                             <div key={id} className={'group-item'+(item.episode_cur?'':' group-item-disabled')}>
                                 <div className="group-item-title">
-                                    <h3 onClick={(e)=>{this.handlePageClick(id,1,item.episode_cur)}}>
+                                    <h3 onClick={(e)=>{this.handlePageClick(id,watchInfo.watch_ep,item.episode_cur)}}>
+                                        {playInfo}
                                         {type[item.type]}<span className="m-l">(更新至{item.episode_cur}话,已观看{watchInfo.watch_ep||0}话)</span>
                                     </h3>
                                     <div className="btns">
                                         {btns.map((btn)=>{
                                             switch(btn){
                                                 case 'add':
-                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/item/add'}><i className="icon icon-plus m-r-sm"></i>添加分集</Link>;
+                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/item/add?groupId='+id}><i className="icon icon-plus m-r-sm"></i>添加分集</Link>;
                                                     break;
                                                 case 'task':
                                                     return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/task/'}><i className="icon icon-search m-r-sm"></i>查询抓取任务</Link>;
@@ -65,10 +72,12 @@ class Group extends Component {
             </div>
         )
     }
-    handlePageClick(groupId,page,curEp){
+    handlePageClick(groupId,watched,curEp){
         const {onGroupClick} = this.props;
         if(!curEp) return;
-        onGroupClick(groupId,page);
+        let watchedNum=(watched||0)+1;
+        if(watchedNum>curEp) watchedNum=curEp;
+        onGroupClick(groupId,watchedNum);
     }
 }
 

@@ -1,5 +1,7 @@
-import {maxUploadSize,uploadPath,downloadPath} from '../config';
+import {maxUploadSize,uploadPath,downloadPath,pageSize} from '../config';
 import {fetch} from './api';
+
+const IS_CLIENT = false;
 
 export function isObjEmpty(obj) {
     // Speed up calls to hasOwnProperty
@@ -28,6 +30,12 @@ export function isObjEmpty(obj) {
     return true;
 }
 
+/**
+ * 检测角色
+ * @param  {String} roleName   角色名称
+ * @param  {String} roleString 角色列表
+ * @return {Boolen}            是否有该角色
+ */
 export function authRole(roleName,roleString){
     let roleArray=roleString.split(',');
     return roleArray.indexOf(roleName)>=0;
@@ -196,4 +204,20 @@ export function getObjType(obj){
             break;
     }
     return resultType;
+}
+/**
+ * 获取页码
+ * @param  {Number} no 当前数字
+ * @return {Number}    页码
+ */
+export function getPage(no){
+    return Math.ceil(no/pageSize);
+}
+
+/**
+ * 获取客户端状态
+ * @return {Boolean} 是否在客户端内
+ */
+export function isClent(){
+    return IS_CLIENT;
 }
