@@ -26,7 +26,7 @@ class Anime extends Component {
                             if(watchDatas[group.id]){
                                 watchData=Object.assign({},watchDatas[group.id]);
                                 watchData.total=group.episode_cur;
-                                watchData.percent=Math.ceil(watchData.watch_ep/group.episode_cur);
+                                watchData.percent=Math.ceil((watchData.watch_ep/group.episode_cur)*100);
                                 return true;
                             }
                             return false;

@@ -144,6 +144,13 @@ ReactDOM.render(
                             })
                         }} />
                     </Route>
+                    <Route path="task" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/animeGroupTaskEdit.jsx').default,
+                            })
+                        })
+                    }} />
                 </Route>
             </Route>
             <Route path="*" component={NotFound} />

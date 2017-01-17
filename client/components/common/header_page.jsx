@@ -54,6 +54,9 @@ function getTitle(channel,service){
                 case '/anime-group/item/edit':
                     return '编辑剧集分集';
                     break;
+                case '/anime-group/task':
+                    return '查询抓取任务';
+                    break;
                 case '/anime/audit':
                     return '审核动画';
                     break;
@@ -76,6 +79,7 @@ function getBackStatus(channel,service){
                 case '/anime-group/edit':
                 case '/anime-group/item/add':
                 case '/anime-group/item/edit':
+                case '/anime-group/task':
                     return true;
                     break;
                 case '/anime/audit':

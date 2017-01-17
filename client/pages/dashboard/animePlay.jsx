@@ -32,6 +32,8 @@ class AnimePlay extends Component {
         }
         this.state={
             curItemId:'',
+            curEpisodeNo:'',
+            curEpisodeName:'',
             playBtns
         }
         this.handleGroupItemClick = this.handleGroupItemClick.bind(this);
@@ -54,15 +56,22 @@ class AnimePlay extends Component {
         let beforeQuery=getQuery(routing);
         if(animeItem.order.length>0&&!curItemId){
             let curId='';
+            let curEpisodeNo='';
+            let curEpisodeName='';
             animeItem.order.some((key)=>{
+                let curItem=animeItem.content[key];
                 curId=key;
-                if(animeItem.content[key].episode_no===parseInt(query.ep)){
+                curEpisodeNo=curItem.episode_no;
+                curEpisodeName=curItem.episode_name;
+                if(curItem.episode_no===parseInt(query.ep)){
                     return true;
                 }
                 else false;
             })
             this.setState({
-                curItemId:curId
+                curItemId:curId,
+                curEpisodeNo,
+                curEpisodeName
             })
         }
         if(curItemId&&curItemId!==prevState.curItemId){
@@ -79,7 +88,7 @@ class AnimePlay extends Component {
     }
     render() {
         const {animeItem,animeGroupDetail} = this.props;
-        const {curItemId,playBtns} = this.state;
+        const {curItemId,curEpisodeNo,curEpisodeName,playBtns} = this.state;
         if(!curItemId) return null;
         return (
             <div className="app-anime-player m">
@@ -94,7 +103,7 @@ class AnimePlay extends Component {
                                 }
                             })}
                         </div>
-                        <h1>第{animeItem.content[curItemId].episode_no}话:{animeItem.content[curItemId].episode_name}</h1>
+                        <h1>第{curEpisodeNo}话:{curEpisodeName}</h1>
                     </div>
                     <Player id={curItemId} type={animeGroupDetail.type} />
                 </div>
@@ -114,10 +123,13 @@ class AnimePlay extends Component {
         }))
     }
     handleGroupItemClick(id,ep){
-        const {routing,dispatch} = this.props;
+        const {animeItem,routing,dispatch} = this.props;
         let query=getQuery(routing);
+        let curItem=animeItem.content[id];
         this.setState({
-            curItemId:id
+            curItemId:id,
+            curEpisodeNo:curItem.episode_no,
+            curEpisodeName:curItem.episode_name
         })
         dispatch(replace(clientPath+'/dashboard/anime/play/?'+serialize(Object.assign({},query,{
             ep

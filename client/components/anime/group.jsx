@@ -49,7 +49,7 @@ class Group extends Component {
                                                     return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/item/add?groupId='+id}><i className="icon icon-plus m-r-sm"></i>添加分集</Link>;
                                                     break;
                                                 case 'task':
-                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/task/'}><i className="icon icon-search m-r-sm"></i>查询抓取任务</Link>;
+                                                    return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/task/?groupId='+id}><i className="icon icon-search m-r-sm"></i>查询抓取任务</Link>;
                                                     break;
                                                 case 'edit':
                                                     return <Link key={btn} className="m-l" to={clientPath+'/dashboard/anime-group/edit?id='+id}><i className="icon icon-edit m-r-sm"></i>编辑剧集信息</Link>;

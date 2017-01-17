@@ -12,14 +12,13 @@ class NormalPage extends Component {
         let pageTotal=Math.ceil(total/pageSize);
         if(pageTotal===0) pageTotal=1;
         let pageStart = page - 2 > 0 ? page - 2 : 1;
-        let pageEnd = pageStart + 4 >= pageTotal ? pageTotal : pageStart + 4;
-        let pagePrev,pagePrevMore,pageNext,pageNextMore,pageList=[];
+        let pagePrev,pageNext;
         if(page===1){
             pagePrev=(<li className="disabled"><a>&lt;</a></li>);
         }else{
             pagePrev=(<li><a onClick={(e)=>{this.handlePageClick(page-1)}}>&lt;</a></li>);
         }
-        if(pageTotal===pageEnd){
+        if(pageTotal===page){
             pageNext=(<li className="disabled"><a>&gt;</a></li>);
         }else{
             pageNext=(<li><a onClick={(e)=>{this.handlePageClick(page+1)}}>&gt;</a></li>);

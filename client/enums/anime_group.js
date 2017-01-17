@@ -15,9 +15,15 @@ exports.typeTip={
         'item':'http://bangumi.bilibili.com/anime/v/96644,http://www.bilibili.com/video/av8028645/,http://bangumi.bilibili.com/anime/5832/play#100381'
     },
     '2':{
-        'task':'http://www.dilidili.com/anime/selector/',
-        'item':'http://www.dilidili.com/watch/9076/'
+        'task':'http://www.dilidili.com/anime/selector/,http://www.dilidili.wang/anime/selector/',
+        'item':'http://www.dilidili.com/watch/9076/,http://www.dilidili.wang/watch/9076/'
     }
+}
+//合集任务状态
+exports.taskStatus={
+    '1':'正常',
+    '0':'暂停',
+    '-1':'停止'
 }
 //合集任务周期
 exports.taskPeriod={

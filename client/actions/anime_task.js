@@ -3,19 +3,19 @@ import {goBack} from 'react-router-redux'; //router跳转方法
 import {fetch} from '../common/api';
 import {modalUpdate,modalClean} from './modal';
 
-export const UPDATE_ANIME_ITEM = 'UPDATE_ANIME_ITEM';
-export const CLEAN_ANIME_ITEM = 'CLEAN_ANIME_ITEM';
-export const UPDATE_ANIME_ITEM_DETAIL = 'UPDATE_ANIME_ITEM_DETAIL';
+export const CLEAN_ANIME_TASK = 'CLEAN_ANIME_TASK';
+export const UPDATE_ANIME_TASK_DETAIL = 'UPDATE_ANIME_TASK_DETAIL';
 
-export function getAnimeItemDetail(data){
+export function getAnimeTaskDetail(data){
     return function(dispatch){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('animeItemDetail',data).then((res)=>{
-            dispatch(updateAnimeItemDetail(res.data));
+        fetch('animeTaskDetail',data).then((res)=>{
+            dispatch(updateAnimeTaskDetail(res.data));
             dispatch(modalClean('loading'));
         }).catch((err)=>{
+            dispatch(updateAnimeTaskDetail());
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
@@ -24,30 +24,12 @@ export function getAnimeItemDetail(data){
     }
 }
 
-export function getAnimeItemList(data){
+export function editAnimeTask(data){
     return function(dispatch){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('animeItemList',data).then((res)=>{
-            dispatch(updateAnimeItem(res.data));
-            dispatch(modalClean('loading'));
-        }).catch((err)=>{
-            console.log(err);
-            dispatch(modalUpdate({
-                tip:err.message,
-                loading:null
-            }))
-        })
-    }
-}
-
-export function editAnimeItem(data){
-    return function(dispatch){
-        dispatch(modalUpdate({
-            loading:true
-        }));
-        fetch('animeItemEdit',data,'POST').then((res)=>{
+        fetch('animeTaskEdit',data,'POST').then((res)=>{
             dispatch(modalUpdate({
                 tip:res.msg,
                 loading:null
@@ -62,12 +44,12 @@ export function editAnimeItem(data){
     }
 }
 
-export function addAnimeItem(data){
+export function addAnimeTask(data){
     return function(dispatch){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('animeItemAdd',data,'POST').then((res)=>{
+        fetch('animeTaskAdd',data,'POST').then((res)=>{
             dispatch(modalUpdate({
                 tip:res.msg,
                 loading:null
@@ -79,18 +61,6 @@ export function addAnimeItem(data){
                 loading:null
             }))
         })
-    }
-}
-
-/**
- * 更新动画剧集数据
- * @param  {Object} data 用户数据
- * @return {Object}      action数据
- */
-export function updateAnimeItem(data){
-    return {
-        type: UPDATE_ANIME_ITEM,
-        data: data
     }
 }
 /**
@@ -98,9 +68,9 @@ export function updateAnimeItem(data){
  * @param  {Object} data 用户数据
  * @return {Object}      action数据
  */
-export function updateAnimeItemDetail(data){
+export function updateAnimeTaskDetail(data){
     return {
-        type: UPDATE_ANIME_ITEM_DETAIL,
+        type: UPDATE_ANIME_TASK_DETAIL,
         data: data
     }
 }
@@ -109,8 +79,8 @@ export function updateAnimeItemDetail(data){
  * 清除动画剧集数据
  * @return {Object} action数据
  */
-export function cleanAnimeItem(){
+export function cleanAnimeTask(){
     return {
-        type: CLEAN_ANIME_ITEM
+        type: CLEAN_ANIME_TASK
     }
 }

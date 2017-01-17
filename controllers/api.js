@@ -215,6 +215,27 @@ router.post('/anime/item/edit', function(req, res, next){
         next(err);
     })
 })
+router.post('/anime/task/add/', function(req, res, next){
+    api.request(req.token,'animeGroupTask',req.body,'POST').then(function(data){
+        res.send(tool.buildResJson('添加剧集任务成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.get('/anime/task/detail', function(req, res, next){
+    api.request(req.token,'animeGroupTaskGroupDetail',req.query).then(function(data){
+        res.send(tool.buildResJson('查询剧集任务成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
+router.post('/anime/task/edit', function(req, res, next){
+    api.request(req.token,'animeGroupTaskDetail',req.body,'PUT').then(function(data){
+        res.send(tool.buildResJson('修改剧集任务成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+})
 
 router.get('/uploadToken', function(req, res, next){
     api.request(req.token,'uploadToken').then(function(data){

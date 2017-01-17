@@ -21,6 +21,9 @@ const URL = {
     animeGroupDetail:'/anime-group/:id',
     animeGroupItem:'/anime-group/item',
     animeGroupItemDetail:'/anime-group/item/:id',
+    animeGroupTask:'/anime-group/task',
+    animeGroupTaskGroupDetail:'/anime-group/task/group/:id',
+    animeGroupTaskDetail:'/anime-group/task/:id',
     uploadToken:'/upload/token/',
     tag:'/tag/'
 }

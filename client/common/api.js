@@ -23,6 +23,9 @@ const URLS={
     animeItemEdit:apiPath+'/anime/item/edit/', //动画剧集分集修改
     animeItemList:apiPath+'/anime/item/', //动画剧集分集列表
     animeItemDetail:apiPath+'/anime/item/detail', //动画剧集分集列表
+    animeTaskAdd:apiPath+'/anime/task/add/', //动画剧集任务增加
+    animeTaskEdit:apiPath+'/anime/task/edit/', //动画剧集任务修改
+    animeTaskDetail:apiPath+'/anime/task/detail', //动画剧集任务列表
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签

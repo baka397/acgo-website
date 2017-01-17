@@ -33,7 +33,7 @@ class Sub extends Component {
                         {player}
                     </Link>
                 </div>
-                <div className="progress"><span style={{width:watchPercent*100+'%'}}></span></div>
+                <div className="progress"><span style={{width:watchPercent+'%'}}></span></div>
                 <p className="title" title={data.name}><Link to={clientPath+'/dashboard/anime/'+data._id}>{data.name}</Link></p>
                 <p className="alias" title={data.alias}>{data.alias}</p>
             </div>
