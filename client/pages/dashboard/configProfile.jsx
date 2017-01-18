@@ -17,7 +17,7 @@ const FORM_RULE = [
     {
         label:'修改资料',
         type:'submit',
-        icon:'confirm'
+        icon:'edit'
     }
 ]
 

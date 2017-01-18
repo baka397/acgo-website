@@ -28,7 +28,7 @@ const FORM_RULE = [
     {
         label:'修改密码',
         type:'submit',
-        icon:'confirm'
+        icon:'edit'
     }
 ]
 

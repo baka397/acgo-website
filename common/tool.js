@@ -1,6 +1,13 @@
 'use strict';
 const STATUS_CODE = require('../enums/status_code');
 
+exports.filterReqLog = function(data){
+    let result=Object.assign({},data);
+    if(result.password) delete result.password;
+    if(result.oldPassword) delete result.oldPassword;
+    return JSON.stringify(result);
+}
+
 /**
  * 判断当前是否为ajax请求
  * @param req
