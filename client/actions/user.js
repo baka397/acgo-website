@@ -71,6 +71,16 @@ export function userLogin(data){
     }
 }
 
+function clearUserInfo(dispatch){
+    //清除登录数据
+    dispatch(cleanUser());
+    //清除订阅数据
+    dispatch(cleanAnimeSub());
+    dispatch(cleanAnimeWatch());
+    dispatch(modalClean('loading'));
+    dispatch(push(clientPath+'/common/'));
+}
+
 /**
  * 用户登出
  * @return {function} thunk函数
@@ -81,13 +91,74 @@ export function userLogout(){
             loading:true
         }));
         fetch('logout',null,'POST').then((res)=>{
-            //清除登录数据
-            dispatch(cleanUser());
-            //清除订阅数据
-            dispatch(cleanAnimeSub());
-            dispatch(cleanAnimeWatch());
+            clearUserInfo(dispatch);
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+/**
+ * 用户修改密码
+ * @return {function} thunk函数
+ */
+export function userChangePassword(data){
+    let sendData = {
+        oldPassword:md5(data.oldPassword).toUpperCase(),
+        password:md5(data.password).toUpperCase()
+    }
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('changePassword',sendData,'POST').then((res)=>{
+            dispatch(modalUpdate({
+                tip:res.msg
+            }))
+            clearUserInfo(dispatch);
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+export function userGet(){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('me').then((res)=>{
+            dispatch(updateUser(res.data));
             dispatch(modalClean('loading'));
-            dispatch(push(clientPath+'/common/'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+/**
+ * 用户修改资料
+ * @return {function} thunk函数
+ */
+export function userChangeProfile(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('profile',data,'POST').then((res)=>{
+            dispatch(modalUpdate({
+                tip:res.msg
+            }))
+            dispatch(userGet());
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,

@@ -41,6 +41,22 @@ router.post('/login', function(req, res, next){
     })
 });
 
+router.post('/changePassword', function(req, res, next){
+    api.request(req.token,'userInfo',req.body,'PUT').then(function(data){
+        res.send(tool.buildResJson('重置密码成功,请重新登录',null));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
+router.post('/profile', function(req, res, next){
+    api.request(req.token,'userInfo',req.body,'PUT').then(function(data){
+        res.send(tool.buildResJson('更新资料成功',null));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
 router.get('/me', function(req, res, next){
     api.request(req.token,'userInfo').then(function(data){
         res.send(tool.buildResJson('获取个人数据成功',data));

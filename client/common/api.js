@@ -4,6 +4,8 @@ import {nextPromise,serialize} from './tool';
 const URLS={
     register:apiPath+'/register', //用户注册
     login:apiPath+'/login', //用户登录
+    changePassword:apiPath+'/changePassword', //用户重置密码
+    profile:apiPath+'/profile', //用户资料
     logout:apiPath+'/logout', //用户登出
     me:apiPath+'/me', //用户自有信息
     animeSearch:apiPath+'/anime/', //动画搜索

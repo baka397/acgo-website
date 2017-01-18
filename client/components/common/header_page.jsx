@@ -60,6 +60,15 @@ function getTitle(channel,service){
                 case '/anime/audit':
                     return '审核动画';
                     break;
+                case '/config':
+                    return '修改密码';
+                    break;
+                case '/config/profile':
+                    return '修改资料';
+                    break;
+                case '/config/client':
+                    return '客户端配置';
+                    break;
                 default:
                     if(/\/anime\/\w+$/.test(service)) return '动画详情';
             }

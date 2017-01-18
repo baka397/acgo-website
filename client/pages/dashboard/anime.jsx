@@ -124,7 +124,7 @@ class Anime extends Component {
             subBtn=<a className="btn btn-info btn-sm m-l" onClick={()=>{this.handleSub(1)}}><i className="icon icon-star-full m-r-sm"></i>立即订阅</a>;
         }
         return (
-            <div className="app-anime">
+            <div className="app-anime m-t">
                 <div className="app-anime-cover">
                     <img src={getImageUrl(animeDetail.cover,animeDetail.cover_clip,copperWidth)} width={copperWidth} height={copperHeight} />
                     <div className="title">

@@ -37,9 +37,10 @@ const history = syncHistoryWithStore(browserHistory,store);
 import Layout from './pages/layout.jsx'; //框架
 import CommonLayout from './pages/common/layout.jsx'; //未登录框架
 import DashboardLayout from './pages/dashboard/layout.jsx'; //登录框架
+import ConfigLayout from './pages/dashboard/configLayout.jsx'; //配置框架
 
 import Index from './pages/index.jsx'; //首页
-import NotFound from './pages/not_found.jsx'; //404页面
+import NotFound from './pages/notFound.jsx'; //404页面
 
 //创建路由
 ReactDOM.render(
@@ -148,6 +149,21 @@ ReactDOM.render(
                         require.ensure([], function (require) {
                             callback(null, {
                                 component: require('./pages/dashboard/animeGroupTaskEdit.jsx').default,
+                            })
+                        })
+                    }} />
+                </Route>
+                <Route path="config" component={ConfigLayout} getIndexRoute={(partialNextState, callback)=>{
+                    require.ensure([], function (require) {
+                        callback(null, {
+                            component: require('./pages/dashboard/configPassword.jsx').default,
+                        })
+                    })
+                }}>
+                    <Route path="profile" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/configProfile.jsx').default,
                             })
                         })
                     }} />
