@@ -23,6 +23,9 @@ function getTitle(channel,service){
                 case '/register':
                     return '注册';
                     break;
+                case '/getpwd':
+                    return '找回密码';
+                    break;
             }
             break;
         case 'dashboard':

@@ -2,7 +2,7 @@
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
 <svg xmlns="http://www.w3.org/2000/svg">
 <metadata>
-Created by FontForge 20120731 at Mon Jan 16 15:19:22 2017
+Created by FontForge 20120731 at Thu Jan 19 17:09:03 2017
  By admin
 </metadata>
 <defs>
@@ -54,6 +54,8 @@ d="M992 -59l-242 206q-38 33 -74 32q92 107 92 249q0 104 -51.5 192.5t-140 140t-192
 q-106 0 -181 75t-75 181t75 181t181 75t181 -75t75 -181t-75 -181t-181 -75z" />
     <glyph glyph-name="min" unicode="&#xe709;" 
 d="M85 427h854v-86h-854v86z" />
+    <glyph glyph-name="mail" unicode="&#xe620;" 
+d="M768 -212l-339 254l467 642l-601 -541l-295 221l1024 448zM256 -212v256l192 -128z" />
     <glyph glyph-name="back" unicode="&#xe608;" 
 d="M768 620l-321 -320l321 -320l-64 -64l-386 384l386 384z" />
     <glyph glyph-name="download" unicode="&#xe614;" 

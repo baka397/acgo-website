@@ -71,6 +71,67 @@ export function userLogin(data){
     }
 }
 
+/**
+ * 发送找回密码邮件
+ * @param  {Object} data 注册数据
+ * @return {function}    thunk函数
+ */
+export function userSendMail(data){ 
+    return function(dispatch){
+        let sendData = {
+            email:data.email
+        }
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('sendPwdMail',sendData,'POST').then((res)=>{
+            dispatch(modalUpdate({
+                tip:res.msg,
+                loading:null
+            }))
+            dispatch(push(clientPath+'/common/'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+/**
+ * 重置密码
+ * @param  {Object} data 注册数据
+ * @return {function}    thunk函数
+ */
+export function userResetPwd(data){ 
+    return function(dispatch){
+        let sendData = {
+            password:md5(data.password).toUpperCase(),
+            resetToken:data.token
+        }
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('resetPwd',sendData,'POST').then((res)=>{
+            dispatch(modalUpdate({
+                tip:res.msg,
+                loading:null
+            }))
+            dispatch(push(clientPath+'/common/'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }))
+        })
+    }
+}
+
+/**
+ * 清除用户数据
+ * @param  {Function} dispatch 分发器
+ */
 function clearUserInfo(dispatch){
     //清除登录数据
     dispatch(cleanUser());

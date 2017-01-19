@@ -62,6 +62,20 @@ ReactDOM.render(
                         })
                     })
                 }} />
+                <Route path="getpwd" getIndexRoute={(partialNextState, callback)=>{
+                    require.ensure([], function (require) {
+                        callback(null, {
+                            component: require('./pages/common/getpwd.jsx').default,
+                        })
+                    })
+                }} />
+                <Route path="resetpwd" getIndexRoute={(partialNextState, callback)=>{
+                    require.ensure([], function (require) {
+                        callback(null, {
+                            component: require('./pages/common/resetpwd.jsx').default,
+                        })
+                    })
+                }} />
             </Route>
             <Route path="dashboard" component={DashboardLayout} getIndexRoute={(partialNextState, callback)=>{
                 require.ensure([], function (require) {

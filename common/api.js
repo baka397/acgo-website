@@ -9,6 +9,8 @@ const URL = {
     userInfo: '/user/me',
     register: '/user/',
     login:'/user/login/',
+    sendPwdMail:'/user/send/',
+    resetPwd:'/user/reset/',
     anime:'/anime/',
     animeEdit:'/anime/:id',
     animeSub:'/anime/sub/:id',

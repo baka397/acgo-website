@@ -16,6 +16,7 @@ let defaultConfig = {
 	tokenName:'acgosid',                                    // API token名称
 	tokenAge: 90*24*60*60*1000,                             // token过期时间(毫秒)
 	tokenSecure: false,                                     // 是否仅https有效
+	clientPath:'http://127.0.0.1:8001/client',              // 客户端地址
 	//api信息
 	apiPath:'http://127.0.0.1:8000/api/v1',                 // API地址
     apiAlias:'client',                                      // API项目名称

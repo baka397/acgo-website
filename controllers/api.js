@@ -74,6 +74,25 @@ router.post('/logout', function(req, res, next){
     })
 });
 
+router.post('/sendPwdMail', function(req, res, next){
+    api.request(req.token,'sendPwdMail',{
+        email:req.body.email,
+        backurl:CONFIG.clientPath+'/common/resetpwd'
+    },'POST').then(function(data){
+        res.send(tool.buildResJson('发送邮件成功,请注意查收邮件!如果长时间没有收到邮件,请查看垃圾邮箱或联系管理员解决.',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
+router.post('/resetPwd', function(req, res, next){
+    api.request(req.token,'resetPwd',req.body,'POST').then(function(data){
+        res.send(tool.buildResJson('重置密码成功',data));
+    }).catch(function(err){
+        next(err);
+    })
+});
+
 router.get('/anime/', function(req, res, next){
     api.request(req.token,'anime',{
         keyword:req.query.keyword,

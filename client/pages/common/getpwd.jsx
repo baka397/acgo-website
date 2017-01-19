@@ -7,30 +7,24 @@ import {clientPath} from '../../config';
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {userLogin} from '../../actions/user';
+import {userSendMail} from '../../actions/user';
 
 const FORM_RULE = [
     {
         name:'email',
         type:'text',
-        label:'邮箱',
+        label:'注册邮箱',
         placeholder:'请输入邮箱'
     },
     {
-        name:'password',
-        type:'password',
-        label:'密码',
-        placeholder:'请输入密码'
-    },
-    {
-        label:'登录',
+        label:'发送邮件',
         type:'submit',
         icon:'confirm'
     }
 ]
 
 //封装组件
-class Login extends Component {
+class Getpwd extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,10 +32,9 @@ class Login extends Component {
     render() {
         return (
             <div className="app-common-form m">
-                <FormList rules={FORM_RULE} onSubmit={this.handleSubmit} />
+                <FormList rules={FORM_RULE} longlabel={true} onSubmit={this.handleSubmit} />
                 <div className="form-link text-right">
-                    <Link to={clientPath+'/common/register/'}>邀请码注册</Link>
-                    <Link to={clientPath+'/common/getpwd/'} className="m-l">忘记密码</Link>
+                    <Link to={clientPath+'/common/'}>返回登录</Link>
                 </div>
             </div>
         )
@@ -54,14 +47,8 @@ class Login extends Component {
             }));
             return;
         }
-        if(!data.password){
-            dispatch(modalUpdate({
-                tip:'请输入正确的密码'
-            }))
-            return;
-        }
-        dispatch(userLogin(data));
+        dispatch(userSendMail(data));
     }
 }
 
-export default connect()(Login);
+export default connect()(Getpwd);

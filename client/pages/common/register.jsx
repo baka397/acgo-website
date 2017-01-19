@@ -55,9 +55,9 @@ class Register extends Component {
     }
     render() {
         return (
-            <div className="app-register m">
+            <div className="app-common-form m">
                 <FormList rules={FORM_RULE} onSubmit={this.handleSubmit} longlabel={true} />
-                <div className="app-register-link text-right">
+                <div className="form-link text-right">
                     <Link to={clientPath+'/common/'}>已有账号,立即登录</Link>
                 </div>
             </div>
