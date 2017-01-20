@@ -7,7 +7,8 @@ import Footer from '../../components/common/footer.jsx';
 import {authLoginStatus} from '../../actions/auth';
 import {userLogout} from '../../actions/user';
 
-import {isObjEmpty,authRole} from '../../common/tool';
+import {isObjEmpty,authRole,isClient} from '../../common/tool';
+import {windowChange} from '../../common/ipc';
 
 function propMap(state,ownProps){
     return {
@@ -27,13 +28,13 @@ let nav=[
 ];
 
 //封装组件
-class FrameDefault extends Component {
+class DashboardLayout extends Component {
     constructor(props){
         super(props);
         this.state = {
-            nav: nav
+            nav: nav,
+            icons: isClient()?['min','max','close']:[]
         };
-        this.handleIconClick = this.handleIconClick.bind(this);
         this.handleToolbarClick = this.handleToolbarClick.bind(this);
     }
     componentDidMount(){
@@ -49,25 +50,23 @@ class FrameDefault extends Component {
                 nav:adminNav
             });
         }
+        windowChange('dashboard');
     }
     render() {
         const {user,routing} = this.props;
-        const {nav} = this.state;
+        const {nav,icons} = this.state;
         if(isObjEmpty(user)){
             return null;
         }
         return (
             <div className="app-dashboard">
-                <HeaderPage route={routing} icons={['min','max','close']} onIconClick={this.handleIconClick} />
+                <HeaderPage route={routing} icons={icons} />
                 <div className="app-content">
                     {this.props.children}
                 </div>
                 <Footer nav={nav} onToolbarClick={this.handleToolbarClick} />
             </div>
         )
-    }
-    handleIconClick(iconName){
-        console.log(iconName);
     }
     handleToolbarClick(toolName){
         const {dispatch} = this.props;
@@ -78,4 +77,4 @@ class FrameDefault extends Component {
         }
     }
 }
-export default connect(propMap)(FrameDefault);
+export default connect(propMap)(DashboardLayout);

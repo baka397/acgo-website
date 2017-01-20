@@ -1,0 +1,7 @@
+(function getPlayer(){
+    let player=document.getElementById('bofqi');
+    let content=player.firstChild;
+    content.setAttribute('width','100%');
+    content.setAttribute('height','100%');
+    document.write(player.innerHTML);
+})();

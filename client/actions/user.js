@@ -1,6 +1,6 @@
 //加载依赖
 import {push} from 'react-router-redux'; //router跳转方法
-import md5 from 'md5';
+import md5 from 'blueimp-md5';
 import {fetch} from '../common/api';
 import {clientPath} from '../config';
 

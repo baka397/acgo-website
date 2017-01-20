@@ -5,8 +5,8 @@ exports.status={
 }
 //剧集类型
 exports.type={
-    '1':'B站',
-    '2':'D站'
+    '1':'弹幕版',
+    '2':'无弹幕版'
 }
 //剧集类型说明
 exports.typeTip={

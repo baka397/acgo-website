@@ -1,11 +1,11 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {goBack} from 'react-router-redux';
+import {clientPath} from '../../config';
+import {windowClose,windowMin,windowMax} from '../../common/ipc';
 
 import Icon from './header_icon.jsx';
 import Header from './header.jsx';
-
-import {clientPath} from '../../config';
 
 /**
  * 获取页面标题
@@ -24,7 +24,10 @@ function getTitle(channel,service){
                     return '注册';
                     break;
                 case '/getpwd':
-                    return '找回密码';
+                    return '发送找回密码邮件';
+                    break;
+                case '/resetpwd':
+                    return '重设密码';
                     break;
             }
             break;
@@ -129,6 +132,15 @@ class HeaderPage extends Component {
         switch(iconName){
             case 'back':
                 dispatch(goBack());
+                break;
+            case 'min':
+                windowMin();
+                break;
+            case 'max':
+                windowMax();
+                break;
+            case 'close':
+                windowClose();
                 break;
         }
     }

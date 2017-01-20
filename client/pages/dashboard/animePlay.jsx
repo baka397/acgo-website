@@ -91,9 +91,9 @@ class AnimePlay extends Component {
         const {curItemId,curEpisodeNo,curEpisodeName,playBtns} = this.state;
         if(!curItemId) return null;
         return (
-            <div className="app-anime-player m">
+            <div className="app-anime-player">
                 <div className="player-content">
-                    <div className="clear">
+                    <div className="player-title clear">
                         <div className="pull-right">
                             {playBtns.map((btn)=>{
                                 switch(btn){

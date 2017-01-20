@@ -29,12 +29,16 @@ module.exports = {
                 presets: ['react', 'es2015'],
                 plugins: ['transform-object-assign']
             }
+        },
+        {
+            test: /\.text/,
+            loader: 'file-to-string-loader'
         }
         ]
     },
     externals:{
         'user':'user',
-        'md5':'md5'
+        'electron':'electron'
     },
     plugins: [
         new webpack.DefinePlugin({

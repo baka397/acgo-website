@@ -1,9 +1,30 @@
 .app-player{
-    width: 970px;
-    height: 610px;
+    position: relative;
+    z-index: 1;
     margin: 10px auto;
     overflow: hidden;
     .flex();
+    .app-player-content{
+        width: 100%;
+        height: 100%;
+        webview,div{
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .app-player-loading{
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: @color-content-block;
+        .flex();
+        .load-tip{
+            margin-top: 10px;
+        }
+    }
 }
 .app-playlist{
     ul.item-list{

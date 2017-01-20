@@ -11,9 +11,19 @@
 </head>
 <body>
 <div id="app" class="app">
+    <div class="app-layout">
+        <div class="app-tip">
+            <div class="app-tip-title">
+                <i class="icon icon-reload"></i>
+            </div>
+            <div class="app-tip-message">
+                <p>页面载入中,请稍后...</p>
+            </div>
+        </div>
+    </div>
 </div>
-<script type="text/javascript" src="/js/plugins/md5.min.js?version=<%= version %>"></script>
 <script type="text/javascript">
+    var electron = window.require?require('electron'):{};
     var user=<%- user?JSON.stringify(user):'{}' %>
 </script>
 <script type="text/javascript" src="/js/app.min.js?version=<%= version %>"></script>

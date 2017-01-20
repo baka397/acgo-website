@@ -1,7 +1,8 @@
+import electron from 'electron';
 import {maxUploadSize,uploadPath,downloadPath,pageSize} from '../config';
 import {fetch} from './api';
 
-const IS_CLIENT = false;
+const IS_CLIENT = isObjEmpty(electron)?false:true;
 
 export function isObjEmpty(obj) {
     // Speed up calls to hasOwnProperty
@@ -218,6 +219,6 @@ export function getPage(no){
  * 获取客户端状态
  * @return {Boolean} 是否在客户端内
  */
-export function isClent(){
+export function isClient(){
     return IS_CLIENT;
 }

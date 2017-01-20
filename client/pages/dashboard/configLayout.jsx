@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {isClent} from '../../common/tool';
+import {isClient} from '../../common/tool';
 
 import Tab from '../../components/tab/index.jsx';
 
@@ -13,7 +13,7 @@ let tab=[
         link:'/dashboard/config/profile/'
     }
 ]
-if(isClent()){
+if(isClient()){
     tab=tab.concat([
         {
             name:'客户端配置',
