@@ -1,7 +1,10 @@
 import React, {PropTypes,Component} from 'react';
+
 import WebView from 'react-electron-web-view';
 import scriptText from './scripts/bilibili.text';
 import styleText from './styles/page.text';
+
+let timer;
 
 //封装组件
 class PlayerBilibili extends Component {
@@ -26,9 +29,12 @@ class PlayerBilibili extends Component {
         const {onLoad} = this.props;
         this.refs.player.insertCSS(styleText);
         this.refs.player.executeJavaScript(scriptText);
-        setTimeout(function(){
+        timer=setTimeout(function(){
             onLoad();
-        },100)
+        },500)
+    }
+    componentWillUnmount(){
+        if(timer) clearTimeout(timer);
     }
 }
 

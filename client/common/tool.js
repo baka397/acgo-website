@@ -106,6 +106,7 @@ export function getEnumArray(enumObj){
  * @return {String}      实际大小
  */
 export function getSizeInfo(size){
+    if(size===0) return '0KB';
     let sOutput;
     for (let aMultiples = ['KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'], nMultiple = 0, nApprox = size / 1024; nApprox > 1; nApprox /= 1024, nMultiple++) {
         sOutput = parseInt(nApprox) + aMultiples[nMultiple];
