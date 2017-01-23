@@ -43,7 +43,7 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
-                'NODE_ENV': '"development"' //开发环境设置为development,运营环境设置为production
+                'NODE_ENV': '"production"' //开发环境设置为development,运营环境设置为production
             }
         })
     ]
