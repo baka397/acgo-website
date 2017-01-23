@@ -29,6 +29,7 @@ app.use(favicon(path.join(__dirname, 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'cert')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 全局设置
