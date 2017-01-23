@@ -1,6 +1,6 @@
 import React, {PropTypes,Component} from 'react';
 
-import WebView from 'react-electron-web-view';
+import WebView from '../webview/index.jsx';
 import scriptText from './scripts/bilibili.text';
 import styleText from './styles/page.text';
 

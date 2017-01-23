@@ -1,6 +1,6 @@
 import React, {PropTypes,Component} from 'react';
 
-import WebView from 'react-electron-web-view';
+import WebView from '../webview/index.jsx';
 import scriptText from './scripts/dilidili.text';
 import scriptText2 from './scripts/dilidili2.text';
 import styleText from './styles/page.text';
