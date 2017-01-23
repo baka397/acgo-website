@@ -6,6 +6,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/www",
+    "build": "webpack -p && gulp clean && gulp build",
     "pack": "webpack -p && gulp clean && gulp build && node archive.js"
   },
   "repository": {
