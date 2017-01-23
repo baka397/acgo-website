@@ -4,8 +4,6 @@ module.exports = {
         type: 'dateFileLog',
         level: 'info'
     },
-    tokenName:'acgosid',
-    tokenAge: 90*24*60*60*1000,
     tokenSecure: true,
     clientPath:'https://www.acgo.club/client',
     //api信息
