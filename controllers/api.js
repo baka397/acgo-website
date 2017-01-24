@@ -294,9 +294,7 @@ router.get('/tag', function(req, res, next){
 
 router.post('/tag', function(req, res, next){
     api.request(req.token,'tag',{
-        type:req.query.type,
-        keyword:req.query.keyword,
-        ids:req.query.ids
+        ids:req.body.ids
     }).then(function(data){
         res.send(tool.buildResJson('获取标签成功',data));
     }).catch(function(err){
