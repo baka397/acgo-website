@@ -21,16 +21,18 @@ class Anime extends Component {
                         return <Simple key={id} data={animeData} />
                         break;
                     case 'sub':
-                        let watchData;
-                        animeData.groups.some((group)=>{
-                            if(watchDatas[group.id]){
-                                watchData=Object.assign({},watchDatas[group.id]);
-                                watchData.total=group.episode_cur;
-                                watchData.percent=Math.ceil((watchData.watch_ep/group.episode_cur)*100);
-                                return true;
-                            }
-                            return false;
-                        })
+                        let watchData={};
+                        if(animeData.groups){
+                            animeData.groups.some((group)=>{
+                                if(watchDatas[group.id]){
+                                    watchData=Object.assign({},watchDatas[group.id]);
+                                    watchData.total=group.episode_cur;
+                                    watchData.percent=Math.ceil((watchData.watch_ep/group.episode_cur)*100);
+                                    return true;
+                                }
+                                return false;
+                            })
+                        }
                         //处理观看记录
                         return <Sub key={id} data={animeData} watchData={watchData} />
                     default:
