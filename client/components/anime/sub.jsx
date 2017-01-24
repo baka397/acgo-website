@@ -12,7 +12,7 @@ class Sub extends Component {
         const {data,watchData} = this.props;
         let watchPercent=0,player,link;
         if(data.groups){
-            if(watchData){
+            if(watchData&&watchData.total>0){
                 watchPercent=watchData.percent;
                 let ep=watchData.watch_ep+1;
                 link=clientPath+'/dashboard/anime/play/?groupId='+watchData.group_id+'&ep='+(ep>watchData.total?watchData.total:ep);

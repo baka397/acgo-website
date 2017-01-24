@@ -70,7 +70,7 @@ class Anime extends Component {
             }));
             fetch('tag',{
                 ids:tagsId.toString()
-            }).then(res=>{
+            },'POST').then(res=>{
                 dispatch(modalClean('loading'));
                 let tagsList={};
                 res.data.content.forEach(item=>{
