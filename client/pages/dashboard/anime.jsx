@@ -63,7 +63,7 @@ class Anime extends Component {
             this.handleClear();
             this.handleGetDetail();
         }
-        else if(isObjEmpty(tags)){//获取标签数据
+        else if(!isObjEmpty(animeDetail)&&isObjEmpty(tags)){//获取标签数据
             let promiseList=[];
             dispatch(modalUpdate({
                 loading:true
