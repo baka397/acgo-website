@@ -39,27 +39,48 @@ class animeAudit extends Component {
         if(isObjEmpty(auditDetail)){
             this.handleInit();
         }else if(!isObjEmpty(animeDetail)&&isObjEmpty(tags)){ //载入标签数据
-            let tagsId={};
-            let tagsList=[].concat(animeDetail.tag,animeDetail.staff,animeDetail.cv);
-            if(auditDetail.tag) tagsList=tagsList.concat(auditDetail.tag);
-            if(auditDetail.staff) tagsList=tagsList.concat(auditDetail.staff);
-            if(auditDetail.cv) tagsList=tagsList.concat(auditDetail.cv);
-            tagsList.forEach((tagId)=>{
+            let tagsId={},staffsId={},cvsId={};
+            let tagList=[].concat(animeDetail.tag);
+            let staffList=[].concat(animeDetail.staff);
+            let cvList=[].concat(animeDetail.cv);
+            let promiseList=[];
+            if(auditDetail.tag) tagList=tagList.concat(auditDetail.tag);
+            if(auditDetail.staff) staffList=staffList.concat(auditDetail.staff);
+            if(auditDetail.cv) cvList=cvList.concat(auditDetail.cv);
+            tagList.forEach((tagId)=>{
                 tagsId[tagId]=true;
+            });
+            staffList.forEach((staffId)=>{
+                staffsId[staffId]=true;
+            });
+            cvList.forEach((cvId)=>{
+                cvsId[cvId]=true;
             });
             dispatch(modalUpdate({
                 loading:true
             }));
-            fetch('tag',{
-                ids:Object.keys(tagsId)
-            }).then(res=>{
+            promiseList.push(fetch('tag',{
+                ids:Object.keys(tagsId),
+                type:1
+            }))
+            promiseList.push(fetch('tag',{
+                ids:Object.keys(staffsId),
+                type:2
+            }))
+            promiseList.push(fetch('tag',{
+                ids:Object.keys(cvsId),
+                type:3
+            }))
+            Promise.all(promiseList).then(result=>{
                 dispatch(modalClean('loading'));
-                let tagsList={};
-                res.data.content.forEach(item=>{
-                    tagsList[item._id]=item.name;
+                let tagsObj={};
+                result.forEach((res)=>{
+                    res.data.content.forEach(item=>{
+                        tagsObj[item._id]=item.name;
+                    })
                 })
                 this.setState({
-                    tags:tagsList
+                    tags:tagsObj
                 });
             }).catch(err=>{
                 dispatch(modalClean('loading'));

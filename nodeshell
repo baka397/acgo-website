@@ -4,8 +4,8 @@
 env=online
 port=8001
 uid=www.acgo.club
-appPath=/home/finance/App/$uid
-logPath=/home/finance/Logs/$uid
+appPath=/home/website/App/$uid
+logPath=/home/website/Logs/$uid
 #########################env setting####################
 export NODE_ENV=$env
 export NODE_PORT=$port
@@ -14,19 +14,19 @@ export LOG_PATH=$logPath
 #########################starting####################
 start() {
   echo start begin
-    su -p website -c "pm2 start $appPath/bin/www -n $uid -l $logPath/log.log -e $logPath/error.log"
+    pm2 start $appPath/bin/www -n $uid -l $logPath/log.log -e $logPath/error.log
   echo start end
 }
 #########################status####################
 status(){
   echo status begin
-    su - website -c "pm2 show $uid"
+    pm2 show $uid
   echo status end
 }
 #########################stoping####################
 stop() {
   echo stop begin
-    su - website -c "pm2 stop $uid"
+    pm2 stop $uid
   echo stop end
 }
 #########################restart####################

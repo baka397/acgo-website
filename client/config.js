@@ -14,7 +14,7 @@ export const acceptType='.jpg'; //接受的文件类型
 let uploadDefaultPath; //上传地址
 let uploadDownloadPath; //下载地址
 if(process.env.NODE_ENV==='production'){
-    uploadDefaultPath='https://up.qiniu.com';
+    uploadDefaultPath='https://up.qbox.me';
     uploadDownloadPath='https://oak0s7wv0.qnssl.com';
 }else{
     uploadDefaultPath='http://up.qiniu.com';

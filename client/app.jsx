@@ -1,37 +1,10 @@
 //加载依赖
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { createStore, applyMiddleware } from 'redux'
-import {Provider} from 'react-redux'
-import { Router, browserHistory, Route, IndexRoute } from 'react-router'
-import { syncHistoryWithStore, routerMiddleware } from 'react-router-redux'
-import thunk from 'redux-thunk';
-import {reducer} from './reducers/';
-const middleware = routerMiddleware(browserHistory);
-//插入中间件
-let createStoreWithMiddleware = applyMiddleware(
-    thunk,
-    middleware
-)(createStore)
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {Provider} from 'react-redux';
+import { Router, Route, IndexRoute } from 'react-router';
 
-let store;
-if(process.env.NODE_ENV==='production'){
-    store=createStoreWithMiddleware(reducer,{});
-}
-else{
-    //载入redux debug插件
-    function configureStore(initialState) {
-        let debugMiddlewareStore = createStoreWithMiddleware(reducer, initialState, 
-            window.devToolsExtension ? window.devToolsExtension() : undefined
-        );
-        return debugMiddlewareStore;
-    }
-    // Store
-    store = configureStore({});
-}
-
-// Sync dispatched route actions to the history
-const history = syncHistoryWithStore(browserHistory,store);
+import {store,history} from './store';
 
 //加载页面
 import Layout from './pages/layout.jsx'; //框架
@@ -178,6 +151,13 @@ ReactDOM.render(
                         require.ensure([], function (require) {
                             callback(null, {
                                 component: require('./pages/dashboard/configProfile.jsx').default,
+                            })
+                        })
+                    }} />
+                    <Route path="client" getIndexRoute={(partialNextState, callback)=>{
+                        require.ensure([], function (require) {
+                            callback(null, {
+                                component: require('./pages/dashboard/configClient.jsx').default,
                             })
                         })
                     }} />

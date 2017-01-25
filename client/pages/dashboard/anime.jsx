@@ -63,18 +63,30 @@ class Anime extends Component {
             this.handleClear();
             this.handleGetDetail();
         }
-        else if(isObjEmpty(tags)){//获取标签数据
-            let tagsId=[].concat(animeDetail.tag,animeDetail.staff,animeDetail.cv);
+        else if(!isObjEmpty(animeDetail)&&isObjEmpty(tags)){//获取标签数据
+            let promiseList=[];
             dispatch(modalUpdate({
                 loading:true
             }));
-            fetch('tag',{
-                ids:tagsId.toString()
-            }).then(res=>{
+            promiseList.push(fetch('tag',{
+                ids:animeDetail.tag.toString(),
+                type:1
+            }))
+            promiseList.push(fetch('tag',{
+                ids:animeDetail.staff.toString(),
+                type:2
+            }))
+            promiseList.push(fetch('tag',{
+                ids:animeDetail.cv.toString(),
+                type:3
+            }))
+            Promise.all(promiseList).then(result=>{
                 dispatch(modalClean('loading'));
                 let tagsList={};
-                res.data.content.forEach(item=>{
-                    tagsList[item._id]=item.name;
+                result.forEach((res)=>{
+                    res.data.content.forEach(item=>{
+                        tagsList[item._id]=item.name;
+                    })
                 })
                 this.setState({
                     tags:tagsList

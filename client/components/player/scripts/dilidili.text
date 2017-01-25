@@ -1,5 +1,5 @@
 (function getPlayer(){
-    let player=document.getElementsByClassName('player_main')[0];
-    let playerLink=player.childNodes[1].src;
+    let player=document.getElementById('player_iframe');
+    let playerLink=player.src;
     window.location.href=playerLink;
 })();

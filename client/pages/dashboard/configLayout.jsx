@@ -16,7 +16,7 @@ let tab=[
 if(isClient()){
     tab=tab.concat([
         {
-            name:'客户端配置',
+            name:'客户端',
             link:'/dashboard/config/client/'
         }
     ])

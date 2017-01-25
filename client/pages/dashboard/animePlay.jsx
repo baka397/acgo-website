@@ -46,12 +46,14 @@ class AnimePlay extends Component {
             dispatch(getAnimeGroupDetail({
                 id:query.groupId
             }));
-            this.handleEpLoad();
         }
     }
     componentDidUpdate(prevProps, prevState){
-        const {animeItem,routing,dispatch} = this.props;
+        const {animeGroupDetail,animeItem,routing,dispatch} = this.props;
         const {curItemId} = this.state;
+        if(animeGroupDetail._id!==prevProps.animeGroupDetail._id){
+            this.handleEpLoad();
+        }
         let query=getQuery(routing);
         let beforeQuery=getQuery(routing);
         if(animeItem.order.length>0&&!curItemId){
@@ -114,9 +116,10 @@ class AnimePlay extends Component {
         )
     }
     handleEpLoad(){
-        const {routing,dispatch} = this.props;
+        const {animeGroupDetail,routing,dispatch} = this.props;
+        let start=animeGroupDetail.episode_start?animeGroupDetail.episode_start-1:0;
         let query=getQuery(routing);
-        let page=getPage(query.ep);
+        let page=getPage(query.ep,start);
         dispatch(getAnimeItemList({
             groupId:query.groupId,
             page

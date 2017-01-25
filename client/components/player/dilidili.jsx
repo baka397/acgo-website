@@ -1,8 +1,11 @@
 import React, {PropTypes,Component} from 'react';
-import WebView from 'react-electron-web-view';
+
+import WebView from '../webview/index.jsx';
 import scriptText from './scripts/dilidili.text';
 import scriptText2 from './scripts/dilidili2.text';
 import styleText from './styles/page.text';
+
+let timer;
 
 //封装组件
 class PlayerDilidili extends Component {
@@ -22,7 +25,7 @@ class PlayerDilidili extends Component {
         const {url,onLoadError} = this.props;
         return (
             <div className="app-player-content">
-                <WebView src={url} plugins onDidStopLoading={this.handleLoad} onDidFailLoad={onLoadError} ref="player" disablewebsecurity></WebView>
+                <WebView src={url} plugins onDomReady={this.handleLoad} onDidFailLoad={onLoadError} ref="player" disablewebsecurity></WebView>
             </div>
         )
     }
@@ -37,10 +40,13 @@ class PlayerDilidili extends Component {
         }else{
             this.refs.player.insertCSS(styleText);
             this.refs.player.executeJavaScript(scriptText2);
-            setTimeout(function(){
+            timer=setTimeout(function(){
                 onLoad();
-            },100)
+            },500)
         }
+    }
+    componentWillUnmount(){
+        if(timer) clearTimeout(timer);
     }
 }
 

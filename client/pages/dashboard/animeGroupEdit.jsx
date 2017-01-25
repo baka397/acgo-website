@@ -26,6 +26,13 @@ const FORM_RULE=[
         list:TYPE_ARRAY
     },
     {
+        name:'episodeStart',
+        label:'起始分集',
+        placeholder:'填写起始分集数量.默认为1',
+        type:'text',
+        value:1
+    },
+    {
         name:'episodeTotal',
         label:'总分集',
         placeholder:'填写总的分集数量.如果未知,请填0',
@@ -87,6 +94,11 @@ class animeGroupEdit extends Component {
                         return Object.assign({},rule,{
                             value:animeGroupDetail['type'],
                             disabled:true
+                        })
+                        break;
+                    case 'episodeStart':
+                        return Object.assign({},rule,{
+                            value:animeGroupDetail['episode_start']
                         })
                         break;
                     case 'episodeTotal':
@@ -154,6 +166,12 @@ class animeGroupEdit extends Component {
         if(!data.type){
             dispatch(modalUpdate({
                 tip:'请选择剧集来源'
+            }));
+            return;
+        }
+        if(!(parseInt(data.episodeStart)>=0)){
+            dispatch(modalUpdate({
+                tip:'请输入有效的起始分集数'
             }));
             return;
         }
