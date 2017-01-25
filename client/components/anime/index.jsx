@@ -7,7 +7,7 @@ import Sub from './sub.jsx';
 class Anime extends Component {
     shouldComponentUpdate(nextProps, nextState){
         const {order,type,watchDatas} = this.props;
-        if(type===nextProps.type&&order.length===nextProps.order.length&&Object.keys(watchDatas).length===Object.keys(nextProps.watchDatas).length) return false;
+        if(type===nextProps.type&&order.length===nextProps.order.length&&Object.keys(watchDatas||{}).length===Object.keys(nextProps.watchDatas||{}).length) return false;
         return true;
     }
     render() {
