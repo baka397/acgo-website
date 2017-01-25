@@ -212,8 +212,8 @@ export function getObjType(obj){
  * @param  {Number} no 当前数字
  * @return {Number}    页码
  */
-export function getPage(no){
-    return Math.ceil(no/pageSize);
+export function getPage(no,start=0){
+    return Math.ceil((no-start)/pageSize);
 }
 
 /**

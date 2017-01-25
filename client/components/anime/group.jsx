@@ -38,7 +38,7 @@ class Group extends Component {
                         return (
                             <div key={id} className={'group-item'+(item.episode_cur?'':' group-item-disabled')}>
                                 <div className="group-item-title">
-                                    <h3 onClick={(e)=>{this.handlePageClick(id,watchInfo.watch_ep,item.episode_cur)}}>
+                                    <h3 onClick={(e)=>{this.handlePageClick(id,watchInfo.watch_ep,item.episode_cur,item.episode_start)}}>
                                         {playInfo}
                                         {type[item.type]}<span className="m-l">(更新至{item.episode_cur}话,已观看{watchInfo.watch_ep||0}话)</span>
                                     </h3>
@@ -72,10 +72,10 @@ class Group extends Component {
             </div>
         )
     }
-    handlePageClick(groupId,watched,curEp){
+    handlePageClick(groupId,watched,curEp,startEp){
         const {onGroupClick} = this.props;
         if(!curEp) return;
-        let watchedNum=(watched||0)+1;
+        let watchedNum=watched?watched+1:(startEp||1);
         if(watchedNum>curEp) watchedNum=curEp;
         onGroupClick(groupId,watchedNum);
     }
