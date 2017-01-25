@@ -6,7 +6,10 @@ import {getImageUrl} from '../../common/tool';
 //封装组件
 class Sub extends Component {
     shouldComponentUpdate(nextProps, nextState){
-        return false;
+        const {_id} = this.props.data;
+        const {percent} = this.props.watchData;
+        if(_id===nextProps.data._id&&percent===nextProps.watchData.percent) return false;
+        return true;
     }
     render() {
         const {data,watchData} = this.props;

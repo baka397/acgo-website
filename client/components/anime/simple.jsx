@@ -6,7 +6,9 @@ import {getImageUrl} from '../../common/tool';
 //封装组件
 class Simple extends Component {
     shouldComponentUpdate(nextProps, nextState){
-        return false;
+        const {_id} = this.props.data;
+        if(_id===nextProps.data._id) return false;
+        return true;
     }
     render() {
         const {data} = this.props;
