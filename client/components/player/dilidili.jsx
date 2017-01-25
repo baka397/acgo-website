@@ -25,7 +25,7 @@ class PlayerDilidili extends Component {
         const {url,onLoadError} = this.props;
         return (
             <div className="app-player-content">
-                <WebView src={url} plugins onDidStopLoading={this.handleLoad} onDidFailLoad={onLoadError} ref="player" disablewebsecurity></WebView>
+                <WebView src={url} plugins onDomReady={this.handleLoad} onDidFailLoad={onLoadError} ref="player" disablewebsecurity></WebView>
             </div>
         )
     }
