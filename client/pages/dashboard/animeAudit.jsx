@@ -40,7 +40,7 @@ class animeAudit extends Component {
             this.handleInit();
         }else if(!isObjEmpty(animeDetail)&&isObjEmpty(tags)){ //载入标签数据
             let tagsId={},staffsId={},cvsId={};
-            let tagList=[].concat(animeDetail.tag);
+            let tagsList=[].concat(animeDetail.tag);
             let staffList=[].concat(animeDetail.staff);
             let cvList=[].concat(animeDetail.cv);
             let promiseList=[];
@@ -73,14 +73,14 @@ class animeAudit extends Component {
             }))
             Promise.all(promiseList).then(result=>{
                 dispatch(modalClean('loading'));
-                let tagsList={};
+                let tagsObj={};
                 result.forEach((res)=>{
                     res.data.content.forEach(item=>{
-                        tagsList[item._id]=item.name;
+                        tagsObj[item._id]=item.name;
                     })
                 })
                 this.setState({
-                    tags:tagsList
+                    tags:tagsObj
                 });
             }).catch(err=>{
                 dispatch(modalClean('loading'));
