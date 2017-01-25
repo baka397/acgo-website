@@ -5,11 +5,6 @@ import Sub from './sub.jsx';
 
 //封装组件
 class Anime extends Component {
-    shouldComponentUpdate(nextProps, nextState){
-        const {order,type,watchDatas} = this.props;
-        if(type===nextProps.type&&order.length===nextProps.order.length&&Object.keys(watchDatas||{}).length===Object.keys(nextProps.watchDatas||{}).length) return false;
-        return true;
-    }
     render() {
         const {order,datas,watchDatas,type} = this.props;
         return (
