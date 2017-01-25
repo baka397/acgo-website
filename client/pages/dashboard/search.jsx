@@ -27,13 +27,6 @@ class Search extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handlePageClick = this.handlePageClick.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
-        const {anime} = this.props;
-        let query=getQuery(nextProps.routing);
-        let beforeQuery=getQuery(this.props.routing);
-        if(query.keyword===beforeQuery.keyword&&query.page===beforeQuery.page&&anime.total===nextProps.anime.total) return false;
-        return true;
-    }
     componentDidMount(){
         const {routing,dispatch} = this.props;
         dispatch(search(getQuery(routing)));
