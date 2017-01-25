@@ -97,7 +97,7 @@ class Upload extends Component {
         const {value} = this.state;
         let cropData=this.refs.cropper.getData();
         let cropValue=[value[0]];
-        let cropArray=[cropData.x,cropData.y,cropData.width,cropData.height];
+        let cropArray=[parseInt(cropData.x),parseInt(cropData.y),parseInt(cropData.width),parseInt(cropData.height)];
         cropValue.push(cropArray.join(','));
         this.setState({
             value:cropValue

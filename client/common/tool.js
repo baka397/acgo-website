@@ -148,7 +148,7 @@ export function getImageUrl(key,cropInfo,width){
         let cropArray=Array.isArray(cropInfo)?cropInfo:cropInfo.split(',');
         let imageUrl=downloadPath+'/'+key;
         //裁剪
-        imageUrl+='?imageMogr2/crop/!'+cropArray[2]+'x'+cropArray[3]+'a'+cropArray[0]+'a'+cropArray[1];
+        imageUrl+='?imageMogr2/crop/!'+parseInt(cropArray[2])+'x'+parseInt(cropArray[3])+'a'+parseInt(cropArray[0])+'a'+parseInt(cropArray[1]);
         if(width) imageUrl+='/thumbnail/'+width+'x';
         return imageUrl;
     }
