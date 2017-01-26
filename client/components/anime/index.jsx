@@ -16,7 +16,7 @@ class Anime extends Component {
                         return <Simple key={id} data={animeData} />
                         break;
                     case 'sub':
-                        let watchData;
+                        let watchData={};
                         if(animeData.groups){
                             animeData.groups.some((group)=>{
                                 if(watchDatas[group.id]){
