@@ -17,15 +17,19 @@ class Anime extends Component {
                         break;
                     case 'sub':
                         let watchData={};
+                        let updateAt=0;
                         if(animeData.groups){
-                            animeData.groups.some((group)=>{
+                            animeData.groups.forEach((group)=>{
                                 if(watchDatas[group.id]){
+                                    let curUpdateAt=watchDatas[group.id].update_at?new Date(watchDatas[group.id].update_at).getTime():0;
+                                    if(updateAt>curUpdateAt){
+                                        return true;
+                                    }
                                     watchData=Object.assign({},watchDatas[group.id]);
                                     watchData.total=group.episode_cur;
                                     if(group.episode_cur>0) watchData.percent=Math.ceil((watchData.watch_ep/group.episode_cur)*100);
-                                    return true;
+                                    updateAt=curUpdateAt;
                                 }
-                                return false;
                             })
                         }
                         //处理观看记录

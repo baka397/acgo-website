@@ -5,8 +5,6 @@ import {clientPath} from '../../config';
 
 import AnimeList from '../../components/anime/index.jsx';
 
-import {getAnimeSubList} from '../../actions/anime_sub';
-
 function propMap(state){
     return {
         animeWatch:state.animeWatch.content,
@@ -16,10 +14,6 @@ function propMap(state){
 
 //封装组件
 class Index extends Component {
-    componentDidMount(){
-        const {routing,dispatch} = this.props;
-        dispatch(getAnimeSubList());
-    }
     render() {
         const {animeSub,animeWatch} = this.props;
         let indexTip;
