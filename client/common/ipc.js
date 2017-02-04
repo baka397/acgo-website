@@ -1,7 +1,7 @@
 import {isClient} from './tool';
 import {ipcRenderer} from 'electron';
 import {store} from '../store';
-import {getClientCacheSuccess,clearClientCacheSuccess} from '../actions/client';
+import {getClientCacheSuccess,clearClientCacheSuccess,getClientCacheDirSuccess,setClientCacheDirSuccess} from '../actions/client';
 
 export function windowClose(){
     if(!isClient()) return;
@@ -50,7 +50,30 @@ function session(e,type){
     }
 }
 
+export function getCacheDir(){
+    if(!isClient()) return;
+    ipcRenderer.send('app','getCacheDir');
+}
+
+export function setCacheDir(){
+    if(!isClient()) return;
+    ipcRenderer.send('app','setCacheDir');
+}
+
+function app(e,type){
+    let args = Array.prototype.slice.call(arguments, 2);
+    switch(type){
+        case 'getCacheDir':
+            store.dispatch(getClientCacheDirSuccess(args[0]));
+            break;
+        case 'setCacheDir':
+            store.dispatch(setClientCacheDirSuccess(args[0]));
+            break;
+    }
+}
+
 //监控数据内容
 if(isClient()){
     ipcRenderer.on('session',session);
+    ipcRenderer.on('app',app);
 }
