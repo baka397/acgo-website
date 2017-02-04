@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {getSizeInfo} from '../../common/tool';
 
-import {getClientCache,cleanClient,clearClientCache,getClientCacheDir,setClientCacheDir} from '../../actions/client';
+import {getClientCache,cleanClient,clearClientCache,getClientCacheDir} from '../../actions/client';
 
 function propMap(state){
     return {
@@ -15,11 +15,10 @@ class ConfigClient extends Component {
     constructor(props){
         super(props);
         this.handleClearCache = this.handleClearCache.bind(this);
-        this.handleChangeCacheDir = this.handleChangeCacheDir.bind(this);
     }
     shouldComponentUpdate(nextProps, nextState){
-        const {client} = this.props;
-        if(client.cache===nextProps.client.cache) return false;
+        const {client,dir} = this.props;
+        if(client.cache===nextProps.client.cache&&client.dir===nextProps.client.dir) return false;
         return true;
     }
     componentDidMount(){
@@ -37,12 +36,12 @@ class ConfigClient extends Component {
             <div className="app-config-client">
                 <div className="app-form app-form-long app-form-plain">
                     <div className="app-form-control">
-                        <div className="app-form-label">缓存</div>
-                        <div className="app-form-content">现有{getSizeInfo(client.cache)}缓存. <button className="btn btn-danger m-l" onClick={this.handleClearCache}><i className="icon icon-delete"></i>清除缓存</button></div>
+                        <div className="app-form-label">缓存目录</div>
+                        <div className="app-form-content">{client.dir}</div>
                     </div>
                     <div className="app-form-control">
-                        <div className="app-form-label">缓存目录</div>
-                        <div className="app-form-content">{client.dir}<button className="btn btn-primary m-l" onClick={this.handleChangeCacheDir}><i className="icon icon-folder"></i>变更目录</button></div>
+                        <div className="app-form-label">当前缓存</div>
+                        <div className="app-form-content">现有{getSizeInfo(client.cache)}缓存. <button className="btn btn-danger m-l" onClick={this.handleClearCache}><i className="icon icon-delete"></i>清除缓存</button></div>
                     </div>
                 </div>
             </div>
@@ -51,10 +50,6 @@ class ConfigClient extends Component {
     handleClearCache(){
         const {dispatch} = this.props;
         dispatch(clearClientCache());
-    }
-    handleChangeCacheDir(){
-        const {dispatch} = this.props;
-        dispatch(setClientCacheDir());
     }
 }
 

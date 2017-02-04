@@ -1,6 +1,6 @@
 //加载依赖
 import {modalUpdate,modalClean} from './modal';
-import {getCacheSize,clearCacheSize,getCacheDir,setCacheDir} from '../common/ipc';
+import {getCacheSize,clearCacheSize,getCacheDir} from '../common/ipc';
 
 export const UPDATE_CLIENT_CACHE = 'UPDATE_CLIENT_CACHE';
 export const CLEAN_CLIENT_CACHE = 'CLEAN_CLIENT_CACHE';
@@ -52,22 +52,6 @@ export function getClientCacheDirSuccess(filePath){
     return function(dispatch){
         dispatch(updateClientCacheDir(filePath));
         dispatch(modalClean('loading'));
-    }
-}
-
-export function setClientCacheDir(){
-    return function(dispatch){
-        setCacheDir();
-    }
-}
-
-export function setClientCacheDirSuccess(filePath){
-    return function(dispatch){
-        if(filePath){
-            dispatch(modalUpdate({
-                tip:'设置缓存目录('+filePath+')成功,重新打开客户端生效'
-            }));
-        }
     }
 }
 

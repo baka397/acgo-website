@@ -55,19 +55,11 @@ export function getCacheDir(){
     ipcRenderer.send('app','getCacheDir');
 }
 
-export function setCacheDir(){
-    if(!isClient()) return;
-    ipcRenderer.send('app','setCacheDir');
-}
-
 function app(e,type){
     let args = Array.prototype.slice.call(arguments, 2);
     switch(type){
         case 'getCacheDir':
             store.dispatch(getClientCacheDirSuccess(args[0]));
-            break;
-        case 'setCacheDir':
-            store.dispatch(setClientCacheDirSuccess(args[0]));
             break;
     }
 }
