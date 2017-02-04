@@ -15,14 +15,15 @@ export function windowMax(){
     if(!isClient()) return;
     ipcRenderer.send('window','max');
 }
-export function windowChange(type){
+export function windowChange(type,height){
     if(!isClient()) return;
     switch(type){
         case 'dashboard':
             ipcRenderer.send('window','change',1200,800);
             break;
         case 'common':
-            ipcRenderer.send('window','change',400,600);
+            let $commonNode=document.getElementsByClassName('app-common')[0];
+            ipcRenderer.send('window','change',400,height);
             break;
     }
 }

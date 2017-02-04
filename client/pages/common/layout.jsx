@@ -7,7 +7,6 @@ import Footer from '../../components/common/footer.jsx';
 import {authLoginStatus} from '../../actions/auth';
 
 import {isObjEmpty,isClient} from '../../common/tool';
-import {windowChange} from '../../common/ipc';
 
 function propMap(state,ownProps){
     return {
@@ -27,7 +26,6 @@ class CommonLayout extends Component {
     componentDidMount(){
         const {user, dispatch} = this.props;
         dispatch(authLoginStatus(user,false));
-        windowChange('common');
     }
     render() {
         const {user,routing} = this.props;

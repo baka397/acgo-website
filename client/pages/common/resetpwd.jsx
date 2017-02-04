@@ -4,6 +4,7 @@ import {Link} from 'react-router';
 import {isEmail} from 'validator';
 import {clientPath} from '../../config';
 import {getQuery} from '../../common/tool';
+import {windowChange} from '../../common/ipc';
 
 import FormList from '../../components/form/index.jsx';
 
@@ -41,6 +42,9 @@ class Getpwd extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount(){
+        windowChange('common',260);
     }
     render() {
         return (

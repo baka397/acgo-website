@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail} from 'validator';
 import {clientPath} from '../../config';
+import {windowChange} from '../../common/ipc';
 
 import FormList from '../../components/form/index.jsx';
 
@@ -34,6 +35,9 @@ class Login extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount(){
+        windowChange('common',260);
     }
     render() {
         return (

@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail,isMongoId} from 'validator';
 import {clientPath} from '../../config';
+import {windowChange} from '../../common/ipc';
 
 import FormList from '../../components/form/index.jsx';
 
@@ -52,6 +53,9 @@ class Register extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount(){
+        windowChange('common',440);
     }
     render() {
         return (
