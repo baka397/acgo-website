@@ -4,7 +4,7 @@ import {goBack} from 'react-router-redux';
 import {clientPath} from '../../config';
 import {windowClose,windowMin,windowMax} from '../../common/ipc';
 
-import Icon from './header_icon.jsx';
+import Icon from './headerIcon.jsx';
 import Header from './header.jsx';
 
 /**

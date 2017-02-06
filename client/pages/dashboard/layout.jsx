@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import HeaderPage from '../../components/common/header_page.jsx';
+import HeaderPage from '../../components/common/headerPage.jsx';
 import Footer from '../../components/common/footer.jsx';
 
 import {authLoginStatus} from '../../actions/auth';

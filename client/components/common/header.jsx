@@ -1,6 +1,6 @@
 import React, {PropTypes,Component} from 'react';
 
-import Icon from './header_icon.jsx';
+import Icon from './headerIcon.jsx';
 
 //封装组件
 class Header extends Component {
