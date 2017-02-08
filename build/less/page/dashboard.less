@@ -69,31 +69,37 @@
 }
 
 .app-anime{
-    .app-anime-cover{
-        position: relative;
-        z-index: 1;
-        img{
-            .autoImgSize();
+    .app-anime-title{
+        height: 30px;
+        line-height: 30px;
+        margin: 0 0 20px;
+        h1{
+            font-size: 1.5em;
         }
-        .title,.desc{
-            position: absolute;
-            z-index: 2;
-            left: 0;
-            right: 0;
-            padding: 10px;
-            background: fade(@color-content-dark,80%);
-        }
-        .title{
-            top: 0;
-            height: 30px;
-            line-height: 30px;
-            h1{
-                font-size: 1.5em;
+    }
+    .app-anime-main{
+        .cover{
+            float: left;
+            width: 310px;
+            margin: 0 10px 0 0;
+            text-align: center;
+            img{
+                width: 300px;
+                height: 180px;
+            }
+            .btns{
+                .flex(flex-start,space-between);
+                a{
+                    margin: 0 5px;
+                    width: 100%;
+                }
             }
         }
-        .desc{
-            bottom:0;
+        .ep{
+            min-height: 220px;
+            margin: 0 0 0 310px;
         }
+        .clear();
     }
 }
 

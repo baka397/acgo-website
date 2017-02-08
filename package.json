@@ -1,6 +1,6 @@
 {
   "name": "www.acgo.club",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Website project for acgo",
   "private": true,
   "main": "app.js",

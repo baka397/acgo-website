@@ -102,50 +102,50 @@ class Anime extends Component {
     render() {
         const {animeDetail,animeSub,animeGroup,animeWatch} = this.props;
         const {tags,groupBtns} = this.state;
-        let subBtn,editBtn,epContent;
+        let subBtn,epContent,epBtn;
         if(isObjEmpty(animeDetail)){
             return null;
         }
         if(animeDetail.public_status===1){
-            editBtn=<Link to={clientPath+'/dashboard/anime/edit?id='+animeDetail._id} className="m-l-hg"><i className="icon icon-edit m-r-sm"></i>编辑动画信息</Link>;
+            epBtn=<Link className="btn btn-block btn-primary" to={clientPath+'/dashboard/anime-group/add?animeId='+animeDetail._id}><i className="icon icon-tv m-r-sm"></i>添加剧集</Link>;
             epContent=(
-                <div className="app-block">
-                    <Link className="btn btn-info pull-right" to={clientPath+'/dashboard/anime-group/add?animeId='+animeDetail._id}><i className="icon icon-plus m-r-sm"></i>添加剧集</Link>
-                    <div className="app-title">
-                        <i className="icon icon-list m-r-sm"></i>剧集列表
-                    </div>
-                    <div className="app-content">
-                        <AnimeGroup group={animeGroup} btns={groupBtns} onGroupClick={this.handleGroupClick} watch={animeWatch} />
-                    </div>
+                <div className="app-content">
+                    <AnimeGroup group={animeGroup} btns={groupBtns} onGroupClick={this.handleGroupClick} watch={animeWatch} />
                 </div>
             );
         }else{
             epContent=(
-                <div className="app-block">
-                    <div className="app-title"><i className="icon icon-list m-r-sm"></i>剧集列表</div>
-                    <div className="app-content">
-                        <p>还未审核,暂时不能显示和添加剧集</p>
-                    </div>
+                <div className="app-content">
+                    该信息还没有审核,暂时没法添加剧集哦
                 </div>
             );
         }
         if(animeSub[animeDetail._id]){
-            subBtn=<a className="btn btn-light btn-sm m-l" onClick={()=>this.handleSub(-1)}><i className="icon icon-star m-r-sm"></i>取消订阅</a>;
+            subBtn=<a className="btn btn-block btn-light" onClick={()=>this.handleSub(-1)}><i className="icon icon-star m-r-sm"></i>取消订阅</a>;
         }else{
-            subBtn=<a className="btn btn-info btn-sm m-l" onClick={()=>this.handleSub(1)}><i className="icon icon-star-full m-r-sm"></i>立即订阅</a>;
+            subBtn=<a className="btn btn-block btn-info" onClick={()=>this.handleSub(1)}><i className="icon icon-star-full m-r-sm"></i>立即订阅</a>;
         }
         return (
-            <div className="app-anime m-t">
-                <div className="app-anime-cover">
-                    <img src={getImageUrl(animeDetail.cover,animeDetail.cover_clip,copperWidth)} width={copperWidth} height={copperHeight} />
-                    <div className="title">
-                        <div className="sub pull-right">
+            <div className="app-anime m">
+                <div className="app-anime-title">
+                    <h1 className="pull-left">{animeDetail.name}</h1>
+                    <Link to={clientPath+'/dashboard/anime/edit?id='+animeDetail._id} className="m-l-hg"><i className="icon icon-edit m-r-sm"></i>编辑动画信息</Link>
+                </div>
+                <div className="app-anime-main">
+                    <div className="cover">
+                        <p className="m-b-sm">
+                            <img src={getImageUrl(animeDetail.cover,animeDetail.cover_clip,copperWidth)} width={copperWidth} height={copperHeight} />
+                        </p>
+                        <div className="btns">
                             {subBtn}
+                            {epBtn}
                         </div>
-                        <h1 className="pull-left">{animeDetail.name}</h1>
-                        {editBtn}
                     </div>
-                    <div className="desc">
+                    <div className="ep app-block">{epContent}</div>
+                </div>
+                <div className="app-anime-desc app-block m-t">
+                    <div className="app-title"><i className="icon icon-list m-r-sm"></i>动画详情</div>
+                    <div className="app-content">
                         <p>{animeDetail.desc}</p>
                         <ul className="m-t-hg app-list-label">
                             <li>
@@ -174,9 +174,6 @@ class Anime extends Component {
                             </li>
                         </ul>
                     </div>
-                </div>
-                <div className="m">
-                    {epContent}
                 </div>
             </div>
         );
