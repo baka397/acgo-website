@@ -15,18 +15,16 @@ class Modal extends Component {
             <div className="app-modal">
                 {Object.keys(modals).map((key)=>{
                     switch(key){
-                        case 'loading':
-                            return <Loading key={key} status={modals[key]} />
-                            break;
-                        case 'tip':
-                            return <Tip key={key} tip={modals[key]} onHide={this.handleHide} />
-                            break;
-                        default:
-                            return null;
+                    case 'loading':
+                        return <Loading key={key} status={modals[key]} />;
+                    case 'tip':
+                        return <Tip key={key} tip={modals[key]} onHide={this.handleHide} />;
+                    default:
+                        return null;
                     }
                 })}
             </div>
-        )
+        );
     }
     handleHide(name){
         const {onHide} = this.props;
@@ -37,6 +35,6 @@ class Modal extends Component {
 Modal.propTypes={
     modals:PropTypes.object.isRequired,
     onHide:PropTypes.func.isRequired
-}
+};
 
 export default Modal;

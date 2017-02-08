@@ -1,5 +1,4 @@
 //加载依赖
-import {goBack} from 'react-router-redux'; //router跳转方法
 import {fetch} from '../common/api';
 import {modalUpdate,modalClean} from './modal';
 
@@ -14,15 +13,15 @@ export function subAnime(animeId,status){
         fetch('animeSub',{
             id:animeId,
             status
-        },'POST').then((res)=>{
+        },'POST').then(()=>{
             dispatch(getAnimeSubList());
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function getAnimeSubList(){
@@ -38,9 +37,9 @@ export function getAnimeSubList(){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -52,7 +51,7 @@ export function updateAnimeSub(data){
     return {
         type: UPDATE_ANIME_SUB,
         data: data
-    }
+    };
 }
 
 /**
@@ -62,5 +61,5 @@ export function updateAnimeSub(data){
 export function cleanAnimeSub(){
     return {
         type: CLEAN_ANIME_SUB
-    }
+    };
 }

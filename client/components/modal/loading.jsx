@@ -5,8 +5,8 @@ class Loading extends Component {
     constructor(props){
         super(props);
     }
-    shouldComponentUpdate(nextProps, nextState){
-        const {tip} = this.props;
+    shouldComponentUpdate(nextProps){
+        const {status} = this.props;
         if(status===nextProps.status) return false;
         return true;
     }
@@ -19,12 +19,12 @@ class Loading extends Component {
                     <div className="app-spinner"></div>
                 </div>
             </div>
-        )
+        );
     }
 }
 
 Loading.propTypes={
     status:PropTypes.oneOfType([PropTypes.bool,PropTypes.string])
-}
+};
 
 export default Loading;

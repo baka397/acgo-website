@@ -12,7 +12,7 @@ class Upload extends Component {
         super(props);
         this.state={
             value:this.props.value?this.props.value.split('|'):[]
-        }
+        };
         this.handleChangeVal = this.handleChangeVal.bind(this);
         this.handleCropper = this.handleCropper.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
@@ -24,8 +24,8 @@ class Upload extends Component {
         return true;
     }
     render() {
-        const {name,label,placeholder} = this.props;
-        const {value} = this.state
+        const {label} = this.props;
+        const {value} = this.state;
         let labelContent,upload,cropper,imageInfo;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         //检测是否已经上传
@@ -38,7 +38,7 @@ class Upload extends Component {
                     </p>
                     <p><img src={getImageUrl(value[0],value[1],360)} /></p>
                 </div>
-            )
+            );
         }else if(value[0]){ //已经上传图片
             cropper=(
                 <div className="upload-cropper">
@@ -47,7 +47,7 @@ class Upload extends Component {
                     </p>
                     <Cropper ref="cropper" src={getImageUrl(value[0])} style={{height: 360, width: 600}} viewMode={1} aspectRatio={copperWidth/copperHeight} autoCropArea={1} minCropBoxWidth={copperWidth} minCropBoxHeight={copperHeight} />
                 </div>
-            )
+            );
         }else{
             upload=(
                 <div>
@@ -57,7 +57,7 @@ class Upload extends Component {
                     </label>
                     <p className="m-t text-light">支持{acceptType}类型上传,最大支持{getSizeInfo(maxUploadSize)},为保证显示质量尺寸建议大于{copperWidth}px <i className="icon icon-close"></i> {copperHeight}px</p>
                 </div>
-            )
+            );
         }
         return (
             <div className="app-form-control app-form-upload">
@@ -68,16 +68,15 @@ class Upload extends Component {
                     {upload}
                 </div>
             </div>
-        )
+        );
     }
-    handleChangeVal(e){
-        const {name,dispatch} = this.props;
-        const {value} = this.state;
+    handleChangeVal(){
+        const {dispatch} = this.props;
         let file=this.refs.upload.files[0];
         if(file){
             dispatch(modalUpdate({
                 'loading':true
-            }))
+            }));
             upload(file).then(img=>{
                 dispatch(modalClean('loading'));
                 let curValue=[img,''];
@@ -88,11 +87,11 @@ class Upload extends Component {
                 dispatch(modalUpdate({
                     'loading':null,
                     'tip':err.message
-                }))
-            })
+                }));
+            });
         }
     }
-    handleCropper(e){
+    handleCropper(){
         const {name,onChangeVal} = this.props;
         const {value} = this.state;
         let cropData=this.refs.cropper.getData();
@@ -104,14 +103,14 @@ class Upload extends Component {
         });
         onChangeVal(name,cropValue.join('|'));
     }
-    handleCropperEdit(e){
+    handleCropperEdit(){
         const {value} = this.state;
         let cropValue=[value[0]];
         this.setState({
             value:cropValue
         });
     }
-    handleDelete(e){
+    handleDelete(){
         const {name,onChangeVal} = this.props;
         this.setState({
             value:[]
@@ -124,7 +123,8 @@ Upload.propTypes={
     name:PropTypes.string.isRequired,
     label:PropTypes.string,
     value:PropTypes.string,
-    onChangeVal:PropTypes.func.isRequired
-}
+    onChangeVal:PropTypes.func.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect()(Upload);

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 
 import FormList from '../../components/form/index.jsx';
@@ -30,7 +30,7 @@ const FORM_RULE = [
         type:'submit',
         icon:'edit'
     }
-]
+];
 
 //封装组件
 class ConfigPassword extends Component {
@@ -43,7 +43,7 @@ class ConfigPassword extends Component {
             <div className="app-config-password">
                 <FormList rules={FORM_RULE} longlabel={true} onSubmit={this.handleSubmit} />
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {dispatch} = this.props;
@@ -56,23 +56,27 @@ class ConfigPassword extends Component {
         if(data.password===data.oldPassword){
             dispatch(modalUpdate({
                 tip:'不能和旧密码一致'
-            }))
+            }));
             return;
         }
         if(!data.password){
             dispatch(modalUpdate({
                 tip:'请输入新密码'
-            }))
+            }));
             return;
         }
         if(data.password!==data.confirmPassword){
             dispatch(modalUpdate({
                 tip:'两次的密码不一致'
-            }))
+            }));
             return;
         }
         dispatch(userChangePassword(data));
     }
 }
+
+ConfigPassword.propTypes={
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect()(ConfigPassword);

@@ -37,7 +37,7 @@ app.use(function(req, res, next) {
     //设置模板变量
     res.locals.version = pkg.version;
     next();
-})
+});
 
 // 设置日志记录
 log.use(app);
@@ -46,14 +46,14 @@ router(app);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-	let err = new Error('ERROR NO PAGE FOUND');
-	err.status = 404;
-	next(err);
+    let err = new Error('ERROR NO PAGE FOUND');
+    err.status = 404;
+    next(err);
 });
 
 // error handlers
 app.use(function (err, req, res, next) {
-	if(err.code!==404) LOG.error(err);
+    if(err.code!==404) global.LOG.error(err);
     let code = err.code || err.status || 500;
     let message = err.message || err.stack;
     if (/TIMEDOUT/i.test(code) || err.syscall == 'connect' || err.hasOwnProperty('connect')) {
@@ -61,47 +61,51 @@ app.use(function (err, req, res, next) {
         message = '网络异常，请稍候再试~';
     }else if(/^\d+$/.test(code)){
         switch(code){
-            case 404:
-                message = '找不到当前页面';
-                break;
-            case 500:
-                message = '系统错误';
-                break;
-            case 502:
-                message = '数据访问异常，请稍后重试';
-                break;
+        case 404:
+            message = '找不到当前页面';
+            break;
+        case 500:
+            message = '系统错误';
+            break;
+        case 502:
+            message = '数据访问异常，请稍后重试';
+            break;
         }
     }else{
         code=500;
         message = '未知异常，请记录相关地址/操作并联系管理员处理';
     }
 
-	// 返回数据
-	let params = {
-		code: code,
-		msg: message
-	};
+    // 返回数据
+    let params = {
+        code: code,
+        msg: message
+    };
     switch(code){
-        case 403:
-        case 404:
-        case 500:
-            res.status(code);
-            break;
+    case 403:
+    case 404:
+    case 500:
+        res.status(code);
+        break;
     }
     //设置特殊情况下的http状态码，否则为200
     switch(code){
-        case 403:
-        case 404:
-        case 500:
-            res.status(code);
-            break;
+    case 403:
+    case 404:
+    case 500:
+        res.status(code);
+        break;
     }
-	if (tool.isAjaxRequest(req)) { //判定是否需要以json形式返回
-		res.send(params);
-	} else {
-        if(code===403) res.render('common/403',params);
-		else res.render('common/error',params);
-	}
+    try{
+        if (tool.isAjaxRequest(req)) { //判定是否需要以json形式返回
+            return res.send(params);
+        } else {
+            return res.render('common/error',params);
+        }
+    } catch (e) {
+        global.LOG.error(e);
+        next(e);
+    }
 });
 
 module.exports = app;

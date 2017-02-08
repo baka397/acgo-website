@@ -39,8 +39,8 @@ ReactDOM.render(
                     loadPage(true);
                     callback(null, {
                         component: loadComponent.default
-                    })
-                },'common-login')
+                    });
+                },'common-login');
             }}>
                 <Route path="register" getIndexRoute={(partialNextState, callback)=>{
                     loadPage();
@@ -49,8 +49,8 @@ ReactDOM.render(
                         loadPage(true);
                         callback(null, {
                             component: loadComponent.default
-                        })
-                    },'common-register')
+                        });
+                    },'common-register');
                 }} />
                 <Route path="getpwd" getIndexRoute={(partialNextState, callback)=>{
                     loadPage();
@@ -59,8 +59,8 @@ ReactDOM.render(
                         loadPage(true);
                         callback(null, {
                             component: loadComponent.default
-                        })
-                    },'common-getpwd')
+                        });
+                    },'common-getpwd');
                 }} />
                 <Route path="resetpwd" getIndexRoute={(partialNextState, callback)=>{
                     loadPage();
@@ -69,8 +69,8 @@ ReactDOM.render(
                         loadPage(true);
                         callback(null, {
                             component: loadComponent.default
-                        })
-                    },'common-resetpwd')
+                        });
+                    },'common-resetpwd');
                 }} />
             </Route>
             <Route path="dashboard" component={DashboardLayout} getIndexRoute={(partialNextState, callback)=>{
@@ -80,8 +80,8 @@ ReactDOM.render(
                     loadPage(true);
                     callback(null, {
                         component: loadComponent.default
-                    })
-                },'dashboard-index')
+                    });
+                },'dashboard-index');
             }}>
                 <Route path="search" getIndexRoute={(partialNextState, callback)=>{
                     loadPage();
@@ -90,8 +90,8 @@ ReactDOM.render(
                         loadPage(true);
                         callback(null, {
                             component: loadComponent.default
-                        })
-                    },'dashboard-search')
+                        });
+                    },'dashboard-search');
                 }} />
                 <Route path="anime">
                     <Route path="add" getIndexRoute={(partialNextState, callback)=>{
@@ -101,8 +101,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime-edit')
+                            });
+                        },'dashboard-anime-edit');
                     }} />
                     <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
@@ -111,8 +111,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime-edit')
+                            });
+                        },'dashboard-anime-edit');
                     }} />
                     <Route path="play" getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
@@ -121,8 +121,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime-play')
+                            });
+                        },'dashboard-anime-play');
                     }} />
                     <Route path="audit" getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
@@ -131,8 +131,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime-audit')
+                            });
+                        },'dashboard-anime-audit');
                     }} />
                     <Route path=":id" getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
@@ -141,8 +141,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime')
+                            });
+                        },'dashboard-anime');
                     }} />
                 </Route>
                 <Route path="anime-group">
@@ -153,8 +153,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime-group-edit')
+                            });
+                        },'dashboard-anime-group-edit');
                     }} />
                     <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
@@ -163,8 +163,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime-group-edit')
+                            });
+                        },'dashboard-anime-group-edit');
                     }} />
                     <Route path="item">
                         <Route path="add" getIndexRoute={(partialNextState, callback)=>{
@@ -174,8 +174,8 @@ ReactDOM.render(
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
-                                })
-                            },'dashboard-anime-group-item-edit')
+                                });
+                            },'dashboard-anime-group-item-edit');
                         }} />
                         <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
@@ -184,8 +184,8 @@ ReactDOM.render(
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
-                                })
-                            },'dashboard-anime-group-item-edit')
+                                });
+                            },'dashboard-anime-group-item-edit');
                         }} />
                     </Route>
                     <Route path="task" getIndexRoute={(partialNextState, callback)=>{
@@ -195,8 +195,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-anime-group-task-edit')
+                            });
+                        },'dashboard-anime-group-task-edit');
                     }} />
                 </Route>
                 <Route path="config" component={ConfigLayout} getIndexRoute={(partialNextState, callback)=>{
@@ -206,8 +206,8 @@ ReactDOM.render(
                         loadPage(true);
                         callback(null, {
                             component: loadComponent.default
-                        })
-                    },'dashboard-config-password')
+                        });
+                    },'dashboard-config-password');
                 }}>
                     <Route path="profile" getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
@@ -216,8 +216,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-config-profile')
+                            });
+                        },'dashboard-config-profile');
                     }} />
                     <Route path="client" getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
@@ -226,8 +226,8 @@ ReactDOM.render(
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
-                            })
-                        },'dashboard-config-client')
+                            });
+                        },'dashboard-config-client');
                     }} />
                 </Route>
             </Route>
@@ -236,5 +236,4 @@ ReactDOM.render(
     </Router>
   </Provider>,
   document.getElementById('app')
-)
-
+);

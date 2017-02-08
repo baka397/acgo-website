@@ -13,7 +13,7 @@ export function search(data){
         let sendData = {
             keyword:data.keyword,
             page:data.page
-        }
+        };
         dispatch(modalUpdate({
             loading:true
         }));
@@ -24,9 +24,9 @@ export function search(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function getAnimeDetail(data){
@@ -41,9 +41,9 @@ export function getAnimeDetail(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function editAnime(data){
@@ -61,9 +61,9 @@ export function editAnime(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function addAnime(data){
@@ -81,9 +81,9 @@ export function addAnime(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -95,7 +95,7 @@ export function updateAnime(data){
     return {
         type: UPDATE_ANIME,
         data: data
-    }
+    };
 }
 /**
  * 更新动画详情数据
@@ -106,7 +106,7 @@ export function updateAnimeDetail(data){
     return {
         type: UPDATE_ANIME_DETAIL,
         data: data
-    }
+    };
 }
 
 /**
@@ -116,5 +116,5 @@ export function updateAnimeDetail(data){
 export function cleanAnime(){
     return {
         type: CLEAN_ANIME
-    }
+    };
 }

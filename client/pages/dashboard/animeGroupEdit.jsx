@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {getQuery,getEnumArray,getObjCompareResult} from '../../common/tool';
 import {type,status} from '../../enums/anime_group';
@@ -12,7 +12,7 @@ function propMap(state,ownProps){
     return {
         animeGroupDetail:state.animeGroup.detail,
         routing:ownProps
-    }
+    };
 }
 
 const TYPE_ARRAY = getEnumArray(type);
@@ -43,7 +43,7 @@ const FORM_RULE=[
         type:'submit',
         icon:'confirm'
     }
-]
+];
 const FORM_RULE_EDIT=[
     {
         name:'episodeCur',
@@ -57,7 +57,7 @@ const FORM_RULE_EDIT=[
         type:'radio',
         list:STATUS_ARRAY
     }
-]
+];
 
 //封装组件
 class animeGroupEdit extends Component {
@@ -65,7 +65,7 @@ class animeGroupEdit extends Component {
         super(props);
         this.state={
             formRule:[]
-        }
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
@@ -75,62 +75,57 @@ class animeGroupEdit extends Component {
             dispatch(getAnimeGroupDetail(query));
         }else{
             let newFormRule=FORM_RULE.map(rule=>{
-                return Object.assign({},rule)
-            })
+                return Object.assign({},rule);
+            });
             this.setState({
                 formRule:newFormRule
             });
         }
     }
-    componentDidUpdate(prevProps, prevState){
-        const {animeGroupDetail,routing} = this.props;
+    componentDidUpdate(){
+        const {animeGroupDetail} = this.props;
         const {formRule} = this.state;
-        let query=getQuery(routing);
         if(formRule.length===0&&animeGroupDetail._id){
             //查询缓存数据为空时重组数据
             let newFormRule=FORM_RULE.map(rule=>{
                 switch(rule.name){
-                    case 'type':
+                case 'type':
+                    return Object.assign({},rule,{
+                        value:animeGroupDetail['type'],
+                        disabled:true
+                    });
+                case 'episodeStart':
+                    return Object.assign({},rule,{
+                        value:animeGroupDetail['episode_start']
+                    });
+                case 'episodeTotal':
+                    return Object.assign({},rule,{
+                        value:animeGroupDetail['episode_total']
+                    });
+                default:
+                    if(rule.name){
                         return Object.assign({},rule,{
-                            value:animeGroupDetail['type'],
-                            disabled:true
-                        })
-                        break;
-                    case 'episodeStart':
-                        return Object.assign({},rule,{
-                            value:animeGroupDetail['episode_start']
-                        })
-                        break;
-                    case 'episodeTotal':
-                        return Object.assign({},rule,{
-                            value:animeGroupDetail['episode_total']
-                        })
-                        break;
-                    default:
-                        if(rule.name){
-                            return Object.assign({},rule,{
-                                value:animeGroupDetail[rule.name]
-                            })
-                        }
-                        return Object.assign({},rule);
+                            value:animeGroupDetail[rule.name]
+                        });
+                    }
+                    return Object.assign({},rule);
                 }
             });
             let newFormRuleEdit=FORM_RULE_EDIT.map((rule)=>{
                 switch(rule.name){
-                    case 'episodeCur':
+                case 'episodeCur':
+                    return Object.assign({},rule,{
+                        value:animeGroupDetail['episode_cur']
+                    });
+                default:
+                    if(rule.name){
                         return Object.assign({},rule,{
-                            value:animeGroupDetail['episode_cur']
-                        })
-                        break;
-                    default:
-                        if(rule.name){
-                            return Object.assign({},rule,{
-                                value:animeGroupDetail[rule.name]
-                            })
-                        }
-                        return Object.assign({},rule);
+                            value:animeGroupDetail[rule.name]
+                        });
+                    }
+                    return Object.assign({},rule);
                 }
-            })
+            });
             let resultFormRule=[].concat(newFormRule.slice(0,newFormRule.length-1),newFormRuleEdit,newFormRule.slice(newFormRule.length-1));
             this.setState({
                 formRule:resultFormRule
@@ -145,7 +140,6 @@ class animeGroupEdit extends Component {
         }
     }
     render() {
-        const {routing} = this.props;
         const {formRule} = this.state;
         if(formRule.length===0) return null;
         return (
@@ -159,7 +153,7 @@ class animeGroupEdit extends Component {
                 </div>
                 <FormList rules={formRule} longlabel={true} onSubmit={this.handleSubmit} />
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {animeGroupDetail,routing,dispatch} = this.props;
@@ -198,7 +192,7 @@ class animeGroupEdit extends Component {
             }else{
                 dispatch(modalUpdate({
                     tip:'你还没有更改任何内容'
-                }))
+                }));
             }
         }
         else{
@@ -208,4 +202,10 @@ class animeGroupEdit extends Component {
         }
     }
 }
+
+animeGroupEdit.propTypes={
+    animeGroupDetail:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(animeGroupEdit);

@@ -1,5 +1,5 @@
 import electron from 'electron';
-import {maxUploadSize,uploadPath,downloadPath,pageSize} from '../config';
+import {maxUploadSize,downloadPath,pageSize} from '../config';
 import {fetch} from './api';
 
 const IS_CLIENT = isObjEmpty(electron)?false:true;
@@ -19,7 +19,7 @@ export function isObjEmpty(obj) {
     // If it isn't an object at this point
     // it is empty, but it can't be anything *but* empty
     // Is it empty?  Depends on your application.
-    if (typeof obj !== "object") return true;
+    if (typeof obj !== 'object') return true;
 
     // Otherwise, does it have any properties of its own?
     // Note that this doesn't handle
@@ -52,7 +52,7 @@ export function nextPromise(err,data){
     return new Promise(function(resolve,reject){
         if(err) reject(err);
         else resolve(data);
-    })
+    });
 }
 
 /**
@@ -96,8 +96,8 @@ export function getEnumArray(enumObj){
         return {
             value:key,
             name:enumObj[key]
-        }
-    })
+        };
+    });
 }
 
 /**
@@ -130,7 +130,7 @@ export function upload(file){
         formInfo.append('token',data.data.token);
         formInfo.append('key',data.data.key);
         formInfo.append('file',file);
-        return fetch('upload',formInfo,'file')
+        return fetch('upload',formInfo,'file');
     });
 }
 
@@ -168,25 +168,25 @@ export function getObjCompareResult(newData,oldData){
         let curData=newData[key];
         let curOldData=oldData[oldDataKey];
         switch(getObjType(curOldData)){
-            case 'array':
-                if(curData.toString()!==curOldData.toString()){
-                    result[key]=curData;
-                }
-                break;
-            case 'object':
-                if(JSON.stringify(curData)!==JSON.stringify(curOldData)){
-                    result[key]=curData;
-                }
-                break;
-            case 'number':
-                if(parseFloat(curData)!==parseFloat(curOldData)){
-                    result[key]=curData;
-                }
-                break;
-            default:
-                if(curData!==curOldData){
-                    result[key]=curData;
-                }
+        case 'array':
+            if(curData.toString()!==curOldData.toString()){
+                result[key]=curData;
+            }
+            break;
+        case 'object':
+            if(JSON.stringify(curData)!==JSON.stringify(curOldData)){
+                result[key]=curData;
+            }
+            break;
+        case 'number':
+            if(parseFloat(curData)!==parseFloat(curOldData)){
+                result[key]=curData;
+            }
+            break;
+        default:
+            if(curData!==curOldData){
+                result[key]=curData;
+            }
         }
     }
     if(isObjEmpty(result)) return null;
@@ -201,9 +201,9 @@ export function getObjCompareResult(newData,oldData){
 export function getObjType(obj){
     let resultType=typeof obj;
     switch(resultType){
-        case 'object':
-            if(Array.isArray(obj)) resultType='array';
-            break;
+    case 'object':
+        if(Array.isArray(obj)) resultType='array';
+        break;
     }
     return resultType;
 }

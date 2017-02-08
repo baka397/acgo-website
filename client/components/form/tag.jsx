@@ -16,7 +16,7 @@ class Tag extends Component {
         super(props);
         this.state={
             value:[]
-        }
+        };
         this.handleChangeVal = this.handleChangeVal.bind(this);
         this.handleInput = this.handleInput.bind(this);
         this.handlePromptTextCreator = this.handlePromptTextCreator.bind(this);
@@ -26,7 +26,7 @@ class Tag extends Component {
         if(value){
             dispatch(modalUpdate({
                 loading:true
-            }))
+            }));
             fetch('tag',{
                 ids:value,
                 type:tagType
@@ -37,14 +37,14 @@ class Tag extends Component {
                     values.push({
                         _id:option._id,
                         name:option.name
-                    })
-                })
+                    });
+                });
                 this.setState({
                     value:values
                 });
-            }).catch(err=>{
+            }).catch(()=>{
                 dispatch(modalClean('loading'));
-            })
+            });
         }
     }
     shouldComponentUpdate(nextProps, nextState){
@@ -64,7 +64,7 @@ class Tag extends Component {
                     <AsyncCreatable name={name} value={value} autoload={false} cache={false} multi={true} valueKey="_id" labelKey="name" placeholder={placeholder} noResultsText="输入搜索内容" promptTextCreator={this.handlePromptTextCreator} clearAllText="清空" loadOptions={this.handleInput} onChange={this.handleChangeVal} />
                 </div>
             </div>
-        )
+        );
     }
     handlePromptTextCreator(label){
         return '没有符合"'+label+'"的数据?立即创建一个';
@@ -85,11 +85,11 @@ class Tag extends Component {
             }else{
                 addName=option.name;
             }
-        })
+        });
         if(addName){
             dispatch(modalUpdate({
                 loading:true
-            }))
+            }));
             fetch('tagAdd',{
                 name:addName,
                 type:tagType
@@ -97,18 +97,18 @@ class Tag extends Component {
                 dispatch(modalUpdate({
                     loading:null,
                     data:res.msg
-                }))
+                }));
                 values.push({
                     _id:res.data._id,
                     name:res.data.name
-                })
+                });
                 this.handleUpdateVal(values);
             }).catch(err=>{
                 dispatch(modalUpdate({
                     loading:null,
                     tip:err.message
-                }))
-            })
+                }));
+            });
         }else{
             this.handleUpdateVal(values);
         }
@@ -118,7 +118,7 @@ class Tag extends Component {
         let changeValue=[];
         values.forEach((option)=>{
             changeValue.push(option._id);
-        })
+        });
         onChangeVal(name,changeValue.toString());
         this.setState({
             value:values
@@ -138,10 +138,10 @@ class Tag extends Component {
                 callback(null,{
                     options: res.data.content,
                     complete: true
-                })
+                });
             }).catch((err)=>{
                 callback(err);
-            })
+            });
         },searchDelay*1000);
     }
 }
@@ -153,7 +153,8 @@ Tag.propTypes={
     value:PropTypes.string,
     tagType:PropTypes.number.isRequired,
     maxSize:PropTypes.number.isRequired,
-    onChangeVal:PropTypes.func.isRequired
-}
+    onChangeVal:PropTypes.func.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect()(Tag);

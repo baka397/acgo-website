@@ -6,13 +6,13 @@ class Text extends Component {
         super(props);
         this.handleChangeVal = this.handleChangeVal.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {value} = this.props;
         if(value===nextProps.value) return false;
         return true;
     }
     render() {
-        const {name,label,placeholder,value,disabled} = this.props;
+        const {label,placeholder,value,disabled} = this.props;
         let labelContent;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
@@ -22,9 +22,9 @@ class Text extends Component {
                     <input type="text" placeholder={placeholder} value={value} onChange={this.handleChangeVal} ref="text" disabled={disabled} />
                 </div>
             </label>
-        )
+        );
     }
-    handleChangeVal(e){
+    handleChangeVal(){
         const {name,onChangeVal} = this.props;
         onChangeVal(name,this.refs.text.value);
     }
@@ -37,6 +37,6 @@ Text.propTypes={
     value:PropTypes.string,
     disabled:PropTypes.bool,
     onChangeVal:PropTypes.func.isRequired
-}
+};
 
 export default Text;

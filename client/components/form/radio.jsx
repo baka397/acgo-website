@@ -5,13 +5,13 @@ class Radio extends Component {
     constructor(props) {
         super(props);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {value} = this.props;
         if(value===nextProps.value) return false;
         return true;
     }
     render() {
-        const {name,label,list,value,disabled} = this.props;
+        const {label,list,value,disabled} = this.props;
         let labelContent;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
@@ -21,12 +21,12 @@ class Radio extends Component {
                     <ul className={'app-check app-check-radio'+(disabled?' app-check-disabled':'')}>
                         {list.map((item,index)=>{
                             let checked=item.value==value?'checked':'';
-                            return <li key={index} className={checked} onClick={(e)=>this.handleChangeVal(item.value)}>{item.name}</li>
+                            return <li key={index} className={checked} onClick={()=>this.handleChangeVal(item.value)}>{item.name}</li>;
                         })}
                     </ul>
                 </div>
             </div>
-        )
+        );
     }
     handleChangeVal(value){
         const {name,disabled,onChangeVal} = this.props;
@@ -42,6 +42,6 @@ Radio.propTypes={
     value:PropTypes.oneOfType([PropTypes.string,PropTypes.number]),
     disabled:PropTypes.bool,
     onChangeVal:PropTypes.func.isRequired
-}
+};
 
 export default Radio;

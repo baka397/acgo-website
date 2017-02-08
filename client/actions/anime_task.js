@@ -19,9 +19,9 @@ export function getAnimeTaskDetail(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function editAnimeTask(data){
@@ -39,9 +39,9 @@ export function editAnimeTask(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function addAnimeTask(data){
@@ -59,9 +59,9 @@ export function addAnimeTask(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 /**
  * 更新动画剧集详情数据
@@ -72,7 +72,7 @@ export function updateAnimeTaskDetail(data){
     return {
         type: UPDATE_ANIME_TASK_DETAIL,
         data: data
-    }
+    };
 }
 
 /**
@@ -82,5 +82,5 @@ export function updateAnimeTaskDetail(data){
 export function cleanAnimeTask(){
     return {
         type: CLEAN_ANIME_TASK
-    }
+    };
 }

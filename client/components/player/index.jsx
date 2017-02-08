@@ -15,7 +15,7 @@ class Player extends Component {
             url:'',
             loaded:false,
             error:false
-        }
+        };
         this.handleLoad = this.handleLoad.bind(this);
         this.handleLoadError = this.handleLoadError.bind(this);
     }
@@ -28,13 +28,13 @@ class Player extends Component {
         if(id===nextProps.id&&url===nextState.url&&loaded===nextState.loaded) return false;
         return true;
     }
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps){
         const {id} = this.props;
         if(id!==prevProps.id){
             this.setState({
                 url:'',
                 loaded:false
-            })
+            });
             this.handleGetUrl();
         }
     }
@@ -53,7 +53,7 @@ class Player extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
         if(!url) return (
             <div className="app-player">
                 <div className="app-tip m-t-hg">
@@ -68,25 +68,25 @@ class Player extends Component {
         );
         if(isClient()){
             switch(type){
-                case 1: //B站
-                    player=<Bilibili url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />
-                    break;
-                case 2: //D站
-                    player=<Dilidili url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />
-                    break;
+            case 1: //B站
+                player=<Bilibili url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />;
+                break;
+            case 2: //D站
+                player=<Dilidili url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />;
+                break;
             }
             if(!loaded){
-                loadModal=<LoadModal />
+                loadModal=<LoadModal />;
             }
         }else{
-            player=<Unable url={url} />
+            player=<Unable url={url} />;
         }
         return (
             <div className="app-player">
                 {player}
                 {loadModal}
             </div>
-        )
+        );
     }
     handleGetUrl(){
         const {id} = this.props;
@@ -95,28 +95,28 @@ class Player extends Component {
         }).then((res)=>{
             this.setState({
                 url:res.data.url
-            })
-        }).catch((err)=>{
+            });
+        }).catch(()=>{
             this.setState({
                 error:true
-            })
-        })
+            });
+        });
     }
     handleLoad(){
         this.setState({
             loaded:true
-        })
+        });
     }
     handleLoadError(){
         this.setState({
             error:true
-        })
+        });
     }
 }
 
 Player.propTypes={
     id:PropTypes.string.isRequired,
     type:PropTypes.number.isRequired
-}
+};
 
 export default Player;

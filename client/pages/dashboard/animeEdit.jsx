@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {getQuery,getEnumArray,getObjCompareResult} from '../../common/tool';
 import {showStatus} from '../../enums/anime';
@@ -13,7 +13,7 @@ function propMap(state,ownProps){
     return {
         animeDetail:state.anime.detail,
         routing:ownProps
-    }
+    };
 }
 
 const SHOW_STATUS_ARRAY = getEnumArray(showStatus);
@@ -77,7 +77,7 @@ const FORM_RULE=[
         type:'submit',
         icon:'confirm'
     }
-]
+];
 
 //封装组件
 class animeEdit extends Component {
@@ -85,7 +85,7 @@ class animeEdit extends Component {
         super(props);
         this.state={
             formRule:[]
-        }
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
@@ -98,17 +98,17 @@ class animeEdit extends Component {
                 if(rule.name==='name'){
                     return Object.assign({},rule,{
                         value:query.name
-                    })
+                    });
                 }else{
-                    return Object.assign({},rule)
+                    return Object.assign({},rule);
                 }
-            })
+            });
             this.setState({
                 formRule:newFormRule
             });
         }
     }
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(){
         const {animeDetail,routing} = this.props;
         const {formRule} = this.state;
         let query=getQuery(routing);
@@ -117,38 +117,34 @@ class animeEdit extends Component {
             if(formRule.length===0&&query.id&&animeDetail._id){
                 let newFormRule=FORM_RULE.map(rule=>{
                     switch(rule.name){
-                        case 'name':
+                    case 'name':
+                        return Object.assign({},rule,{
+                            value:animeDetail['name'],
+                            disabled:true
+                        });
+                    case 'cover':
+                        return Object.assign({},rule,{
+                            value:animeDetail['cover']+'|'+animeDetail['cover_clip'].toString()
+                        });
+                    case 'tag':
+                    case 'cv':
+                    case 'staff':
+                        return Object.assign({},rule,{
+                            value:animeDetail[rule.name].toString()
+                        });
+                    case 'showStatus':
+                        return Object.assign({},rule,{
+                            value:animeDetail['show_status'].toString()
+                        });
+                    default:
+                        if(rule.name){
                             return Object.assign({},rule,{
-                                value:animeDetail['name'],
-                                disabled:true
-                            })
-                            break;
-                        case 'cover':
-                            return Object.assign({},rule,{
-                                value:animeDetail['cover']+'|'+animeDetail['cover_clip'].toString()
-                            })
-                            break;
-                        case 'tag':
-                        case 'cv':
-                        case 'staff':
-                            return Object.assign({},rule,{
-                                value:animeDetail[rule.name].toString()
-                            })
-                            break;
-                        case 'showStatus':
-                            return Object.assign({},rule,{
-                                value:animeDetail['show_status'].toString()
-                            })
-                            break;
-                        default:
-                            if(rule.name){
-                                return Object.assign({},rule,{
-                                    value:animeDetail[rule.name]
-                                })
-                            }
-                            return Object.assign({},rule);
+                                value:animeDetail[rule.name]
+                            });
+                        }
+                        return Object.assign({},rule);
                     }
-                })
+                });
                 this.setState({
                     formRule:newFormRule
                 });
@@ -163,7 +159,6 @@ class animeEdit extends Component {
         }
     }
     render() {
-        const {animeDetail,routing} = this.props;
         const {formRule} = this.state;
         if(formRule.length===0) return null;
         return (
@@ -178,7 +173,7 @@ class animeEdit extends Component {
                 </div>
                 <FormList rules={formRule} longlabel={true} onSubmit={this.handleSubmit} />
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {dispatch,animeDetail} = this.props;
@@ -234,7 +229,7 @@ class animeEdit extends Component {
         let sendData=Object.assign({},data,{
             cover:coverArray[0],
             coverClip:coverArray[1]
-        })
+        });
         //检测是否为编辑
         if(animeDetail._id){
             let compareData=getObjCompareResult(sendData,animeDetail);
@@ -245,7 +240,7 @@ class animeEdit extends Component {
             }else{
                 dispatch(modalUpdate({
                     tip:'你还没有更改任何内容'
-                }))
+                }));
             }
         }
         else{
@@ -253,4 +248,10 @@ class animeEdit extends Component {
         }
     }
 }
+
+animeEdit.propTypes={
+    animeDetail:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(animeEdit);

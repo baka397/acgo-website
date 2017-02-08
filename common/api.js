@@ -1,6 +1,6 @@
 'use strict';
 const queryString = require('querystring');
-const PATH = CONFIG.apiPath;
+const PATH = global.CONFIG.apiPath;
 const request = require('superagent');
 const authTool = require('./auth');
 const tool = require('./tool');
@@ -28,8 +28,8 @@ const URL = {
     animeGroupTaskDetail:'/anime-group/task/:id',
     uploadToken:'/upload/token/',
     tag:'/tag/'
-}
-let apiTokenParams=authTool.getTokenParams(CONFIG.apiKey,CONFIG.apiAlias);
+};
+let apiTokenParams=authTool.getTokenParams(global.CONFIG.apiKey,global.CONFIG.apiAlias);
 
 /**
  * 请求接口数据
@@ -56,7 +56,7 @@ function apiRequest(token,action,data,method){
     if (method === 'get' && !tool.isObjEmpty(data)) {
         url += (/\?/.test(url) ? '&' : '?') + queryString.stringify(data);
     }
-    LOG.info(method.toUpperCase(),url);
+    global.LOG.info(method.toUpperCase(),url);
     return new Promise(function(resolve,reject){
         let apiLoginParams=Object.assign({},apiTokenParams);
         if(token) apiLoginParams['x-req-key']=token;
@@ -65,19 +65,19 @@ function apiRequest(token,action,data,method){
             response: 5000,  // Wait 5 seconds for the server to start sending,
             deadline: 60000, // but allow 1 minute for the file to finish loading.
         })
-        .set(apiLoginParams)
+        .set(apiLoginParams);
         if(method!=='get'&&!tool.isObjEmpty(data)){
             requestObj.send(data);
-            LOG.info('请求数据');
-            LOG.info(tool.filterReqLog(data));
+            global.LOG.info('请求数据');
+            global.LOG.info(tool.filterReqLog(data));
         }
         requestObj.end(function(err,res){
             //处理超时错误
             if((err&&parseInt(err.status)===408)||!res){
-                LOG.error(err);
+                global.LOG.error(err);
                 return reject(err);
             }
-            LOG.info(res.body);
+            global.LOG.info(res.body);
             if(res.status===200&&res.body.code===STATUS_CODE.SUCCESS){
                 return resolve(res.body.data);
             }else{
@@ -85,7 +85,7 @@ function apiRequest(token,action,data,method){
                 error.status = res.body.code||res.status;
                 return reject(error);
             }
-        })
-    })
+        });
+    });
 }
 exports.request=apiRequest;

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {getObjCompareResult} from '../../common/tool';
 
@@ -19,12 +19,12 @@ const FORM_RULE = [
         type:'submit',
         icon:'edit'
     }
-]
+];
 
 function propMap(state){
     return {
         user:state.user
-    }
+    };
 }
 
 //封装组件
@@ -33,25 +33,25 @@ class ConfigProfile extends Component {
         super(props);
         this.state={
             formRule:[]
-        }
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
         const {user} = this.props;
         let formRule=FORM_RULE.map((rule)=>{
             switch(rule.name){
-                default:
-                    if(rule.name){
-                        return Object.assign({},rule,{
-                            value:user[rule.name]
-                        })
-                    }
-                    return Object.assign({},rule);
+            default:
+                if(rule.name){
+                    return Object.assign({},rule,{
+                        value:user[rule.name]
+                    });
+                }
+                return Object.assign({},rule);
             }
-        })
+        });
         this.setState({
             formRule
-        })
+        });
     }
     render() {
         const {formRule} = this.state;
@@ -60,7 +60,7 @@ class ConfigProfile extends Component {
             <div className="app-config-password">
                 <FormList rules={formRule} longlabel={true} onSubmit={this.handleSubmit} />
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {user,dispatch} = this.props;
@@ -76,9 +76,14 @@ class ConfigProfile extends Component {
         }else{
             dispatch(modalUpdate({
                 tip:'你还没有更改任何内容'
-            }))
+            }));
         }
     }
 }
+
+ConfigProfile.propTypes={
+    user:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect(propMap)(ConfigProfile);

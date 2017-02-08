@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail} from 'validator';
@@ -28,7 +28,7 @@ const FORM_RULE = [
         type:'submit',
         icon:'confirm'
     }
-]
+];
 
 //封装组件
 class Login extends Component {
@@ -48,7 +48,7 @@ class Login extends Component {
                     <Link to={clientPath+'/common/getpwd/'} className="m-l">忘记密码</Link>
                 </div>
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {dispatch} = this.props;
@@ -61,11 +61,15 @@ class Login extends Component {
         if(!data.password){
             dispatch(modalUpdate({
                 tip:'请输入正确的密码'
-            }))
+            }));
             return;
         }
         dispatch(userLogin(data));
     }
 }
+
+Login.propTypes={
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect()(Login);

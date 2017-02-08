@@ -1,5 +1,4 @@
 //加载依赖
-import {goBack} from 'react-router-redux'; //router跳转方法
 import {fetch} from '../common/api';
 import {modalUpdate,modalClean} from './modal';
 
@@ -11,15 +10,15 @@ export function addAnimeWatch(data){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('animeWatchAdd',data,'POST').then((res)=>{
+        fetch('animeWatchAdd',data,'POST').then(()=>{
             dispatch(getAnimeWatchList());
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function getAnimeWatchList(){
@@ -35,9 +34,9 @@ export function getAnimeWatchList(){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -49,7 +48,7 @@ export function updateAnimeWatch(data){
     return {
         type: UPDATE_ANIME_WATCH,
         data: data
-    }
+    };
 }
 
 /**
@@ -59,5 +58,5 @@ export function updateAnimeWatch(data){
 export function cleanAnimeWatch(){
     return {
         type: CLEAN_ANIME_WATCH
-    }
+    };
 }

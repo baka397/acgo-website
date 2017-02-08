@@ -9,7 +9,7 @@ class Header extends Component {
         this.handleIconClick = this.handleIconClick.bind(this);
         this.handleBack = this.handleBack.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {title} = this.props;
         if(title===nextProps.title) return false;
         return true;
@@ -18,7 +18,7 @@ class Header extends Component {
         const {icons,title,back} = this.props;
         let titleContent;
         if(back){
-            titleContent=(<a onClick={this.handleBack}><i className="icon icon-back m-r-sm"></i>{title}</a>)
+            titleContent=(<a onClick={this.handleBack}><i className="icon icon-back m-r-sm"></i>{title}</a>);
         }else{
             titleContent=title;
         }
@@ -27,7 +27,7 @@ class Header extends Component {
                 <Icon icons={icons} onIconClick={this.handleIconClick} />
                 {titleContent}
             </div>
-        )
+        );
     }
     handleIconClick(iconName){
         const {onIconClick} = this.props;
@@ -45,6 +45,6 @@ Header.propTypes={
     back: PropTypes.bool,
     icons: PropTypes.array.isRequired,
     onIconClick: PropTypes.func.isRequired
-}
+};
 
 export default Header;

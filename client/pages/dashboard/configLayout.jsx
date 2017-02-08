@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {isClient} from '../../common/tool';
 
@@ -12,14 +12,14 @@ let tab=[
         name:'修改资料',
         link:'/dashboard/config/profile/'
     }
-]
+];
 if(isClient()){
     tab=tab.concat([
         {
             name:'客户端',
             link:'/dashboard/config/client/'
         }
-    ])
+    ]);
 }
 
 //封装组件
@@ -32,7 +32,10 @@ class ConfigLayout extends Component {
                     {this.props.children}
                 </div>
             </div>
-        )
+        );
     }
 }
+ConfigLayout.propTypes={
+    children:PropTypes.object.isRequired
+};
 export default connect()(ConfigLayout);

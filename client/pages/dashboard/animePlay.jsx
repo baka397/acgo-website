@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {replace} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
@@ -18,7 +18,7 @@ function propMap(state,ownProps){
         animeItem:state.animeItem,
         user:state.user,
         routing:ownProps
-    }
+    };
 }
 
 //封装组件
@@ -35,7 +35,7 @@ class AnimePlay extends Component {
             curEpisodeNo:'',
             curEpisodeName:'',
             playBtns
-        }
+        };
         this.handleGroupItemClick = this.handleGroupItemClick.bind(this);
         this.handleGroupItemPageClick = this.handleGroupItemPageClick.bind(this);
     }
@@ -55,7 +55,6 @@ class AnimePlay extends Component {
             this.handleEpLoad();
         }
         let query=getQuery(routing);
-        let beforeQuery=getQuery(routing);
         if(animeItem.order.length>0&&!curItemId){
             let curId='';
             let curEpisodeNo='';
@@ -69,18 +68,18 @@ class AnimePlay extends Component {
                     return true;
                 }
                 else false;
-            })
+            });
             this.setState({
                 curItemId:curId,
                 curEpisodeNo,
                 curEpisodeName
-            })
+            });
         }
         if(curItemId&&curItemId!==prevState.curItemId){
             dispatch(addAnimeWatch({
                 groupId:query.groupId,
                 groupItemId:curItemId
-            }))
+            }));
         }
     }
     componentWillUnmount(){
@@ -99,9 +98,8 @@ class AnimePlay extends Component {
                         <div className="pull-right">
                             {playBtns.map((btn)=>{
                                 switch(btn){
-                                    case 'edit':
-                                        return <Link key={btn} to={clientPath+'/dashboard/anime-group/item/edit?id='+curItemId} className="m-l-hg"><i className="icon icon-edit m-r-sm"></i>编辑分集信息</Link>;
-                                        break;
+                                case 'edit':
+                                    return <Link key={btn} to={clientPath+'/dashboard/anime-group/item/edit?id='+curItemId} className="m-l-hg"><i className="icon icon-edit m-r-sm"></i>编辑分集信息</Link>;
                                 }
                             })}
                         </div>
@@ -113,7 +111,7 @@ class AnimePlay extends Component {
                     <Playlist content={animeItem.content} order={animeItem.order} page={animeItem.page} pageSize={animeItem.pageSize} total={animeItem.total} playId={curItemId} onItemClick={this.handleGroupItemClick} onPageClick={this.handleGroupItemPageClick} />
                 </div>
             </div>
-        )
+        );
     }
     handleEpLoad(){
         const {animeGroupDetail,routing,dispatch} = this.props;
@@ -123,7 +121,7 @@ class AnimePlay extends Component {
         dispatch(getAnimeItemList({
             groupId:query.groupId,
             page
-        }))
+        }));
     }
     handleGroupItemClick(id,ep){
         const {animeItem,routing,dispatch} = this.props;
@@ -133,10 +131,10 @@ class AnimePlay extends Component {
             curItemId:id,
             curEpisodeNo:curItem.episode_no,
             curEpisodeName:curItem.episode_name
-        })
+        });
         dispatch(replace(clientPath+'/dashboard/anime/play/?'+serialize(Object.assign({},query,{
             ep
-        }))))
+        }))));
     }
     handleGroupItemPageClick(page){
         const {routing,dispatch} = this.props;
@@ -144,7 +142,14 @@ class AnimePlay extends Component {
         dispatch(getAnimeItemList({
             groupId:query.groupId,
             page
-        }))
+        }));
     }
 }
+AnimePlay.propTypes={
+    animeGroupDetail:PropTypes.object.isRequired,
+    animeItem:PropTypes.object.isRequired,
+    user:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(AnimePlay);

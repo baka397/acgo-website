@@ -8,7 +8,7 @@ class Tip extends Component {
         this.handleHide = this.handleHide.bind(this);
         this.handleIconClick = this.handleIconClick.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {tip} = this.props;
         if(tip===nextProps.tip) return false;
         return true;
@@ -31,7 +31,7 @@ class Tip extends Component {
                 </div>
                 <div className="modal-mask" onClick={this.handleHide}></div>
             </div>
-        )
+        );
     }
     handleHide(){
         const {onHide} = this.props;
@@ -40,9 +40,9 @@ class Tip extends Component {
     handleIconClick(iconName){
         const {onHide} = this.props;
         switch(iconName){
-            case 'close':
-                onHide('tip');
-                break;
+        case 'close':
+            onHide('tip');
+            break;
         }
     }
 }
@@ -50,6 +50,6 @@ class Tip extends Component {
 Tip.propTypes={
     tip:PropTypes.string,
     onHide:PropTypes.func.isRequired
-}
+};
 
 export default Tip;

@@ -11,35 +11,34 @@ class Anime extends Component {
             <div className="app-anime-list">
             {order.map(id=>{
                 let animeData=datas[id];
+                let watchData={};
+                let updateAt=0;
                 switch(type){
-                    case 'simple':
-                        return <Simple key={id} data={animeData} />
-                        break;
-                    case 'sub':
-                        let watchData={};
-                        let updateAt=0;
-                        if(animeData.groups){
-                            animeData.groups.forEach((group)=>{
-                                if(watchDatas[group.id]){
-                                    let curUpdateAt=watchDatas[group.id].update_at?new Date(watchDatas[group.id].update_at).getTime():0;
-                                    if(updateAt>curUpdateAt){
-                                        return true;
-                                    }
-                                    watchData=Object.assign({},watchDatas[group.id]);
-                                    watchData.total=group.episode_cur;
-                                    if(group.episode_cur>0) watchData.percent=Math.ceil((watchData.watch_ep/group.episode_cur)*100);
-                                    updateAt=curUpdateAt;
+                case 'simple':
+                    return <Simple key={id} data={animeData} />;
+                case 'sub':
+                    if(animeData.groups){
+                        animeData.groups.forEach((group)=>{
+                            if(watchDatas[group.id]){
+                                let curUpdateAt=watchDatas[group.id].update_at?new Date(watchDatas[group.id].update_at).getTime():0;
+                                if(updateAt>curUpdateAt){
+                                    return true;
                                 }
-                            })
-                        }
-                        //处理观看记录
-                        return <Sub key={id} data={animeData} watchData={watchData} />
-                    default:
-                        return null;
+                                watchData=Object.assign({},watchDatas[group.id]);
+                                watchData.total=group.episode_cur;
+                                if(group.episode_cur>0) watchData.percent=Math.ceil((watchData.watch_ep/group.episode_cur)*100);
+                                updateAt=curUpdateAt;
+                            }
+                        });
+                    }
+                    //处理观看记录
+                    return <Sub key={id} data={animeData} watchData={watchData} />;
+                default:
+                    return null;
                 }
             })}
             </div>
-        )
+        );
     }
 }
 
@@ -48,6 +47,6 @@ Anime.propTypes={
     datas:PropTypes.object.isRequired,
     watchDatas:PropTypes.object,
     type:PropTypes.string.isRequired
-}
+};
 
 export default Anime;

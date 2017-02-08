@@ -11,4 +11,4 @@ module.exports = {
     apiPath:'http://127.0.0.1:8000/api/v1',
     apiAlias:'website',
     apiKey:'5885a22ecb8bcd6da6d69d7c'
-}
+};

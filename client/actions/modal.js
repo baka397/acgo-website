@@ -8,11 +8,11 @@ export function modalUpdate(data){
     return {
         type:MODAL_UPDATE,
         data
-    }
+    };
 }
 export function modalClean(modalKey){
     return {
         type:MODAL_CLEAN,
         key:modalKey
-    }
+    };
 }

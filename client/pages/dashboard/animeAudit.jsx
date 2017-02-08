@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {fetch} from '../../common/api';
@@ -13,7 +13,7 @@ import {modalUpdate,modalClean} from '../../actions/modal';
 function propMap(state){
     return {
         animeDetail:state.anime.detail
-    }
+    };
 }
 //封装组件
 class animeAudit extends Component {
@@ -22,18 +22,18 @@ class animeAudit extends Component {
         this.state={
             auditDetail:{},
             tags:{}
-        }
+        };
     }
     componentDidMount(){
         this.handleInit();
     }
     shouldComponentUpdate(nextProps, nextState){
         const {animeDetail} = this.props;
-        const {auditDetail,tags} = this.state;
+        const {auditDetail} = this.state;
         if(auditDetail._id===nextState.auditDetail._id&&animeDetail._id===nextProps.animeDetail._id&&isObjEmpty(nextState.tags)) return false;
         return true;
     }
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(){
         const {animeDetail,dispatch} = this.props;
         const {auditDetail,tags} = this.state;
         if(isObjEmpty(auditDetail)){
@@ -62,29 +62,29 @@ class animeAudit extends Component {
             promiseList.push(fetch('tag',{
                 ids:Object.keys(tagsId),
                 type:1
-            }))
+            }));
             promiseList.push(fetch('tag',{
                 ids:Object.keys(staffsId),
                 type:2
-            }))
+            }));
             promiseList.push(fetch('tag',{
                 ids:Object.keys(cvsId),
                 type:3
-            }))
+            }));
             Promise.all(promiseList).then(result=>{
                 dispatch(modalClean('loading'));
                 let tagsObj={};
                 result.forEach((res)=>{
                     res.data.content.forEach(item=>{
                         tagsObj[item._id]=item.name;
-                    })
-                })
+                    });
+                });
                 this.setState({
                     tags:tagsObj
                 });
-            }).catch(err=>{
+            }).catch(()=>{
                 dispatch(modalClean('loading'));
-            })
+            });
         }
     }
     componentWillUnmount(){
@@ -110,7 +110,7 @@ class animeAudit extends Component {
         if(auditDetail.alias&&animeDetail.alias!==auditDetail.alias){
             aliasContent=(
                 <span><del>{animeDetail.alias}</del>{auditDetail.alias}</span>
-            )
+            );
         }else{
             aliasContent=animeDetail.alias;
         }
@@ -121,7 +121,7 @@ class animeAudit extends Component {
                     <p><del>{animeDetail.desc}</del></p>
                     <p>{auditDetail.desc}</p>
                 </div>
-            )
+            );
         }else{
             descContent=animeDetail.desc;
         }
@@ -132,7 +132,7 @@ class animeAudit extends Component {
                     <img src={getImageUrl(animeDetail.cover,animeDetail.cover_clip,360)} className="disabled" />
                     <img src={getImageUrl(auditDetail.cover,auditDetail.cover_clip,360)} />
                 </span>
-            )
+            );
         }else{
             coverContent=<img src={getImageUrl(animeDetail.cover,animeDetail.cover_clip,360)} />;
         }
@@ -149,7 +149,7 @@ class animeAudit extends Component {
                         return <span key={id}>{tags[id]}</span>;
                     })}
                 </span>
-            )
+            );
         }else{
             tagContent=(
                 <span className="app-list-inline">
@@ -157,7 +157,7 @@ class animeAudit extends Component {
                         return <span key={id}>{tags[id]}</span>;
                     })}
                 </span>
-            )
+            );
         }
         //制作
         if(auditDetail.staff.length>0&&animeDetail.staff.toString()!==auditDetail.staff.toString()){
@@ -172,7 +172,7 @@ class animeAudit extends Component {
                         return <span key={id}>{tags[id]}</span>;
                     })}
                 </span>
-            )
+            );
         }else{
             staffContent=(
                 <span className="app-list-inline">
@@ -180,7 +180,7 @@ class animeAudit extends Component {
                         return <span key={id}>{tags[id]}</span>;
                     })}
                 </span>
-            )
+            );
         }
         //声优
         if(auditDetail.cv.length>0&&animeDetail.cv.toString()!==auditDetail.cv.toString()){
@@ -195,7 +195,7 @@ class animeAudit extends Component {
                         return <span key={id}>{tags[id]}</span>;
                     })}
                 </span>
-            )
+            );
         }else{
             cvContent=(
                 <span className="app-list-inline">
@@ -203,13 +203,13 @@ class animeAudit extends Component {
                         return <span key={id}>{tags[id]}</span>;
                     })}
                 </span>
-            )
+            );
         }
         //连载状态
         if(auditDetail.show_status&&animeDetail.show_status!==auditDetail.show_status){
             showStatusContent=(
                 <span><del>{showStatus[animeDetail.show_status]}</del>{showStatus[auditDetail.show_status]}</span>
-            )
+            );
         }else{
             showStatusContent=showStatus[animeDetail.show_status];
         }
@@ -265,12 +265,12 @@ class animeAudit extends Component {
                         </div>
                     </div>
                     <div className="app-form-footer app-form-button">
-                        <button type="button" className="btn btn-info m-r" onClick={()=>{this.handleAudit(1)}}><i className="icon icon-pass m-r-sm"></i>审核通过</button>
-                        <button type="button" className="btn btn-danger" onClick={()=>{this.handleAudit(-1)}}><i className="icon icon-unpass m-r-sm"></i>审核拒绝</button>
+                        <button type="button" className="btn btn-info m-r" onClick={()=>this.handleAudit(1)}><i className="icon icon-pass m-r-sm"></i>审核通过</button>
+                        <button type="button" className="btn btn-danger" onClick={()=>this.handleAudit(-1)}><i className="icon icon-unpass m-r-sm"></i>审核拒绝</button>
                     </div>
                 </div>
             </div>
-        )
+        );
     }
     handleInit(){
         const {dispatch} = this.props;
@@ -284,9 +284,9 @@ class animeAudit extends Component {
             this.setState({
                 auditDetail:res.data
             });
-        }).catch((err)=>{
+        }).catch(()=>{
             dispatch(modalClean('loading'));
-        })
+        });
     }
     handleClear(){
         const {dispatch} = this.props;
@@ -309,14 +309,19 @@ class animeAudit extends Component {
             dispatch(modalUpdate({
                 tip:res.msg,
                 loading:null
-            }))
+            }));
             this.handleClear();
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
+            }));
+        });
     }
 }
+
+animeAudit.propTypes={
+    animeDetail:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(animeAudit);

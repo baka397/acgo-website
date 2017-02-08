@@ -9,14 +9,14 @@ class NotFound extends Component {
         windowChange('common',172);
     }
     render() {
-        const {modal} = this.props;
         return (
             <div className="app-tip">
                 <h1 className="app-tip-title m">404</h1>
                 <p className="app-tip-message m">找不到这个页面</p>
                 <p className="m"><Link to={clientPath+'/'} className="btn btn-info btn-block">返回</Link></p>
             </div>
-        )
+        );
     }
 }
+
 export default NotFound;

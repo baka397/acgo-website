@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux';
 
 import {authLoginStatus} from '../actions/auth';
 
 function propMap(state){
     return {
         user:state.user
-    }
+    };
 }
 
 //封装组件
@@ -20,5 +19,10 @@ class Home extends Component {
         return null;
     }
 }
+
+Home.propTypes={
+    user:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect(propMap)(Home);

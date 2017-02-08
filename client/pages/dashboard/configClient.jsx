@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {getSizeInfo} from '../../common/tool';
 
@@ -7,7 +7,7 @@ import {getClientCache,cleanClient,clearClientCache,getClientCacheDir} from '../
 function propMap(state){
     return {
         client:state.client
-    }
+    };
 }
 
 //封装组件
@@ -16,15 +16,15 @@ class ConfigClient extends Component {
         super(props);
         this.handleClearCache = this.handleClearCache.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
-        const {client,dir} = this.props;
+    shouldComponentUpdate(nextProps){
+        const {client} = this.props;
         if(client.cache===nextProps.client.cache&&client.dir===nextProps.client.dir) return false;
         return true;
     }
     componentDidMount(){
         const {dispatch} = this.props;
         dispatch(getClientCache());
-        dispatch(getClientCacheDir())
+        dispatch(getClientCacheDir());
     }
     componentWillUnmount(){
         const {dispatch} = this.props;
@@ -45,12 +45,17 @@ class ConfigClient extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
     handleClearCache(){
         const {dispatch} = this.props;
         dispatch(clearClientCache());
     }
 }
+
+ConfigClient.propTypes={
+    client:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect(propMap)(ConfigClient);

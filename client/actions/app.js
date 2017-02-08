@@ -10,7 +10,7 @@ export function updateApp(data){
     return {
         type: UPDATE_APP,
         data: data
-    }
+    };
 }
 
 /**
@@ -20,5 +20,5 @@ export function updateApp(data){
 export function cleanApp(){
     return {
         type: CLEAN_APP
-    }
+    };
 }

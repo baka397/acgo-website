@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 
 import HeaderPage from '../../components/common/headerPage.jsx';
@@ -14,7 +14,7 @@ function propMap(state,ownProps){
     return {
         user:state.user,
         routing:ownProps
-    }
+    };
 }
 
 let nav=[
@@ -66,15 +66,22 @@ class DashboardLayout extends Component {
                 </div>
                 <Footer nav={nav} onToolbarClick={this.handleToolbarClick} />
             </div>
-        )
+        );
     }
     handleToolbarClick(toolName){
         const {dispatch} = this.props;
         switch(toolName){
-            case 'logout':
-                dispatch(userLogout());
-                break;
+        case 'logout':
+            dispatch(userLogout());
+            break;
         }
     }
 }
+
+DashboardLayout.propTypes={
+    user:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    children:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(DashboardLayout);

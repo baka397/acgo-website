@@ -7,38 +7,38 @@ import Button from './button.jsx';
 class FormSearch extends Component {
     constructor(props){
         super(props);
-        this.state={
-            result:{}
-        }
+        let result={};
         props.rules.forEach((rule)=>{
             if(rule.name){
                 if(!/^[a-zA-Z0-9\_]+$/.test(rule.name)){
                     throw new Error('请输入正确的规则名称');
                 }
-                this.state.result[rule.name]=rule.value||'';
+                result[rule.name]=rule.value||'';
             }
-        })
+        });
+        this.state={
+            result
+        };
         this.handleChangeVal = this.handleChangeVal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     render() {
-        const {rules,longlabel} = this.props;
+        const {rules} = this.props;
         const {result} = this.state;
         return (
             <form className="app-form app-form-search" onSubmit={this.handleSubmit}>
                 {rules.map((rule,index)=>{
                     switch(rule.type){
-                        case 'text':
-                            return <Text key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
-                            break;
-                        case 'submit':
-                            return <Button key={index} label={rule.label} icon={rule.icon} />
-                        default:
-                            return null;
+                    case 'text':
+                        return <Text key={index} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />;
+                    case 'submit':
+                        return <Button key={index} label={rule.label} icon={rule.icon} />;
+                    default:
+                        return null;
                     }
                 })}
             </form>
-        )
+        );
     }
     handleChangeVal(name,value){
         const {result} = this.state;
@@ -46,7 +46,7 @@ class FormSearch extends Component {
         data[name]=value;
         this.setState({
             result:data
-        })
+        });
     }
     handleSubmit(e){
         e.preventDefault();
@@ -59,6 +59,6 @@ class FormSearch extends Component {
 FormSearch.propTypes={
     rules:PropTypes.array.isRequired,
     onSubmit:PropTypes.func.isRequired
-}
+};
 
 export default FormSearch;

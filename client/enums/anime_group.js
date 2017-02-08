@@ -2,12 +2,12 @@
 exports.status={
     '1':'正常',
     '-1':'禁用'
-}
+};
 //剧集类型
 exports.type={
     '1':'B站弹幕版',
     '2':'D站无弹幕版'
-}
+};
 //剧集类型说明
 exports.typeTip={
     '1':{
@@ -18,13 +18,13 @@ exports.typeTip={
         'task':'http://www.dilidili.com/anime/selector/,http://www.dilidili.wang/anime/selector/',
         'item':'http://www.dilidili.com/watch/9076/,http://www.dilidili.wang/watch/9076/'
     }
-}
+};
 //合集任务状态
 exports.taskStatus={
     '1':'正常',
     '0':'暂停',
     '-1':'停止'
-}
+};
 //合集任务周期
 exports.taskPeriod={
     '1':'周一',
@@ -34,4 +34,4 @@ exports.taskPeriod={
     '5':'周五',
     '6':'周六',
     '7':'周日'
-}
+};

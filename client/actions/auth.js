@@ -37,5 +37,5 @@ export function authLoginStatus(user,isLogin,switchStatus=false){
                 }
             }
         }
-    }
+    };
 }

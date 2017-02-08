@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {isEmail} from 'validator';
 import {clientPath} from '../../config';
 import {getQuery} from '../../common/tool';
 import {windowChange} from '../../common/ipc';
@@ -14,7 +13,7 @@ import {userResetPwd} from '../../actions/user';
 function propMap(state,ownProps){
     return {
         routing:ownProps
-    }
+    };
 }
 
 const FORM_RULE = [
@@ -35,10 +34,10 @@ const FORM_RULE = [
         type:'submit',
         icon:'confirm'
     }
-]
+];
 
 //封装组件
-class Getpwd extends Component {
+class Resetpwd extends Component {
     constructor(props){
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -54,7 +53,7 @@ class Getpwd extends Component {
                     <Link to={clientPath+'/common/'}>返回登录</Link>
                 </div>
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {routing,dispatch} = this.props;
@@ -62,19 +61,19 @@ class Getpwd extends Component {
         if(!query.token){
             dispatch(modalUpdate({
                 tip:'无效的token'
-            }))
+            }));
             return;
         }
         if(!data.password){
             dispatch(modalUpdate({
                 tip:'请输入新密码'
-            }))
+            }));
             return;
         }
         if(data.password!==data.confirmPassword){
             dispatch(modalUpdate({
                 tip:'两次的密码不一致'
-            }))
+            }));
             return;
         }
         let sendData=Object.assign({},data);
@@ -83,4 +82,9 @@ class Getpwd extends Component {
     }
 }
 
-export default connect(propMap)(Getpwd);
+Resetpwd.propTypes={
+    routing:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
+
+export default connect(propMap)(Resetpwd);

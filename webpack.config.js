@@ -13,28 +13,28 @@ module.exports = {
     },
     module: {
         loaders: [
-        {
-            test: /\.js?$/,
-            exclude: /(node_modules)/,
-            loader: 'babel-loader',
-            query: {
-                presets: ['es2015'],
-                plugins: ['transform-object-assign']
+            {
+                test: /\.js?$/,
+                exclude: /(node_modules)/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['es2015'],
+                    plugins: ['transform-object-assign']
+                }
+            },
+            {
+                test: /\.jsx?$/,
+                exclude: /(node_modules)/,
+                loader: 'babel-loader',
+                query: {
+                    presets: ['react', 'es2015'],
+                    plugins: ['transform-object-assign']
+                }
+            },
+            {
+                test: /\.text/,
+                loader: 'file-to-string-loader'
             }
-        },
-        {
-            test: /\.jsx?$/,
-            exclude: /(node_modules)/,
-            loader: 'babel-loader',
-            query: {
-                presets: ['react', 'es2015'],
-                plugins: ['transform-object-assign']
-            }
-        },
-        {
-            test: /\.text/,
-            loader: 'file-to-string-loader'
-        }
         ]
     },
     externals:{
@@ -48,4 +48,4 @@ module.exports = {
             }
         })
     ]
-}
+};

@@ -29,4 +29,4 @@ export const reducer = combineReducers({
     animeItem,
     animeTask,
     routing: routerReducer
-})
+});

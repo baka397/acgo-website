@@ -6,7 +6,7 @@ exports.filterReqLog = function(data){
     if(result.password) delete result.password;
     if(result.oldPassword) delete result.oldPassword;
     return JSON.stringify(result);
-}
+};
 
 /**
  * 判断当前是否为ajax请求
@@ -15,21 +15,21 @@ exports.filterReqLog = function(data){
  */
 exports.isAjaxRequest = function(req) {
     return req.isAjax?true:false;
-}
+};
 
 /**
  * 追加contextPath
  * @param url   请求地址
  */
 exports.appendContextPath = function(url) {
-    let fullPath = __CONTEXT_PATH + url;
-    if (/\/$/.test(__CONTEXT_PATH) && /^\//.test(url)) { // 判断是否存在两个“/”重叠的情况
-        fullPath = __CONTEXT_PATH.replace(/\/$/, '') + url;
-    } else if (!/\/$/.test(__CONTEXT_PATH) && !/^\//.test(url)) {
-        fullPath = __CONTEXT_PATH + '/' + url;
+    let fullPath = global.__CONTEXT_PATH + url;
+    if (/\/$/.test(global.__CONTEXT_PATH) && /^\//.test(url)) { // 判断是否存在两个“/”重叠的情况
+        fullPath = global.__CONTEXT_PATH.replace(/\/$/, '') + url;
+    } else if (!/\/$/.test(global.__CONTEXT_PATH) && !/^\//.test(url)) {
+        fullPath = global.__CONTEXT_PATH + '/' + url;
     }
     return fullPath;
-}
+};
 
 /**
  * 请求下个Promise
@@ -41,8 +41,8 @@ exports.nextPromise = function(err,data){
     return new Promise(function(resolve,reject){
         if(err) reject(err);
         else resolve(data);
-    })
-}
+    });
+};
 
 /**
  * 构建成功JSON
@@ -56,7 +56,7 @@ exports.buildResJson = function(msg,data){
     result.code=STATUS_CODE.SUCCESS;
     result.data=data?data:null;
     return result;
-}
+};
 
 /**
  * 设置登录token
@@ -64,12 +64,12 @@ exports.buildResJson = function(msg,data){
  * @param {String} cookieValue 登录key值
  */
 exports.setToken = function(res,token){
-    res.cookie(CONFIG.tokenName,token,{
-        maxAge: CONFIG.tokenAge,
+    res.cookie(global.CONFIG.tokenName,token,{
+        maxAge: global.CONFIG.tokenAge,
         // httpOnly: true,
         // secure: CONFIG.tokenSecure
-    })
-}
+    });
+};
 
 function isObjEmpty(obj) {
     // Speed up calls to hasOwnProperty
@@ -86,7 +86,7 @@ function isObjEmpty(obj) {
     // If it isn't an object at this point
     // it is empty, but it can't be anything *but* empty
     // Is it empty?  Depends on your application.
-    if (typeof obj !== "object") return true;
+    if (typeof obj !== 'object') return true;
 
     // Otherwise, does it have any properties of its own?
     // Note that this doesn't handle

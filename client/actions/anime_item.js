@@ -19,9 +19,9 @@ export function getAnimeItemDetail(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function getAnimeItemList(data){
@@ -33,13 +33,12 @@ export function getAnimeItemList(data){
             dispatch(updateAnimeItem(res.data));
             dispatch(modalClean('loading'));
         }).catch((err)=>{
-            console.log(err);
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function editAnimeItem(data){
@@ -57,9 +56,9 @@ export function editAnimeItem(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function addAnimeItem(data){
@@ -77,9 +76,9 @@ export function addAnimeItem(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -91,7 +90,7 @@ export function updateAnimeItem(data){
     return {
         type: UPDATE_ANIME_ITEM,
         data: data
-    }
+    };
 }
 /**
  * 更新动画剧集详情数据
@@ -102,7 +101,7 @@ export function updateAnimeItemDetail(data){
     return {
         type: UPDATE_ANIME_ITEM_DETAIL,
         data: data
-    }
+    };
 }
 
 /**
@@ -112,5 +111,5 @@ export function updateAnimeItemDetail(data){
 export function cleanAnimeItem(){
     return {
         type: CLEAN_ANIME_ITEM
-    }
+    };
 }

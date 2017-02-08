@@ -12,7 +12,7 @@ class PlayerBilibili extends Component {
         super(props);
         this.handleLoad = this.handleLoad.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {url} = this.props;
         if(url===nextProps.url) return false;
         return true;
@@ -23,7 +23,7 @@ class PlayerBilibili extends Component {
             <div className="app-player-content">
                 <WebView src={url} plugins onDidStopLoading={this.handleLoad} onDidFailLoad={onLoadError} ref="player"></WebView>
             </div>
-        )
+        );
     }
     handleLoad(){
         const {onLoad} = this.props;
@@ -31,7 +31,7 @@ class PlayerBilibili extends Component {
         this.refs.player.executeJavaScript(scriptText);
         timer=setTimeout(function(){
             onLoad();
-        },500)
+        },500);
     }
     componentWillUnmount(){
         if(timer) clearTimeout(timer);
@@ -42,6 +42,6 @@ PlayerBilibili.propTypes={
     url:PropTypes.string.isRequired,
     onLoad:PropTypes.func.isRequired,
     onLoadError:PropTypes.func.isRequired
-}
+};
 
 export default PlayerBilibili;

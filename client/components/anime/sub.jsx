@@ -5,7 +5,7 @@ import {getImageUrl} from '../../common/tool';
 
 //封装组件
 class Sub extends Component {
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {_id} = this.props.data;
         const {percent} = this.props.watchData;
         if(_id===nextProps.data._id&&percent===nextProps.watchData.percent) return false;
@@ -19,14 +19,14 @@ class Sub extends Component {
                 watchPercent=watchData.percent;
                 let ep=watchData.watch_ep+1;
                 link=clientPath+'/dashboard/anime/play/?groupId='+watchData.group_id+'&ep='+(ep>watchData.total?watchData.total:ep);
-                player=<span className="player"><i className="icon icon-play m-r-sm"></i>继续播放</span>
+                player=<span className="player"><i className="icon icon-play m-r-sm"></i>继续播放</span>;
             }else{
                 link=clientPath+'/dashboard/anime/'+data._id;
-                player=<span className="player"><i className="icon icon-list m-r-sm"></i>查看剧集</span>
+                player=<span className="player"><i className="icon icon-list m-r-sm"></i>查看剧集</span>;
             }
         }else{
             link=clientPath+'/dashboard/anime/'+data._id;
-            player=<span className="player"><i className="icon icon-ban m-r-sm"></i>暂无剧集</span>
+            player=<span className="player"><i className="icon icon-ban m-r-sm"></i>暂无剧集</span>;
         }
         return (
             <div className="app-anime-item">
@@ -40,13 +40,13 @@ class Sub extends Component {
                 <p className="title" title={data.name}><Link to={clientPath+'/dashboard/anime/'+data._id}>{data.name}</Link></p>
                 <p className="alias" title={data.alias}>{data.alias}</p>
             </div>
-        )
+        );
     }
 }
 
 Sub.propTypes={
     data:PropTypes.object.isRequired,
     watchData:PropTypes.object
-}
+};
 
 export default Sub;

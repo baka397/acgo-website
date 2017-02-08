@@ -19,9 +19,9 @@ export function getAnimeGroupDetail(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function getAnimeGroupList(data){
@@ -36,9 +36,9 @@ export function getAnimeGroupList(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function editAnimeGroup(data){
@@ -56,9 +56,9 @@ export function editAnimeGroup(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function addAnimeGroup(data){
@@ -76,9 +76,9 @@ export function addAnimeGroup(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -90,7 +90,7 @@ export function updateAnimeGroup(data){
     return {
         type: UPDATE_ANIME_GROUP,
         data: data
-    }
+    };
 }
 /**
  * 更新动画剧集详情数据
@@ -101,7 +101,7 @@ export function updateAnimeGroupDetail(data){
     return {
         type: UPDATE_ANIME_GROUP_DETAIL,
         data: data
-    }
+    };
 }
 
 /**
@@ -111,5 +111,5 @@ export function updateAnimeGroupDetail(data){
 export function cleanAnimeGroup(){
     return {
         type: CLEAN_ANIME_GROUP
-    }
+    };
 }

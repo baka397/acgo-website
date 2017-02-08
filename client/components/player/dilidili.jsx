@@ -13,10 +13,10 @@ class PlayerDilidili extends Component {
         super(props);
         this.state={
             loadTime:0
-        }
+        };
         this.handleLoad = this.handleLoad.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {url} = this.props;
         if(url===nextProps.url) return false;
         return true;
@@ -27,7 +27,7 @@ class PlayerDilidili extends Component {
             <div className="app-player-content">
                 <WebView src={url} plugins onDomReady={this.handleLoad} onDidFailLoad={onLoadError} ref="player" disablewebsecurity></WebView>
             </div>
-        )
+        );
     }
     handleLoad(){
         const {onLoad} = this.props;
@@ -42,7 +42,7 @@ class PlayerDilidili extends Component {
             this.refs.player.executeJavaScript(scriptText2);
             timer=setTimeout(function(){
                 onLoad();
-            },500)
+            },500);
         }
     }
     componentWillUnmount(){
@@ -54,6 +54,6 @@ PlayerDilidili.propTypes={
     url:PropTypes.string.isRequired,
     onLoad:PropTypes.func.isRequired,
     onLoadError:PropTypes.func.isRequired
-}
+};
 
 export default PlayerDilidili;

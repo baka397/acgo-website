@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {getQuery,getEnumArray,getObjCompareResult} from '../../common/tool';
 import {taskPeriod,taskStatus,typeTip} from '../../enums/anime_group';
@@ -15,7 +15,7 @@ function propMap(state,ownProps){
         animeTaskDetail:state.animeTask.detail,
         animeGroupDetail:state.animeGroup.detail,
         routing:ownProps
-    }
+    };
 }
 
 const TASK_PERIOD_ARRAY = getEnumArray(taskPeriod);
@@ -39,7 +39,7 @@ const FORM_RULE=[
         type:'submit',
         icon:'confirm'
     }
-]
+];
 const FORM_RULE_EDIT=[
     {
         name:'taskStatus',
@@ -47,7 +47,7 @@ const FORM_RULE_EDIT=[
         type:'radio',
         list:TASK_STATUS_ARRAY
     }
-]
+];
 
 //封装组件
 class animeGroupTaskEdit extends Component {
@@ -55,7 +55,7 @@ class animeGroupTaskEdit extends Component {
         super(props);
         this.state={
             formRule:[]
-        }
+        };
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
@@ -70,19 +70,18 @@ class animeGroupTaskEdit extends Component {
             }));
         }
     }
-    componentDidUpdate(prevProps, prevState){
-        const {animeTaskDetail,animeGroupDetail,dispatch} = this.props;
+    componentDidUpdate(){
+        const {animeTaskDetail,animeGroupDetail} = this.props;
         const {formRule} = this.state;
         if(formRule.length===0&&animeTaskDetail.done&&animeGroupDetail._id){
             let newFormRule=FORM_RULE.map(rule=>{
                 switch(rule.name){
-                    case 'url':
-                        return Object.assign({},rule,{
-                            placeholder:rule.placeholder+'支持形式:'+typeTip[animeGroupDetail.type].task
-                        });
-                        break;
-                    default:
-                        return Object.assign({},rule);
+                case 'url':
+                    return Object.assign({},rule,{
+                        placeholder:rule.placeholder+'支持形式:'+typeTip[animeGroupDetail.type].task
+                    });
+                default:
+                    return Object.assign({},rule);
                 }
             });
             //如果为编辑
@@ -90,23 +89,21 @@ class animeGroupTaskEdit extends Component {
                 let resultFormRule=[].concat(newFormRule.slice(0,newFormRule.length-1),FORM_RULE_EDIT,newFormRule.slice(newFormRule.length-1));
                 newFormRule=resultFormRule.map(rule=>{
                     switch(rule.name){
-                        case 'taskPeriod':
+                    case 'taskPeriod':
+                        return Object.assign({},rule,{
+                            value:animeTaskDetail['task_period']
+                        });
+                    case 'taskStatus':
+                        return Object.assign({},rule,{
+                            value:animeTaskDetail['task_status']
+                        });
+                    default:
+                        if(rule.name){
                             return Object.assign({},rule,{
-                                value:animeTaskDetail['task_period']
-                            })
-                            break;
-                        case 'taskStatus':
-                            return Object.assign({},rule,{
-                                value:animeTaskDetail['task_status']
-                            })
-                            break;
-                        default:
-                            if(rule.name){
-                                return Object.assign({},rule,{
-                                    value:animeTaskDetail[rule.name]
-                                })
-                            }
-                            return Object.assign({},rule);
+                                value:animeTaskDetail[rule.name]
+                            });
+                        }
+                        return Object.assign({},rule);
                     }
                 });
             }
@@ -121,7 +118,6 @@ class animeGroupTaskEdit extends Component {
         dispatch(cleanAnimeTask());
     }
     render() {
-        const {routing} = this.props;
         const {formRule} = this.state;
         if(formRule.length===0) return null;
         return (
@@ -134,7 +130,7 @@ class animeGroupTaskEdit extends Component {
                 </div>
                 <FormList rules={formRule} longlabel={true} onSubmit={this.handleSubmit} />
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {animeTaskDetail,routing,dispatch} = this.props;
@@ -161,7 +157,7 @@ class animeGroupTaskEdit extends Component {
             }else{
                 dispatch(modalUpdate({
                     tip:'你还没有更改任何内容'
-                }))
+                }));
             }
         }
         else{
@@ -171,4 +167,11 @@ class animeGroupTaskEdit extends Component {
         }
     }
 }
+
+animeGroupTaskEdit.propTypes={
+    animeTaskDetail:PropTypes.object.isRequired,
+    animeGroupDetail:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(animeGroupTaskEdit);

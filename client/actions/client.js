@@ -13,14 +13,14 @@ export function getClientCache(){
             loading:true
         }));
         getCacheSize();
-    }
+    };
 }
 
 export function getClientCacheSuccess(size){
     return function(dispatch){
         dispatch(updateClientCache(size));
         dispatch(modalClean('loading'));
-    }
+    };
 }
 
 export function clearClientCache(){
@@ -29,14 +29,14 @@ export function clearClientCache(){
             loading:true
         }));
         clearCacheSize();
-    }
+    };
 }
 
 export function clearClientCacheSuccess(){
     return function(dispatch){
         dispatch(cleanClientCache());
         dispatch(modalClean('loading'));
-    }
+    };
 }
 
 export function getClientCacheDir(){
@@ -45,14 +45,14 @@ export function getClientCacheDir(){
             loading:true
         }));
         getCacheDir();
-    }
+    };
 }
 
 export function getClientCacheDirSuccess(filePath){
     return function(dispatch){
         dispatch(updateClientCacheDir(filePath));
         dispatch(modalClean('loading'));
-    }
+    };
 }
 
 
@@ -65,7 +65,7 @@ export function updateClientCache(size){
     return {
         type: UPDATE_CLIENT_CACHE,
         size: size
-    }
+    };
 }
 
 /**
@@ -77,7 +77,7 @@ export function updateClientCacheDir(dir){
     return {
         type: UPDATE_CLIENT_CACHE_DIR,
         dir: dir
-    }
+    };
 }
 
 /**
@@ -87,7 +87,7 @@ export function updateClientCacheDir(dir){
 export function cleanClientCache(){
     return {
         type: CLEAN_CLIENT_CACHE
-    }
+    };
 }
 
 /**
@@ -97,5 +97,5 @@ export function cleanClientCache(){
 export function cleanClient(){
     return {
         type: CLEAN_CLIENT
-    }
+    };
 }

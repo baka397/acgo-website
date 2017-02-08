@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail,isMongoId} from 'validator';
@@ -46,7 +46,7 @@ const FORM_RULE = [
         type:'submit',
         icon:'confirm'
     }
-]
+];
 
 //封装组件
 class Register extends Component {
@@ -65,7 +65,7 @@ class Register extends Component {
                     <Link to={clientPath+'/common/'}>已有账号,立即登录</Link>
                 </div>
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {dispatch} = this.props;
@@ -78,35 +78,39 @@ class Register extends Component {
         if(!data.code||!isMongoId(data.code)){
             dispatch(modalUpdate({
                 tip:'请输入正确的邀请码'
-            }))
+            }));
             return;
         }
         if(!data.nickname){
             dispatch(modalUpdate({
                 tip:'请输入正确的昵称'
-            }))
+            }));
             return;
         }
         if(!data.password){
             dispatch(modalUpdate({
                 tip:'请输入正确的密码'
-            }))
+            }));
             return;
         }
         if(!data.confirmPassword){
             dispatch(modalUpdate({
                 tip:'请输入正确的确认密码'
-            }))
+            }));
             return;
         }
         if(data.password!==data.confirmPassword){
             dispatch(modalUpdate({
                 tip:'两次密码不一致'
-            }))
+            }));
             return;
         }
         dispatch(userReg(data));
     }
 }
+
+Register.propTypes={
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect()(Register);

@@ -23,7 +23,7 @@ export function userReg(data){
             code:data.code,
             nickname:data.nickname,
             password:md5(data.password).toUpperCase()
-        }
+        };
         dispatch(modalUpdate({
             loading:true
         }));
@@ -31,15 +31,15 @@ export function userReg(data){
             dispatch(modalUpdate({
                 tip:res.msg,
                 loading:null
-            }))
+            }));
             dispatch(push(clientPath+'/common/'));
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -52,11 +52,11 @@ export function userLogin(data){
         let sendData = {
             email:data.email,
             password:md5(data.password).toUpperCase()
-        }
+        };
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('login',sendData,'POST').then((res)=>{
+        fetch('login',sendData,'POST').then(()=>{
             return fetch('me');
         }).then((res)=>{
             dispatch(updateUser(res.data));
@@ -66,9 +66,9 @@ export function userLogin(data){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -80,7 +80,7 @@ export function userSendMail(data){
     return function(dispatch){
         let sendData = {
             email:data.email
-        }
+        };
         dispatch(modalUpdate({
             loading:true
         }));
@@ -88,15 +88,15 @@ export function userSendMail(data){
             dispatch(modalUpdate({
                 tip:res.msg,
                 loading:null
-            }))
+            }));
             dispatch(push(clientPath+'/common/'));
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -109,7 +109,7 @@ export function userResetPwd(data){
         let sendData = {
             password:md5(data.password).toUpperCase(),
             resetToken:data.token
-        }
+        };
         dispatch(modalUpdate({
             loading:true
         }));
@@ -117,15 +117,15 @@ export function userResetPwd(data){
             dispatch(modalUpdate({
                 tip:res.msg,
                 loading:null
-            }))
+            }));
             dispatch(push(clientPath+'/common/'));
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -151,15 +151,15 @@ export function userLogout(){
         dispatch(modalUpdate({
             loading:true
         }));
-        fetch('logout',null,'POST').then((res)=>{
+        fetch('logout',null,'POST').then(()=>{
             clearUserInfo(dispatch);
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -170,7 +170,7 @@ export function userChangePassword(data){
     let sendData = {
         oldPassword:md5(data.oldPassword).toUpperCase(),
         password:md5(data.password).toUpperCase()
-    }
+    };
     return function(dispatch){
         dispatch(modalUpdate({
             loading:true
@@ -178,15 +178,15 @@ export function userChangePassword(data){
         fetch('changePassword',sendData,'POST').then((res)=>{
             dispatch(modalUpdate({
                 tip:res.msg
-            }))
+            }));
             clearUserInfo(dispatch);
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 export function userGet(){
@@ -201,9 +201,9 @@ export function userGet(){
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -218,15 +218,15 @@ export function userChangeProfile(data){
         fetch('profile',data,'POST').then((res)=>{
             dispatch(modalUpdate({
                 tip:res.msg
-            }))
+            }));
             dispatch(userGet());
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
                 loading:null
-            }))
-        })
-    }
+            }));
+        });
+    };
 }
 
 /**
@@ -238,7 +238,7 @@ export function updateUser(data){
     return {
         type: UPDATE_USER,
         data: data
-    }
+    };
 }
 
 /**
@@ -248,5 +248,5 @@ export function updateUser(data){
 export function cleanUser(){
     return {
         type: CLEAN_USER
-    }
+    };
 }

@@ -1,7 +1,7 @@
 import {isClient} from './tool';
 import {ipcRenderer} from 'electron';
 import {store} from '../store';
-import {getClientCacheSuccess,clearClientCacheSuccess,getClientCacheDirSuccess,setClientCacheDirSuccess} from '../actions/client';
+import {getClientCacheSuccess,clearClientCacheSuccess,getClientCacheDirSuccess} from '../actions/client';
 
 export function windowClose(){
     if(!isClient()) return;
@@ -18,13 +18,12 @@ export function windowMax(){
 export function windowChange(type,height){
     if(!isClient()) return;
     switch(type){
-        case 'dashboard':
-            ipcRenderer.send('window','change',1200,800);
-            break;
-        case 'common':
-            let $commonNode=document.getElementsByClassName('app-common')[0];
-            ipcRenderer.send('window','change',400,height);
-            break;
+    case 'dashboard':
+        ipcRenderer.send('window','change',1200,800);
+        break;
+    case 'common':
+        ipcRenderer.send('window','change',400,height);
+        break;
     }
 }
 
@@ -41,12 +40,12 @@ export function clearCacheSize(){
 function session(e,type){
     let args = Array.prototype.slice.call(arguments, 2);
     switch(type){
-        case 'cache':
-            store.dispatch(getClientCacheSuccess(args[0]));
-            break;
-        case 'cacheClear':
-            store.dispatch(clearClientCacheSuccess());
-            break;
+    case 'cache':
+        store.dispatch(getClientCacheSuccess(args[0]));
+        break;
+    case 'cacheClear':
+        store.dispatch(clearClientCacheSuccess());
+        break;
     }
 }
 
@@ -58,9 +57,9 @@ export function getCacheDir(){
 function app(e,type){
     let args = Array.prototype.slice.call(arguments, 2);
     switch(type){
-        case 'getCacheDir':
-            store.dispatch(getClientCacheDirSuccess(args[0]));
-            break;
+    case 'getCacheDir':
+        store.dispatch(getClientCacheDirSuccess(args[0]));
+        break;
     }
 }
 

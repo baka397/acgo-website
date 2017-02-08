@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 
 import HeaderPage from '../../components/common/headerPage.jsx';
@@ -12,7 +12,7 @@ function propMap(state,ownProps){
     return {
         user:state.user,
         routing:ownProps
-    }
+    };
 }
 
 //封装组件
@@ -28,7 +28,7 @@ class CommonLayout extends Component {
         dispatch(authLoginStatus(user,false));
     }
     render() {
-        const {user,routing} = this.props;
+        const {user,routing,children} = this.props;
         const {icons} = this.state;
         if(!isObjEmpty(user)){
             return null;
@@ -37,11 +37,19 @@ class CommonLayout extends Component {
             <div className="app-common">
                 <HeaderPage route={routing} icons={icons} />
                 <div className="app-content">
-                    {this.props.children}
+                    {children}
                 </div>
                 <Footer nav={[]} />
             </div>
-        )
+        );
     }
 }
+
+CommonLayout.propTypes={
+    user:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    children:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
+
 export default connect(propMap)(CommonLayout);

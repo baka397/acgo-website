@@ -9,7 +9,7 @@ class Footer extends Component {
     constructor(props){
         super(props);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {nav} = this.props;
         if(nav.length===nextProps.nav.length) return false;
         return true;
@@ -23,7 +23,7 @@ class Footer extends Component {
                     <Link to={clientPath+'/dashboard/config'} activeClassName="active" onlyActiveOnIndex={true}><i className="icon icon-config"></i></Link>
                     <a onClick={()=>this.handleToolbarClick('logout')}><i className="icon icon-logout"></i></a>
                 </div>
-            )
+            );
         }else{
             toolbar=<div className="pull-right">&copy; {YEAR} acgo.club</div>;
         }
@@ -34,12 +34,12 @@ class Footer extends Component {
                 </div>
                 <div className="app-footer-nav">
                     {nav.map((curNav,index)=>{
-                        return <Link key={index} to={clientPath+curNav.link} activeClassName="active" onlyActiveOnIndex={true}>{curNav.name}</Link>
+                        return <Link key={index} to={clientPath+curNav.link} activeClassName="active" onlyActiveOnIndex={true}>{curNav.name}</Link>;
                     })}
                 </div>
                 <div className="pull-right">{toolbar}</div>
             </div>
-        )
+        );
     }
     handleToolbarClick(iconName){
         const {onToolbarClick} = this.props;
@@ -51,6 +51,6 @@ class Footer extends Component {
 Footer.propTypes={
     nav: PropTypes.array.isRequired,
     onToolbarClick: PropTypes.func
-}
+};
 
 export default Footer;

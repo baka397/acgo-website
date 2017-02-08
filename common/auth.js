@@ -10,10 +10,10 @@ function md5Hash(str){
 exports.md5Hash = md5Hash;
 
 exports.getTokenParams=function(appId,appAlias){
-    let timestamp=new Date().getTime()
+    let timestamp=new Date().getTime();
     return {
         'x-req-token':md5Hash(appId+timestamp),
         'x-req-timestamp':timestamp,
         'x-req-project':appAlias
-    }
-}
+    };
+};

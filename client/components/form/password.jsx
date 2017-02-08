@@ -6,13 +6,13 @@ class Password extends Component {
         super(props);
         this.handleChangeVal = this.handleChangeVal.bind(this);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {value} = this.props;
         if(value===nextProps.value) return false;
         return true;
     }
     render() {
-        const {name,label,placeholder,value} = this.props;
+        const {label,placeholder,value} = this.props;
         let labelContent;
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         return (
@@ -22,9 +22,9 @@ class Password extends Component {
                     <input type="password" placeholder={placeholder} value={value} onChange={this.handleChangeVal} ref="text" />
                 </div>
             </label>
-        )
+        );
     }
-    handleChangeVal(e){
+    handleChangeVal(){
         const {name,onChangeVal} = this.props;
         onChangeVal(name,this.refs.text.value);
     }
@@ -36,6 +36,6 @@ Password.propTypes={
     placeholder:PropTypes.string,
     value:PropTypes.string,
     onChangeVal:PropTypes.func.isRequired
-}
+};
 
 export default Password;

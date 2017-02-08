@@ -8,11 +8,10 @@ class Page extends Component {
     render() {
         const {type,page,pageSize,total,onPageClick} = this.props;
         switch(type){
-            case 'simple':
-                return <PageSimple page={page} pageSize={pageSize} total={total} onPageClick={onPageClick} />
-                break;
-            default:
-                return <PageNormal page={page} pageSize={pageSize} total={total} onPageClick={onPageClick} />
+        case 'simple':
+            return <PageSimple page={page} pageSize={pageSize} total={total} onPageClick={onPageClick} />;
+        default:
+            return <PageNormal page={page} pageSize={pageSize} total={total} onPageClick={onPageClick} />;
         }
     }
 }
@@ -23,6 +22,6 @@ Page.propTypes={
     pageSize:PropTypes.number.isRequired,
     total:PropTypes.number.isRequired,
     onPageClick:PropTypes.func.isRequired
-}
+};
 
 export default Page;

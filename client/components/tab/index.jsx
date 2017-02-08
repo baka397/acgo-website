@@ -7,7 +7,7 @@ class Tab extends Component {
     constructor(props){
         super(props);
     }
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {tab} = this.props;
         if(tab.length===nextProps.tab.length) return false;
         return true;
@@ -17,16 +17,16 @@ class Tab extends Component {
         return (
             <ul className="app-tab">
                 {tab.map((curTab,index)=>{
-                    return <li key={index}><Link to={clientPath+curTab.link} activeClassName="active" onlyActiveOnIndex={true}>{curTab.name}</Link></li>
+                    return <li key={index}><Link to={clientPath+curTab.link} activeClassName="active" onlyActiveOnIndex={true}>{curTab.name}</Link></li>;
                 })}
             </ul>
-        )
+        );
     }
 }
 
 
 Tab.propTypes={
     tab: PropTypes.array.isRequired
-}
+};
 
 export default Tab;

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {isEmail} from 'validator';
@@ -22,7 +22,7 @@ const FORM_RULE = [
         type:'submit',
         icon:'confirm'
     }
-]
+];
 
 //封装组件
 class Getpwd extends Component {
@@ -41,7 +41,7 @@ class Getpwd extends Component {
                     <Link to={clientPath+'/common/'}>返回登录</Link>
                 </div>
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {dispatch} = this.props;
@@ -54,5 +54,9 @@ class Getpwd extends Component {
         dispatch(userSendMail(data));
     }
 }
+
+Getpwd.propTypes={
+    dispatch:PropTypes.func.isRequired
+};
 
 export default connect()(Getpwd);

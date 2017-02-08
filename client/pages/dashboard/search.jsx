@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {push} from 'react-router-redux'
+import {push} from 'react-router-redux';
 import {escape,trim} from 'validator';
 import {Link} from 'react-router';
 import {clientPath} from '../../config';
@@ -10,14 +10,13 @@ import FormSearch from '../../components/form/search.jsx';
 import Page from '../../components/page/index.jsx';
 import AnimeList from '../../components/anime/index.jsx';
 
-import {modalUpdate} from '../../actions/modal';
 import {search,cleanAnime} from '../../actions/anime';
 
 function propMap(state,ownProps){
     return {
         anime:state.anime,
         routing:ownProps
-    }
+    };
 }
 
 //封装组件
@@ -31,7 +30,7 @@ class Search extends Component {
         const {routing,dispatch} = this.props;
         dispatch(search(getQuery(routing)));
     }
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(prevProps){
         const {routing,dispatch} = this.props;
         let beforeQuery=getQuery(prevProps.routing);
         let query=getQuery(routing);
@@ -58,7 +57,7 @@ class Search extends Component {
                 type:'submit',
                 icon:'search'
             }
-        ]
+        ];
         let page,animeList,searchTip;
         if(query.keyword){
             let addBtn=<Link to={clientPath+'/dashboard/anime/add?name='+escape(query.keyword)} className="btn btn-info m-l"><i className="icon icon-plus m-r-sm"></i>我来添加</Link>;
@@ -69,9 +68,9 @@ class Search extends Component {
                         <AnimeList order={anime.order} datas={anime.content} type="simple" />
                         <p className="m-t">没有正确的数据?{addBtn}</p>
                     </div>
-                )
+                );
             }else{
-                searchTip=<p className="text-light m-t">抱歉,没有查找到数据.{addBtn}</p>
+                searchTip=<p className="text-light m-t">抱歉,没有查找到数据.{addBtn}</p>;
             }
         }
         return (
@@ -81,7 +80,7 @@ class Search extends Component {
                 {searchTip}
                 {page}
             </div>
-        )
+        );
     }
     handleSubmit(data){
         const {routing,dispatch} = this.props;
@@ -102,4 +101,9 @@ class Search extends Component {
         dispatch(push(clientPath+'/dashboard/search/?'+serialize(query)));
     }
 }
+Search.propTypes={
+    anime:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(Search);

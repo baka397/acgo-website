@@ -6,14 +6,14 @@ exports.getUser=function(req,res,next){
         api.request(req.token,'userInfo').then(function(data){
             req.user=data;
             next();
-        }).catch(function(err){
-            res.clearCookie(CONFIG.tokenName);
+        }).catch(function(){
+            res.clearCookie(global.CONFIG.tokenName);
             next();
-        })
+        });
     }else next();
-}
+};
 
 exports.getToken=function(req,res,next){
-    req.token=req.cookies[CONFIG.tokenName];
+    req.token=req.cookies[global.CONFIG.tokenName];
     next();
-}
+};

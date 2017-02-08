@@ -1,8 +1,8 @@
-import React, {PropTypes,Component} from 'react';
+import React, {Component} from 'react';
 
 //封装组件
 class LoadModal extends Component {
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(){
         return false;
     }
     render(){
@@ -11,7 +11,7 @@ class LoadModal extends Component {
                 <div className="app-spinner"></div>
                 <p className="load-tip">正在载入播放器,请稍后</p>
             </div>
-        )
+        );
     }
 }
 

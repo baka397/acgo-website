@@ -5,7 +5,7 @@ import {getImageUrl} from '../../common/tool';
 
 //封装组件
 class Simple extends Component {
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {_id} = this.props.data;
         if(_id===nextProps.data._id) return false;
         return true;
@@ -22,12 +22,12 @@ class Simple extends Component {
                 <p className="title" title={data.name}><Link to={clientPath+'/dashboard/anime/'+data._id}>{data.name}</Link></p>
                 <p className="alias" title={data.alias}>{data.alias}</p>
             </div>
-        )
+        );
     }
 }
 
 Simple.propTypes={
     data:PropTypes.object.isRequired
-}
+};
 
 export default Simple;

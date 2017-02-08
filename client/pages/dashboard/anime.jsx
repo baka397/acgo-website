@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
@@ -22,7 +22,7 @@ function propMap(state,ownProps){
         animeWatch:state.animeWatch,
         user:state.user,
         routing:ownProps
-    }
+    };
 }
 
 //封装组件
@@ -37,7 +37,7 @@ class Anime extends Component {
         this.state={
             tags:{},
             groupBtns
-        }
+        };
         this.handleGroupClick = this.handleGroupClick.bind(this);
     }
     componentDidMount(){
@@ -51,7 +51,7 @@ class Anime extends Component {
         if(animeId===beforeAnimeId&&animeSub[animeId]===nextProps.animeSub[animeId]&&isObjEmpty(tags)&&animeGroup.page===nextProps.animeGroup.page&&animeGroup.total===nextProps.animeGroup.total&&animeWatch.order.length===nextProps.animeWatch.order.length) return false;
         return true;
     }
-    componentDidUpdate(prevProps, prevState){
+    componentDidUpdate(){
         const {animeDetail,routing,dispatch} = this.props;
         const {tags} = this.state;
         let params=getParams(routing);
@@ -59,7 +59,7 @@ class Anime extends Component {
         if(params.id!==beforeParams.id){
             this.setState({
                 tags:{}
-            })
+            });
             this.handleClear();
             this.handleGetDetail();
         }
@@ -71,33 +71,32 @@ class Anime extends Component {
             promiseList.push(fetch('tag',{
                 ids:animeDetail.tag.toString(),
                 type:1
-            }))
+            }));
             promiseList.push(fetch('tag',{
                 ids:animeDetail.staff.toString(),
                 type:2
-            }))
+            }));
             promiseList.push(fetch('tag',{
                 ids:animeDetail.cv.toString(),
                 type:3
-            }))
+            }));
             Promise.all(promiseList).then(result=>{
                 dispatch(modalClean('loading'));
                 let tagsList={};
                 result.forEach((res)=>{
                     res.data.content.forEach(item=>{
                         tagsList[item._id]=item.name;
-                    })
-                })
+                    });
+                });
                 this.setState({
                     tags:tagsList
                 });
-            }).catch(err=>{
+            }).catch(()=>{
                 dispatch(modalClean('loading'));
-            })
+            });
         }
     }
     componentWillUnmount(){
-        const {dispatch} = this.props;
         this.handleClear();
     }
     render() {
@@ -119,7 +118,7 @@ class Anime extends Component {
                         <AnimeGroup group={animeGroup} btns={groupBtns} onGroupClick={this.handleGroupClick} watch={animeWatch} />
                     </div>
                 </div>
-            )
+            );
         }else{
             epContent=(
                 <div className="app-block">
@@ -128,12 +127,12 @@ class Anime extends Component {
                         <p>还未审核,暂时不能显示和添加剧集</p>
                     </div>
                 </div>
-            )
+            );
         }
         if(animeSub[animeDetail._id]){
-            subBtn=<a className="btn btn-light btn-sm m-l" onClick={()=>{this.handleSub(-1)}}><i className="icon icon-star m-r-sm"></i>取消订阅</a>;
+            subBtn=<a className="btn btn-light btn-sm m-l" onClick={()=>this.handleSub(-1)}><i className="icon icon-star m-r-sm"></i>取消订阅</a>;
         }else{
-            subBtn=<a className="btn btn-info btn-sm m-l" onClick={()=>{this.handleSub(1)}}><i className="icon icon-star-full m-r-sm"></i>立即订阅</a>;
+            subBtn=<a className="btn btn-info btn-sm m-l" onClick={()=>this.handleSub(1)}><i className="icon icon-star-full m-r-sm"></i>立即订阅</a>;
         }
         return (
             <div className="app-anime m-t">
@@ -180,7 +179,7 @@ class Anime extends Component {
                     {epContent}
                 </div>
             </div>
-        )
+        );
     }
     handleGetDetail(){
         const {routing,dispatch} = this.props;
@@ -188,7 +187,7 @@ class Anime extends Component {
         dispatch(getAnimeDetail(params));
         dispatch(getAnimeGroupList({
             animeId:params.id
-        }))
+        }));
     }
     handleClear(){
         const {dispatch} = this.props;
@@ -204,4 +203,14 @@ class Anime extends Component {
         dispatch(push(clientPath+'/dashboard/anime/play/?groupId='+id+'&ep='+ep));
     }
 }
+
+Anime.propTypes={
+    animeDetail:PropTypes.object.isRequired,
+    animeSub:PropTypes.object.isRequired,
+    animeGroup:PropTypes.object.isRequired,
+    animeWatch:PropTypes.object.isRequired,
+    user:PropTypes.object.isRequired,
+    routing:PropTypes.object.isRequired,
+    dispatch:PropTypes.func.isRequired
+};
 export default connect(propMap)(Anime);

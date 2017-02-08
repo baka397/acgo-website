@@ -2,7 +2,7 @@ import React, {PropTypes,Component} from 'react';
 
 //封装组件
 class PlayerUnable extends Component {
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {url} = this.props;
         if(url===nextProps.url) return false;
         return true;
@@ -22,12 +22,12 @@ class PlayerUnable extends Component {
                     </p>
                 </div>
             </div>
-        )
+        );
     }
 }
 
 PlayerUnable.propTypes={
     url:PropTypes.string.isRequired
-}
+};
 
 export default PlayerUnable;

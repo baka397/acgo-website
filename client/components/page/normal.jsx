@@ -2,7 +2,7 @@ import React, {PropTypes,Component} from 'react';
 
 //封装组件
 class NormalPage extends Component {
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps){
         const {page,total} = this.props;
         if(page===nextProps.page&&total===nextProps.total) return false;
         return true;
@@ -17,12 +17,12 @@ class NormalPage extends Component {
         if(page===1){
             pagePrev=(<li className="disabled"><a><i className="icon icon-prev"></i></a></li>);
         }else{
-            pagePrev=(<li><a onClick={(e)=>{this.handlePageClick(1)}}><i className="icon icon-prev"></i></a></li>);
+            pagePrev=(<li><a onClick={()=>this.handlePageClick(1)}><i className="icon icon-prev"></i></a></li>);
         }
         if(pageTotal===pageEnd){
             pageNext=(<li className="disabled"><a><i className="icon icon-next"></i></a></li>);
         }else{
-            pageNext=(<li><a onClick={(e)=>{this.handlePageClick(pageTotal)}}><i className="icon icon-next"></i></a></li>);
+            pageNext=(<li><a onClick={()=>this.handlePageClick(pageTotal)}><i className="icon icon-next"></i></a></li>);
         }
         if(pageStart>1){
             pagePrevMore=(<li><a>...</a></li>);
@@ -39,14 +39,14 @@ class NormalPage extends Component {
                     {pagePrev}
                     {pagePrevMore}
                     {pageList.map((pageNum)=>{
-                        if(pageNum===page) return <li key={pageNum} className="disabled"><a>{pageNum}</a></li>
-                        else return <li><a key={pageNum} onClick={(e)=>{this.handlePageClick(pageNum)}}>{pageNum}</a></li>
+                        if(pageNum===page) return <li key={pageNum} className="disabled"><a>{pageNum}</a></li>;
+                        else return <li><a key={pageNum} onClick={()=>this.handlePageClick(pageNum)}>{pageNum}</a></li>;
                     })}
                     {pageNextMore}
                     {pageNext}
                 </ul>
             </div>
-        )
+        );
     }
     handlePageClick(page){
         const {onPageClick} = this.props;
@@ -59,6 +59,6 @@ NormalPage.propTypes={
     pageSize:PropTypes.number.isRequired,
     total:PropTypes.number.isRequired,
     onPageClick:PropTypes.func.isRequired
-}
+};
 
 export default NormalPage;

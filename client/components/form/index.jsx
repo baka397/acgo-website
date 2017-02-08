@@ -12,21 +12,22 @@ import Tag from './tag.jsx';
 class Form extends Component {
     constructor(props){
         super(props);
-        this.state={
-            result:{}
-        }
+        let result={};
         props.rules.forEach((rule)=>{
             if(rule.name){
                 if(!/^[a-zA-Z0-9\_]+$/.test(rule.name)){
                     throw new Error('请输入正确的规则名称');
                 }
                 if(isNaN(rule.value)){
-                    this.state.result[rule.name]=rule.value||'';
+                    result[rule.name]=rule.value||'';
                 }else{
-                    this.state.result[rule.name]=rule.value+'';
+                    result[rule.name]=rule.value+'';
                 }
             }
-        })
+        });
+        this.state={
+            result
+        };
         this.handleChangeVal = this.handleChangeVal.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -37,31 +38,26 @@ class Form extends Component {
             <form className={longlabel?'app-form app-form-long':'app-form'} onSubmit={this.handleSubmit}>
                 {rules.map((rule,index)=>{
                     switch(rule.type){
-                        case 'text':
-                            return <Text key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
-                            break;
-                        case 'password':
-                            return <Password key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
-                            break;
-                        case 'textarea':
-                            return <Textarea key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />
-                            break;
-                        case 'upload':
-                            return <Upload key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} onChangeVal={this.handleChangeVal} />
-                            break;
-                        case 'radio':
-                            return <Radio key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />
-                            break;
-                        case 'tag':
-                            return <Tag key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} maxSize={rule.maxSize} label={rule.label} placeholder={rule.placeholder} tagType={rule.tagType} onChangeVal={this.handleChangeVal} />
-                        case 'submit':
-                            return <Button key={index} disabled={rule.disabled} label={rule.label} icon={rule.icon} />
-                        default:
-                            return null;
+                    case 'text':
+                        return <Text key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />;
+                    case 'password':
+                        return <Password key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />;
+                    case 'textarea':
+                        return <Textarea key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />;
+                    case 'upload':
+                        return <Upload key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} onChangeVal={this.handleChangeVal} />;
+                    case 'radio':
+                        return <Radio key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />;
+                    case 'tag':
+                        return <Tag key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} maxSize={rule.maxSize} label={rule.label} placeholder={rule.placeholder} tagType={rule.tagType} onChangeVal={this.handleChangeVal} />;
+                    case 'submit':
+                        return <Button key={index} disabled={rule.disabled} label={rule.label} icon={rule.icon} />;
+                    default:
+                        return null;
                     }
                 })}
             </form>
-        )
+        );
     }
     handleChangeVal(name,value){
         const {result} = this.state;
@@ -69,7 +65,7 @@ class Form extends Component {
         data[name]=value;
         this.setState({
             result:data
-        })
+        });
     }
     handleSubmit(e){
         e.preventDefault();
@@ -83,6 +79,6 @@ Form.propTypes={
     rules:PropTypes.array.isRequired,
     onSubmit:PropTypes.func.isRequired,
     longlabel:PropTypes.bool
-}
+};
 
 export default Form;
