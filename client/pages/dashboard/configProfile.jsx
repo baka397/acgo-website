@@ -15,6 +15,18 @@ const FORM_RULE = [
         placeholder:'请输入昵称'
     },
     {
+        name:'avatar',
+        label:'头像',
+        type:'upload',
+        cropperType:'avatar'
+    },
+    {
+        name:'desc',
+        label:'个人介绍',
+        type:'textarea',
+        placeholder:'请输入个人介绍'
+    },
+    {
         label:'修改资料',
         type:'submit',
         icon:'edit'
@@ -40,6 +52,11 @@ class ConfigProfile extends Component {
         const {user} = this.props;
         let formRule=FORM_RULE.map((rule)=>{
             switch(rule.name){
+            case 'avatar':
+                if(!user['avatar']) return rule;
+                return Object.assign({},rule,{
+                    value:user['avatar']+'|'+user['avatar_clip'].toString()
+                });
             default:
                 if(rule.name){
                     return Object.assign({},rule,{
@@ -64,13 +81,24 @@ class ConfigProfile extends Component {
     }
     handleSubmit(data){
         const {user,dispatch} = this.props;
+        let avatarArray=data.avatar?data.avatar.split('|'):null;
         if(!data.nickname){
             dispatch(modalUpdate({
                 tip:'请输入昵称'
             }));
             return;
         }
-        let compareData=getObjCompareResult(data,user);
+        if(avatarArray&&(avatarArray.length!==2||!avatarArray[0]||!avatarArray[1])){
+            dispatch(modalUpdate({
+                tip:'请上传正确的头像'
+            }));
+            return;
+        }
+        let sendData=Object.assign({},data,{
+            avatar:avatarArray[0],
+            avatarClip:avatarArray[1]
+        });
+        let compareData=getObjCompareResult(sendData,user);
         if(compareData){
             dispatch(userChangeProfile(compareData));
         }else{

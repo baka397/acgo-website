@@ -29,7 +29,6 @@ const URL = {
     uploadToken:'/upload/token/',
     tag:'/tag/'
 };
-let apiTokenParams=authTool.getTokenParams(global.CONFIG.apiKey,global.CONFIG.apiAlias);
 
 /**
  * 请求接口数据
@@ -58,7 +57,7 @@ function apiRequest(token,action,data,method){
     }
     global.LOG.info(method.toUpperCase(),url);
     return new Promise(function(resolve,reject){
-        let apiLoginParams=Object.assign({},apiTokenParams);
+        let apiLoginParams=authTool.getTokenParams(global.CONFIG.apiKey,global.CONFIG.apiAlias);
         if(token) apiLoginParams['x-req-key']=token;
         let requestObj=request[method](url)
         .timeout({

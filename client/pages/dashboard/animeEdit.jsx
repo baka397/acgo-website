@@ -40,7 +40,8 @@ const FORM_RULE=[
     {
         name:'cover',
         label:'展示图',
-        type:'upload'
+        type:'upload',
+        cropperType:'cover'
     },
     {
         name:'tag',
