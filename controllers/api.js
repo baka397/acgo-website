@@ -13,7 +13,7 @@ router.all('*', auth.getToken, function(req, res, next){
     next();
 });
 
-router.post('/register', function(req, res, next){
+router.post('/user/register', function(req, res, next){
     let sendData={
         email:req.body.email,
         code:req.body.code,
@@ -27,7 +27,7 @@ router.post('/register', function(req, res, next){
     });
 });
 
-router.post('/login', function(req, res, next){
+router.post('/user/login', function(req, res, next){
     let sendData={
         email:req.body.email,
         password:req.body.password
@@ -40,7 +40,8 @@ router.post('/login', function(req, res, next){
     });
 });
 
-router.post('/changePassword', function(req, res, next){
+router.post('/user/changePassword', function(req, res, next){
+    req.body.id='me';
     api.request(req.token,'userInfo',req.body,'PUT').then(function(){
         res.send(tool.buildResJson('重置密码成功,请重新登录',null));
     }).catch(function(err){
@@ -48,7 +49,8 @@ router.post('/changePassword', function(req, res, next){
     });
 });
 
-router.post('/profile', function(req, res, next){
+router.post('/user/profile', function(req, res, next){
+    req.body.id='me';
     api.request(req.token,'userInfo',req.body,'PUT').then(function(){
         res.send(tool.buildResJson('更新资料成功',null));
     }).catch(function(err){
@@ -56,16 +58,18 @@ router.post('/profile', function(req, res, next){
     });
 });
 
-router.get('/me', function(req, res, next){
-    api.request(req.token,'userInfo').then(function(data){
+router.get('/user/:id', function(req, res, next){
+    api.request(req.token,'userInfo',req.params).then(function(data){
         res.send(tool.buildResJson('获取个人数据成功',data));
     }).catch(function(err){
         next(err);
     });
 });
 
-router.post('/logout', function(req, res, next){
-    api.request(req.token,'userInfo',null,'DELETE').then(function(data){
+router.post('/user/logout', function(req, res, next){
+    api.request(req.token,'userInfo',{
+        id:'me'
+    },'DELETE').then(function(data){
         res.clearCookie(global.CONFIG.tokenName);
         res.send(tool.buildResJson('登出成功',data));
     }).catch(function(err){
@@ -73,7 +77,7 @@ router.post('/logout', function(req, res, next){
     });
 });
 
-router.post('/sendPwdMail', function(req, res, next){
+router.post('/user/sendPwdMail', function(req, res, next){
     api.request(req.token,'sendPwdMail',{
         email:req.body.email,
         backurl:global.CONFIG.clientPath+'/common/resetpwd'
@@ -84,7 +88,7 @@ router.post('/sendPwdMail', function(req, res, next){
     });
 });
 
-router.post('/resetPwd', function(req, res, next){
+router.post('/user/resetPwd', function(req, res, next){
     api.request(req.token,'resetPwd',req.body,'POST').then(function(data){
         res.send(tool.buildResJson('重置密码成功',data));
     }).catch(function(err){

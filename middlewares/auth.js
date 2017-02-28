@@ -3,7 +3,9 @@ const api = require('../common/api');
 
 exports.getUser=function(req,res,next){
     if(req.token){
-        api.request(req.token,'userInfo').then(function(data){
+        api.request(req.token,'userInfo',{
+            id:'me'
+        }).then(function(data){
             req.user=data;
             next();
         }).catch(function(){

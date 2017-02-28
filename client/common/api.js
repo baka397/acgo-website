@@ -2,14 +2,14 @@ import fetch from 'isomorphic-fetch';
 import {apiPath,uploadPath} from '../config';
 import {nextPromise,serialize} from './tool';
 const URLS={
-    register:apiPath+'/register', //用户注册
-    login:apiPath+'/login', //用户登录
-    changePassword:apiPath+'/changePassword', //用户重置密码
-    sendPwdMail:apiPath+'/sendPwdMail', //用户发送重置密码邮件
-    resetPwd:apiPath+'/resetPwd', //用户重置密码
-    profile:apiPath+'/profile', //用户资料
-    logout:apiPath+'/logout', //用户登出
-    me:apiPath+'/me', //用户自有信息
+    register:apiPath+'/user/register', //用户注册
+    login:apiPath+'/user/login', //用户登录
+    changePassword:apiPath+'/user/changePassword', //用户重置密码
+    sendPwdMail:apiPath+'/user/sendPwdMail', //用户发送重置密码邮件
+    resetPwd:apiPath+'/user/resetPwd', //用户重置密码
+    profile:apiPath+'/user/profile', //用户资料
+    logout:apiPath+'/user/logout', //用户登出
+    me:apiPath+'/user/me', //用户自有信息
     animeSearch:apiPath+'/anime/', //动画搜索
     animeDetail:apiPath+'/anime/detail/', //动画详情
     animeAdd:apiPath+'/anime/add/', //动画添加

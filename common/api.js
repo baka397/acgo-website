@@ -6,7 +6,7 @@ const authTool = require('./auth');
 const tool = require('./tool');
 const STATUS_CODE = require('../enums/status_code');
 const URL = {
-    userInfo: '/user/me',
+    userInfo: '/user/:id',
     register: '/user/',
     login:'/user/login/',
     sendPwdMail:'/user/send/',
