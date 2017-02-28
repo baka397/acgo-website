@@ -8,15 +8,15 @@ import {modalUpdate,modalClean} from './modal';
 import {cleanAnimeSub} from './anime_sub';
 import {cleanAnimeWatch} from './anime_watch';
 
-export const UPDATE_USER = 'UPDATE_USER';
-export const CLEAN_USER = 'CLEAN_USER';
+export const UPDATE_PROFILE = 'UPDATE_PROFILE';
+export const CLEAN_PROFILE = 'CLEAN_PROFILE';
 
 /**
  * 用户注册
  * @param  {Object} data 注册数据
  * @return {function}    thunk函数
  */
-export function userReg(data){
+export function profileReg(data){
     return function(dispatch){
         let sendData = {
             email:data.email,
@@ -47,7 +47,7 @@ export function userReg(data){
  * @param  {Object} data 注册数据
  * @return {function}    thunk函数
  */
-export function userLogin(data){
+export function profileLogin(data){
     return function(dispatch){
         let sendData = {
             email:data.email,
@@ -59,7 +59,7 @@ export function userLogin(data){
         fetch('login',sendData,'POST').then(()=>{
             return fetch('me');
         }).then((res)=>{
-            dispatch(updateUser(res.data));
+            dispatch(updateProfile(res.data));
             dispatch(modalClean('loading'));
             dispatch(push(clientPath+'/dashboard/'));
         }).catch((err)=>{
@@ -76,7 +76,7 @@ export function userLogin(data){
  * @param  {Object} data 注册数据
  * @return {function}    thunk函数
  */
-export function userSendMail(data){ 
+export function profileSendMail(data){ 
     return function(dispatch){
         let sendData = {
             email:data.email
@@ -104,7 +104,7 @@ export function userSendMail(data){
  * @param  {Object} data 注册数据
  * @return {function}    thunk函数
  */
-export function userResetPwd(data){ 
+export function profileResetPwd(data){ 
     return function(dispatch){
         let sendData = {
             password:md5(data.password).toUpperCase(),
@@ -132,9 +132,9 @@ export function userResetPwd(data){
  * 清除用户数据
  * @param  {Function} dispatch 分发器
  */
-function clearUserInfo(dispatch){
+function clearProfileInfo(dispatch){
     //清除登录数据
-    dispatch(cleanUser());
+    dispatch(cleanProfile());
     //清除订阅数据
     dispatch(cleanAnimeSub());
     dispatch(cleanAnimeWatch());
@@ -146,13 +146,13 @@ function clearUserInfo(dispatch){
  * 用户登出
  * @return {function} thunk函数
  */
-export function userLogout(){
+export function profileLogout(){
     return function(dispatch){
         dispatch(modalUpdate({
             loading:true
         }));
         fetch('logout',null,'POST').then(()=>{
-            clearUserInfo(dispatch);
+            clearProfileInfo(dispatch);
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
@@ -166,7 +166,7 @@ export function userLogout(){
  * 用户修改密码
  * @return {function} thunk函数
  */
-export function userChangePassword(data){
+export function profileChangePassword(data){
     let sendData = {
         oldPassword:md5(data.oldPassword).toUpperCase(),
         password:md5(data.password).toUpperCase()
@@ -179,7 +179,7 @@ export function userChangePassword(data){
             dispatch(modalUpdate({
                 tip:res.msg
             }));
-            clearUserInfo(dispatch);
+            clearProfileInfo(dispatch);
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
@@ -189,13 +189,13 @@ export function userChangePassword(data){
     };
 }
 
-export function userGet(){
+export function profileGet(){
     return function(dispatch){
         dispatch(modalUpdate({
             loading:true
         }));
         fetch('me').then((res)=>{
-            dispatch(updateUser(res.data));
+            dispatch(updateProfile(res.data));
             dispatch(modalClean('loading'));
         }).catch((err)=>{
             dispatch(modalUpdate({
@@ -210,7 +210,7 @@ export function userGet(){
  * 用户修改资料
  * @return {function} thunk函数
  */
-export function userChangeProfile(data){
+export function profileChangeProfile(data){
     return function(dispatch){
         dispatch(modalUpdate({
             loading:true
@@ -219,7 +219,7 @@ export function userChangeProfile(data){
             dispatch(modalUpdate({
                 tip:res.msg
             }));
-            dispatch(userGet());
+            dispatch(profileGet());
         }).catch((err)=>{
             dispatch(modalUpdate({
                 tip:err.message,
@@ -234,9 +234,9 @@ export function userChangeProfile(data){
  * @param  {Object} data 用户数据
  * @return {Object}      action数据
  */
-export function updateUser(data){
+export function updateProfile(data){
     return {
-        type: UPDATE_USER,
+        type: UPDATE_PROFILE,
         data: data
     };
 }
@@ -245,8 +245,8 @@ export function updateUser(data){
  * 清除用户数据
  * @return {Object} action数据
  */
-export function cleanUser(){
+export function cleanProfile(){
     return {
-        type: CLEAN_USER
+        type: CLEAN_PROFILE
     };
 }

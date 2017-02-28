@@ -8,7 +8,7 @@ import {windowChange} from '../../common/ipc';
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {userSendMail} from '../../actions/user';
+import {profileSendMail} from '../../actions/profile';
 
 const FORM_RULE = [
     {
@@ -51,7 +51,7 @@ class Getpwd extends Component {
             }));
             return;
         }
-        dispatch(userSendMail(data));
+        dispatch(profileSendMail(data));
     }
 }
 

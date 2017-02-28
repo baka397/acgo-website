@@ -8,7 +8,7 @@ import {windowChange} from '../../common/ipc';
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {userResetPwd} from '../../actions/user';
+import {profileResetPwd} from '../../actions/profile';
 
 function propMap(state,ownProps){
     return {
@@ -78,7 +78,7 @@ class Resetpwd extends Component {
         }
         let sendData=Object.assign({},data);
         sendData.token=query.token;
-        dispatch(userResetPwd(sendData));
+        dispatch(profileResetPwd(sendData));
     }
 }
 

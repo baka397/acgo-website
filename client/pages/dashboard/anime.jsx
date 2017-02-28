@@ -20,7 +20,7 @@ function propMap(state,ownProps){
         animeSub:state.animeSub.content,
         animeGroup:state.animeGroup,
         animeWatch:state.animeWatch,
-        user:state.user,
+        profile:state.profile,
         routing:ownProps
     };
 }
@@ -29,7 +29,7 @@ function propMap(state,ownProps){
 class Anime extends Component {
     constructor(props){
         super(props);
-        const {role} = this.props.user;
+        const {role} = this.props.profile;
         let groupBtns=[];
         if(authRole('admin',role)){
             groupBtns=groupBtns.concat(['add','task','edit']);
@@ -206,7 +206,7 @@ Anime.propTypes={
     animeSub:PropTypes.object.isRequired,
     animeGroup:PropTypes.object.isRequired,
     animeWatch:PropTypes.object.isRequired,
-    user:PropTypes.object.isRequired,
+    profile:PropTypes.object.isRequired,
     routing:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired
 };

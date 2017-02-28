@@ -8,7 +8,7 @@ import {routerReducer} from 'react-router-redux';
 
 import modal from './modal';
 import app from './app';
-import user from './user';
+import profile from './profile';
 import client from './client';
 import anime from './anime';
 import animeSub from './anime_sub';
@@ -20,7 +20,7 @@ import animeTask from './anime_task';
 export const reducer = combineReducers({
     modal,
     app,
-    user,
+    profile,
     client,
     anime,
     animeSub,

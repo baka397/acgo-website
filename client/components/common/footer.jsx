@@ -22,12 +22,12 @@ class Footer extends Component {
         return true;
     }
     render() {
-        const {avatar,avatarClip,nav,onToolbarClick} = this.props;
+        const {avatar,avatarClip,nav,userId,onToolbarClick} = this.props;
         let toolbar;
         if(onToolbarClick){
             toolbar=(
                 <div className="app-footer-toolbar">
-                    <Link to={clientPath+'/user/me'}><Avatar avatar={avatar} avatarClip={avatarClip} size="small" /></Link>
+                    <Link to={clientPath+'/user/'+userId}><Avatar avatar={avatar} avatarClip={avatarClip} size="small" /></Link>
                     <Link to={clientPath+'/dashboard/config'} activeClassName="active" onlyActiveOnIndex={true}><i className="icon icon-config"></i></Link>
                     <a onClick={()=>this.handleToolbarClick('logout')}><i className="icon icon-logout"></i></a>
                 </div>
@@ -58,6 +58,7 @@ class Footer extends Component {
 
 Footer.propTypes={
     nav: PropTypes.array.isRequired,
+    userId: PropTypes.string,
     avatar: PropTypes.string,
     avatarClip: PropTypes.array,
     onToolbarClick: PropTypes.func

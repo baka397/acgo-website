@@ -8,7 +8,7 @@ import {windowChange} from '../../common/ipc';
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {userLogin} from '../../actions/user';
+import {profileLogin} from '../../actions/profile';
 
 const FORM_RULE = [
     {
@@ -64,7 +64,7 @@ class Login extends Component {
             }));
             return;
         }
-        dispatch(userLogin(data));
+        dispatch(profileLogin(data));
     }
 }
 

@@ -8,7 +8,7 @@ import {windowChange} from '../../common/ipc';
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {userReg} from '../../actions/user';
+import {profileReg} from '../../actions/profile';
 
 const FORM_RULE = [
     {
@@ -105,7 +105,7 @@ class Register extends Component {
             }));
             return;
         }
-        dispatch(userReg(data));
+        dispatch(profileReg(data));
     }
 }
 

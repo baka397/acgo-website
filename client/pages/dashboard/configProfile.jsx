@@ -5,7 +5,7 @@ import {getObjCompareResult} from '../../common/tool';
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {userChangeProfile} from '../../actions/user';
+import {profileChangeProfile} from '../../actions/profile';
 
 const FORM_RULE = [
     {
@@ -35,7 +35,7 @@ const FORM_RULE = [
 
 function propMap(state){
     return {
-        user:state.user
+        profile:state.profile
     };
 }
 
@@ -49,18 +49,18 @@ class ConfigProfile extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount(){
-        const {user} = this.props;
+        const {profile} = this.props;
         let formRule=FORM_RULE.map((rule)=>{
             switch(rule.name){
             case 'avatar':
-                if(!user['avatar']) return rule;
+                if(!profile['avatar']) return rule;
                 return Object.assign({},rule,{
-                    value:user['avatar']+'|'+user['avatar_clip'].toString()
+                    value:profile['avatar']+'|'+profile['avatar_clip'].toString()
                 });
             default:
                 if(rule.name){
                     return Object.assign({},rule,{
-                        value:user[rule.name]
+                        value:profile[rule.name]
                     });
                 }
                 return Object.assign({},rule);
@@ -80,7 +80,7 @@ class ConfigProfile extends Component {
         );
     }
     handleSubmit(data){
-        const {user,dispatch} = this.props;
+        const {profile,dispatch} = this.props;
         let avatarArray=data.avatar?data.avatar.split('|'):null;
         if(!data.nickname){
             dispatch(modalUpdate({
@@ -98,9 +98,9 @@ class ConfigProfile extends Component {
             avatar:avatarArray[0],
             avatarClip:avatarArray[1]
         });
-        let compareData=getObjCompareResult(sendData,user);
+        let compareData=getObjCompareResult(sendData,profile);
         if(compareData){
-            dispatch(userChangeProfile(compareData));
+            dispatch(profileChangeProfile(compareData));
         }else{
             dispatch(modalUpdate({
                 tip:'你还没有更改任何内容'
@@ -110,7 +110,7 @@ class ConfigProfile extends Component {
 }
 
 ConfigProfile.propTypes={
-    user:PropTypes.object.isRequired,
+    profile:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired
 };
 

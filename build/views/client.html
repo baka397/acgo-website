@@ -24,7 +24,7 @@
 </div>
 <script type="text/javascript">
     var electron = window.require?require('electron'):{};
-    var user=<%- user?JSON.stringify(user):'{}' %>
+    var profile=<%- user?JSON.stringify(user):'{}' %>
 </script>
 <script type="text/javascript" src="/js/app.min.js?version=<%= version %>"></script>
 <% include ./common/ga.html %>

@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import FormList from '../../components/form/index.jsx';
 
 import {modalUpdate} from '../../actions/modal';
-import {userChangePassword} from '../../actions/user';
+import {profileChangePassword} from '../../actions/profile';
 
 const FORM_RULE = [
     {
@@ -71,7 +71,7 @@ class ConfigPassword extends Component {
             }));
             return;
         }
-        dispatch(userChangePassword(data));
+        dispatch(profileChangePassword(data));
     }
 }
 
