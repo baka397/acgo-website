@@ -64,7 +64,7 @@ class DashboardLayout extends Component {
                 <div className="app-content">
                     {this.props.children}
                 </div>
-                <Footer nav={nav} onToolbarClick={this.handleToolbarClick} />
+                <Footer nav={nav} onToolbarClick={this.handleToolbarClick} avatar={user.avatar} avatarClip={user.avatar_clip} />
             </div>
         );
     }

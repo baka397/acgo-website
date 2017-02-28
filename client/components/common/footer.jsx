@@ -1,6 +1,7 @@
 import React, {PropTypes,Component} from 'react';
 import {Link} from 'react-router';
 import {clientPath} from '../../config';
+import Avatar from '../avatar/index.jsx';
 
 const YEAR = new Date().getFullYear();
 
@@ -10,16 +11,23 @@ class Footer extends Component {
         super(props);
     }
     shouldComponentUpdate(nextProps){
-        const {nav} = this.props;
-        if(nav.length===nextProps.nav.length) return false;
+        const {nav,avatar,avatarClip} = this.props;
+        let validClip=Array.isArray(avatarClip)&&Array.isArray(nextProps.avatarClip);
+        if(validClip){
+            validClip=avatarClip.every(function(clip,index){
+                return clip!==nextProps.avatarClip[index];
+            });
+        }
+        if(nav.length===nextProps.nav.length&&avatar===nextProps.avatar&&validClip) return false;
         return true;
     }
     render() {
-        const {nav,onToolbarClick} = this.props;
+        const {avatar,avatarClip,nav,onToolbarClick} = this.props;
         let toolbar;
         if(onToolbarClick){
             toolbar=(
                 <div className="app-footer-toolbar">
+                    <Link to={clientPath+'/user/me'}><Avatar avatar={avatar} avatarClip={avatarClip} size="small" /></Link>
                     <Link to={clientPath+'/dashboard/config'} activeClassName="active" onlyActiveOnIndex={true}><i className="icon icon-config"></i></Link>
                     <a onClick={()=>this.handleToolbarClick('logout')}><i className="icon icon-logout"></i></a>
                 </div>
@@ -50,6 +58,8 @@ class Footer extends Component {
 
 Footer.propTypes={
     nav: PropTypes.array.isRequired,
+    avatar: PropTypes.string,
+    avatarClip: PropTypes.array,
     onToolbarClick: PropTypes.func
 };
 

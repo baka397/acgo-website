@@ -36,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next) {
     //设置模板变量
     res.locals.version = pkg.version;
+    res.locals.env = process.env.NODE_ENV;
     next();
 });
 
