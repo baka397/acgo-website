@@ -1,11 +1,11 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {getObjCompareResult} from '../../common/tool';
+import {getObjCompareResult} from '../../../common/tool';
 
-import FormList from '../../components/form/index.jsx';
+import FormList from '../../../components/form/index.jsx';
 
-import {modalUpdate} from '../../actions/modal';
-import {profileChangeProfile} from '../../actions/profile';
+import {modalUpdate} from '../../../actions/modal';
+import {profileChangeProfile} from '../../../actions/profile';
 
 const FORM_RULE = [
     {

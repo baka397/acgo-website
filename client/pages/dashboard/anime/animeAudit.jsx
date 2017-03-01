@@ -1,14 +1,14 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import {fetch} from '../../common/api';
-import {clientPath} from '../../config';
-import {isObjEmpty,getImageUrl} from '../../common/tool';
-import {type} from '../../enums/tag';
-import {showStatus} from '../../enums/anime';
+import {fetch} from '../../../common/api';
+import {clientPath} from '../../../config';
+import {isObjEmpty,getImageUrl} from '../../../common/tool';
+import {type} from '../../../enums/tag';
+import {showStatus} from '../../../enums/anime';
 
-import {getAnimeDetail,cleanAnime} from '../../actions/anime';
-import {modalUpdate,modalClean} from '../../actions/modal';
+import {getAnimeDetail,cleanAnime} from '../../../actions/anime';
+import {modalUpdate,modalClean} from '../../../actions/modal';
 
 function propMap(state){
     return {

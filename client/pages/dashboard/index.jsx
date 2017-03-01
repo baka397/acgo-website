@@ -25,7 +25,7 @@ class Index extends Component {
                     </div>
                     <div className="app-tip-message">
                         <p className="m-b">暂无订阅数据</p>
-                        <p><Link to={clientPath+'/dashboard/search/'} className="btn btn-info"><i className="icon icon-search m-r-sm"></i>立即探索</Link></p>
+                        <p><Link to={clientPath+'/dashboard/discover/search/'} className="btn btn-info"><i className="icon icon-search m-r-sm"></i>立即探索</Link></p>
                     </div>
                 </div>
             );

@@ -1,10 +1,10 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 
-import FormList from '../../components/form/index.jsx';
+import FormList from '../../../components/form/index.jsx';
 
-import {modalUpdate} from '../../actions/modal';
-import {profileChangePassword} from '../../actions/profile';
+import {modalUpdate} from '../../../actions/modal';
+import {profileChangePassword} from '../../../actions/profile';
 
 const FORM_RULE = [
     {

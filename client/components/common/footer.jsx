@@ -27,7 +27,7 @@ class Footer extends Component {
         if(onToolbarClick){
             toolbar=(
                 <div className="app-footer-toolbar">
-                    <Link to={clientPath+'/user/'+userId}><Avatar avatar={avatar} avatarClip={avatarClip} size="small" /></Link>
+                    <Link to={clientPath+'/dashboard/user/'+userId}><Avatar avatar={avatar} avatarClip={avatarClip} size="small" /></Link>
                     <Link to={clientPath+'/dashboard/config'} activeClassName="active" onlyActiveOnIndex={true}><i className="icon icon-config"></i></Link>
                     <a onClick={()=>this.handleToolbarClick('logout')}><i className="icon icon-logout"></i></a>
                 </div>

@@ -10,7 +10,8 @@ import {modalUpdate,modalClean} from './actions/modal';
 import Layout from './pages/layout.jsx'; //框架
 import CommonLayout from './pages/common/layout.jsx'; //未登录框架
 import DashboardLayout from './pages/dashboard/layout.jsx'; //登录框架
-import ConfigLayout from './pages/dashboard/configLayout.jsx'; //配置框架
+import ConfigLayout from './pages/dashboard/config/layout.jsx'; //配置框架
+import UserLayout from './pages/dashboard/user/layout.jsx'; //用户主页框架
 
 import Index from './pages/index.jsx'; //首页
 import NotFound from './pages/notFound.jsx'; //404页面
@@ -80,21 +81,23 @@ export default (
                         });
                     },'dashboard-index');
                 }}>
-                    <Route path="search" getIndexRoute={(partialNextState, callback)=>{
-                        loadPage();
-                        require.ensure([], function (require) {
-                            let loadComponent=require('./pages/dashboard/search.jsx');
-                            loadPage(true);
-                            callback(null, {
-                                component: loadComponent.default
-                            });
-                        },'dashboard-search');
-                    }} />
+                    <Route path="discover">
+                        <Route path="search" getIndexRoute={(partialNextState, callback)=>{
+                            loadPage();
+                            require.ensure([], function (require) {
+                                let loadComponent=require('./pages/dashboard/discover/search.jsx');
+                                loadPage(true);
+                                callback(null, {
+                                    component: loadComponent.default
+                                });
+                            },'dashboard-search');
+                        }} />
+                    </Route>
                     <Route path="anime">
                         <Route path="add" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/animeEdit.jsx');
+                                let loadComponent=require('./pages/dashboard/anime/animeEdit.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -104,7 +107,7 @@ export default (
                         <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/animeEdit.jsx');
+                                let loadComponent=require('./pages/dashboard/anime/animeEdit.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -114,7 +117,7 @@ export default (
                         <Route path="play" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/animePlay.jsx');
+                                let loadComponent=require('./pages/dashboard/anime/animePlay.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -124,7 +127,7 @@ export default (
                         <Route path="audit" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/animeAudit.jsx');
+                                let loadComponent=require('./pages/dashboard/anime/animeAudit.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -134,7 +137,7 @@ export default (
                         <Route path=":id" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/anime.jsx');
+                                let loadComponent=require('./pages/dashboard/anime/anime.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -146,7 +149,7 @@ export default (
                         <Route path="add" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/animeGroupEdit.jsx');
+                                let loadComponent=require('./pages/dashboard/anime-group/animeGroupEdit.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -156,7 +159,7 @@ export default (
                         <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/animeGroupEdit.jsx');
+                                let loadComponent=require('./pages/dashboard/anime-group/animeGroupEdit.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -167,7 +170,7 @@ export default (
                             <Route path="add" getIndexRoute={(partialNextState, callback)=>{
                                 loadPage();
                                 require.ensure([], function (require) {
-                                    let loadComponent=require('./pages/dashboard/animeGroupItemEdit.jsx');
+                                    let loadComponent=require('./pages/dashboard/anime-group/animeGroupItemEdit.jsx');
                                     loadPage(true);
                                     callback(null, {
                                         component: loadComponent.default
@@ -177,7 +180,7 @@ export default (
                             <Route path="edit" getIndexRoute={(partialNextState, callback)=>{
                                 loadPage();
                                 require.ensure([], function (require) {
-                                    let loadComponent=require('./pages/dashboard/animeGroupItemEdit.jsx');
+                                    let loadComponent=require('./pages/dashboard/anime-group/animeGroupItemEdit.jsx');
                                     loadPage(true);
                                     callback(null, {
                                         component: loadComponent.default
@@ -188,7 +191,7 @@ export default (
                         <Route path="task" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/animeGroupTaskEdit.jsx');
+                                let loadComponent=require('./pages/dashboard/anime-group/animeGroupTaskEdit.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -199,7 +202,7 @@ export default (
                     <Route path="config" component={ConfigLayout} getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
                         require.ensure([], function (require) {
-                            let loadComponent=require('./pages/dashboard/configPassword.jsx');
+                            let loadComponent=require('./pages/dashboard/config/password.jsx');
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
@@ -209,7 +212,7 @@ export default (
                         <Route path="profile" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/configProfile.jsx');
+                                let loadComponent=require('./pages/dashboard/config/profile.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
@@ -219,13 +222,24 @@ export default (
                         <Route path="client" getIndexRoute={(partialNextState, callback)=>{
                             loadPage();
                             require.ensure([], function (require) {
-                                let loadComponent=require('./pages/dashboard/configClient.jsx');
+                                let loadComponent=require('./pages/dashboard/config/client.jsx');
                                 loadPage(true);
                                 callback(null, {
                                     component: loadComponent.default
                                 });
                             },'dashboard-config-client');
                         }} />
+                    </Route>
+                    <Route path="user/:id" component={UserLayout} getIndexRoute={(partialNextState, callback)=>{
+                        loadPage();
+                        require.ensure([], function (require) {
+                            let loadComponent=require('./pages/dashboard/user/index.jsx');
+                            loadPage(true);
+                            callback(null, {
+                                component: loadComponent.default
+                            });
+                        },'dashboard-user-index');
+                    }}>
                     </Route>
                 </Route>
                 <Route path="*" component={NotFound} />

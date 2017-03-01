@@ -1,8 +1,8 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {getSizeInfo} from '../../common/tool';
+import {getSizeInfo} from '../../../common/tool';
 
-import {getClientCache,cleanClient,clearClientCache,getClientCacheDir} from '../../actions/client';
+import {getClientCache,cleanClient,clearClientCache,getClientCacheDir} from '../../../actions/client';
 
 function propMap(state){
     return {

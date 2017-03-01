@@ -1,4 +1,3 @@
-@avatar-size:30px;
 .app-avatar{
     position: relative;
     z-index: 1;
@@ -21,7 +20,6 @@
         right: 0;
         left: 0;
         z-index: 2;
-        font-size: @avatar-size - 10px;
         .getIcon();
         .getIcon('\e643');
     }
@@ -29,15 +27,24 @@
         width: @avatar-size;
         height: @avatar-size;
         line-height: @avatar-size;
+        &::after{
+            font-size: @avatar-size - 10px;
+        }
     }
     &.app-avatar-middle{
         width: @avatar-size*2;
         height: @avatar-size*2;
         line-height: @avatar-size*2;
+        &::after{
+            font-size: @avatar-size*2 - 10px;
+        }
     }
     &.app-avatar-large{
         width: @avatar-size*4;
         height: @avatar-size*4;
         line-height: @avatar-size*4;
+        &::after{
+            font-size: @avatar-size*4 - 10px;
+        }
     }
 }

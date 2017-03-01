@@ -10,6 +10,10 @@ const URLS={
     profile:apiPath+'/user/profile', //用户资料
     logout:apiPath+'/user/logout', //用户登出
     me:apiPath+'/user/me', //用户自有信息
+    userProfile: apiPath +'/user/:id', //用户数据
+    userFollowRelation:apiPath+'/user/follow/relation/:id', //用户关注关系
+    userFollowAdd: apiPath + '/user/follow/', //添加用户关注
+    userFollowDelete: apiPath + '/user/follow/:id', //取消用户关注
     animeSearch:apiPath+'/anime/', //动画搜索
     animeDetail:apiPath+'/anime/detail/', //动画详情
     animeAdd:apiPath+'/anime/add/', //动画添加
@@ -50,6 +54,11 @@ let customHeader={
 function fetchPost(action,data,method){
     let path = URLS[action];
     if(!path) return nextPromise(new Error('无效的API地址'));
+    let idReg=/\:id/;
+    if(idReg.test(path)){
+        path=path.replace(idReg,data.id);
+        delete data.id;
+    }
     let option={
         method:method?method.toLowerCase():'get'
     };

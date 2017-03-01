@@ -1,8 +1,8 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {isClient} from '../../common/tool';
+import {isClient} from '../../../common/tool';
 
-import Tab from '../../components/tab/index.jsx';
+import Tab from '../../../components/tab/index.jsx';
 
 let tab=[
     {

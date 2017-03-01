@@ -9,6 +9,7 @@ import {routerReducer} from 'react-router-redux';
 import modal from './modal';
 import app from './app';
 import profile from './profile';
+import user from './user';
 import client from './client';
 import anime from './anime';
 import animeSub from './anime_sub';
@@ -21,6 +22,7 @@ export const reducer = combineReducers({
     modal,
     app,
     profile,
+    user,
     client,
     anime,
     animeSub,

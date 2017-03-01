@@ -163,10 +163,15 @@
     background: @color-content-dark;
     .cround();
     .app-title{
-        margin: 10px;
+        margin: 5px 10px;
         font-size: 1.1em;
+        .ellipsis();
     }
     .app-content{
-        padding: 10px;
+        margin: 10px;
+        word-break:break-all;
+    }
+    &.app-block-round{
+        .cround();
     }
 }

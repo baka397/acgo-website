@@ -23,7 +23,7 @@ let nav=[
         link:'/dashboard/'
     },{
         name:'探索',
-        link:'/dashboard/search/'
+        link:'/dashboard/discover/search/'
     }
 ];
 

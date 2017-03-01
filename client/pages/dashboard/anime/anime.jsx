@@ -2,17 +2,17 @@ import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
-import {clientPath} from '../../config';
-import {getParams,getImageUrl,isObjEmpty,authRole} from '../../common/tool';
-import {copperWidth,copperHeight} from '../../config';
-import {fetch} from '../../common/api';
+import {clientPath} from '../../../config';
+import {getParams,getImageUrl,isObjEmpty,authRole} from '../../../common/tool';
+import {copperWidth,copperHeight} from '../../../config';
+import {fetch} from '../../../common/api';
 
-import AnimeGroup from '../../components/anime/group.jsx';
+import AnimeGroup from '../../../components/anime/group.jsx';
 
-import {getAnimeDetail,cleanAnime} from '../../actions/anime';
-import {subAnime} from '../../actions/anime_sub';
-import {getAnimeGroupList,cleanAnimeGroup} from '../../actions/anime_group';
-import {modalUpdate,modalClean} from '../../actions/modal';
+import {getAnimeDetail,cleanAnime} from '../../../actions/anime';
+import {subAnime} from '../../../actions/anime_sub';
+import {getAnimeGroupList,cleanAnimeGroup} from '../../../actions/anime_group';
+import {modalUpdate,modalClean} from '../../../actions/modal';
 
 function propMap(state,ownProps){
     return {

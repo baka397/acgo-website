@@ -7,7 +7,6 @@ const bodyParser = require('body-parser');
 const ejs = require('ejs');
 const log = require('./log');
 const tool = require('./common/tool');
-const router = require('./router');
 const pkg = require('./package.json');
 
 // 全局请求地址前缀
@@ -16,6 +15,9 @@ global.__CONTEXT_PATH = '/';
 global.LOG = log.logger;
 // 系统配置
 global.CONFIG = require('./config/');
+
+//加载路由中间件
+const router = require('./router');
 
 let app = express();
 

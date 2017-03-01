@@ -3,14 +3,14 @@ import {connect} from 'react-redux';
 import {push} from 'react-router-redux';
 import {escape,trim} from 'validator';
 import {Link} from 'react-router';
-import {clientPath} from '../../config';
-import {serialize,getQuery} from '../../common/tool';
+import {clientPath} from '../../../config';
+import {serialize,getQuery} from '../../../common/tool';
 
-import FormSearch from '../../components/form/search.jsx';
-import Page from '../../components/page/index.jsx';
-import AnimeList from '../../components/anime/index.jsx';
+import FormSearch from '../../../components/form/search.jsx';
+import Page from '../../../components/page/index.jsx';
+import AnimeList from '../../../components/anime/index.jsx';
 
-import {search,cleanAnime} from '../../actions/anime';
+import {search,cleanAnime} from '../../../actions/anime';
 
 function propMap(state,ownProps){
     return {
@@ -87,18 +87,18 @@ class Search extends Component {
         let keyword=trim(data.keyword);
         let query=getQuery(routing);
         if(!keyword){
-            dispatch(push(clientPath+'/dashboard/search/'));
+            dispatch(push(clientPath+'/dashboard/discover/search/'));
         }else{
             query.keyword=escape(keyword);
             query.page=1;
-            dispatch(push(clientPath+'/dashboard/search/?'+serialize(query)));
+            dispatch(push(clientPath+'/dashboard/discover/search/?'+serialize(query)));
         }
     }
     handlePageClick(page){
         const {routing,dispatch} = this.props;
         let query=getQuery(routing);
         query.page=page;
-        dispatch(push(clientPath+'/dashboard/search/?'+serialize(query)));
+        dispatch(push(clientPath+'/dashboard/discover/search/?'+serialize(query)));
     }
 }
 Search.propTypes={

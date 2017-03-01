@@ -2,15 +2,15 @@ import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {replace} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
-import {clientPath} from '../../config';
-import {getQuery,getPage,authRole,serialize} from '../../common/tool';
+import {clientPath} from '../../../config';
+import {getQuery,getPage,authRole,serialize} from '../../../common/tool';
 
-import Player from '../../components/player/index.jsx';
-import Playlist from '../../components/player/playlist.jsx';
+import Player from '../../../components/player/index.jsx';
+import Playlist from '../../../components/player/playlist.jsx';
 
-import {getAnimeGroupDetail,cleanAnimeGroup} from '../../actions/anime_group';
-import {getAnimeItemList,cleanAnimeItem} from '../../actions/anime_item';
-import {addAnimeWatch} from '../../actions/anime_watch';
+import {getAnimeGroupDetail,cleanAnimeGroup} from '../../../actions/anime_group';
+import {getAnimeItemList,cleanAnimeItem} from '../../../actions/anime_item';
+import {addAnimeWatch} from '../../../actions/anime_watch';
 
 function propMap(state,ownProps){
     return {

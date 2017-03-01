@@ -30,7 +30,7 @@ function getTitle(channel,service){
         switch(service){
         case '':
             return '控制台';
-        case '/search':
+        case '/discover/search':
             return '探索';
         case '/anime/add':
             return '添加动画';
@@ -58,6 +58,7 @@ function getTitle(channel,service){
             return '客户端配置';
         default:
             if(/\/anime\/\w+$/.test(service)) return '动画详情';
+            if(/\/user\/\w+$/.test(service)) return '用户主页';
         }
         break;
     }
@@ -80,7 +81,7 @@ function getBackStatus(channel,service){
         case '/anime/audit':
             return false;
         default:
-            if(/\/anime\/\w+$/.test(service)) return true;
+            if(/\/(anime|user)\/\w+$/.test(service)) return true;
         }
         break;
     }
