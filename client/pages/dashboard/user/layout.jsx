@@ -97,8 +97,8 @@ class UserLayout extends Component {
                     </div>
                 </div>
                 <div className="app-block app-block-round">
-                    <div className="app-title"><i className="icon icon-profile m-r-sm"></i>{user.profile.nickname}</div>
-                    <div className="app-content">{user.profile.desc?user.profile.desc:'暂无介绍'}</div>
+                    <div className="app-block-title"><i className="icon icon-profile m-r-sm"></i>{user.profile.nickname}</div>
+                    <div className="app-block-content">{user.profile.desc?user.profile.desc:'暂无介绍'}</div>
                 </div>
             </div>
             <div className="app-user-content">

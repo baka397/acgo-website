@@ -24,3 +24,11 @@ if(process.env.NODE_ENV==='production'){
 }
 export const uploadPath=uploadDefaultPath;
 export const downloadPath=uploadDownloadPath;
+
+//表格颜色
+export const chartColors = ['#1AB394','#4E5A8F','#EBCB6B','#BB7FB2','#DA7D2A','#FFCE55','#6ED5E6','#F57BC1','#DCB186','#647C9D'];
+export const chartConfig = {
+    legend:{
+        display:false
+    }
+};

@@ -33,7 +33,8 @@ const URL = {
     animeGroupTaskGroupDetail:'/anime-group/task/group/:id',
     animeGroupTaskDetail:'/anime-group/task/:id',
     uploadToken:'/upload/token/',
-    tag:'/tag/'
+    tag:'/tag/',
+    analyticsDimension:'/analytics/dimension/:id'
 };
 
 /**

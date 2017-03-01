@@ -144,8 +144,8 @@ class Anime extends Component {
                     <div className="ep app-block">{epContent}</div>
                 </div>
                 <div className="app-anime-desc app-block m-t">
-                    <div className="app-title"><i className="icon icon-list m-r-sm"></i>动画详情</div>
-                    <div className="app-content">
+                    <div className="app-block-title"><i className="icon icon-list m-r-sm"></i>动画详情</div>
+                    <div className="app-block-content">
                         <p>{animeDetail.desc}</p>
                         <ul className="m-t-hg app-list-label">
                             <li>

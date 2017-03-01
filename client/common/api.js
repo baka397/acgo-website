@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import {apiPath,uploadPath} from '../config';
-import {nextPromise,serialize} from './tool';
+import {nextPromise,serialize,isObjEmpty} from './tool';
 const URLS={
     register:apiPath+'/user/register', //用户注册
     login:apiPath+'/user/login', //用户登录
@@ -37,6 +37,7 @@ const URLS={
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签
+    analyticsDimension:apiPath+'/analytics/dimension/:id', //获取统计数据
     upload:uploadPath+'/' //上传文件地址
 };
 let customHeader={
@@ -70,7 +71,7 @@ function fetchPost(action,data,method){
         option.credentials='include';
         option.headers=customHeader;
     }
-    if(data){
+    if(!isObjEmpty(data)){
         switch(option.method){
         case 'file':
             option.method='post';

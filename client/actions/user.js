@@ -5,6 +5,7 @@ import {modalUpdate,modalClean} from './modal';
 
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 export const UPDATE_USER_RELATION = 'UPDATE_USER_RELATION';
+export const UPDATE_USER_DIMENSION = 'UPDATE_USER_DIMENSION';
 export const CLEAN_USER = 'CLEAN_USER';
 
 /**
@@ -21,6 +22,30 @@ export function getUserProfile(id){
             id
         }).then((res)=>{
             dispatch(updateUserProfile(res.data));
+            dispatch(modalClean('loading'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }));
+        });
+    };
+}
+
+/**
+ * 获取用户统计数据
+ * @param  {String}   id 用户ID
+ * @return {Function}    Thunk函数
+ */
+export function getUserDimension(id){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('analyticsDimension',{
+            id
+        }).then((res)=>{
+            dispatch(updateUserDimension(res.data));
             dispatch(modalClean('loading'));
         }).catch((err)=>{
             dispatch(modalUpdate({
@@ -144,6 +169,18 @@ export function unfollowUser(userId,followUserId,followId){
 export function updateUserProfile(data){
     return {
         type: UPDATE_USER_PROFILE,
+        data
+    };
+}
+
+/**
+ * 更新用户统计数据
+ * @param  {Object} data 用户数据
+ * @return {Object}      action数据
+ */
+export function updateUserDimension(data){
+    return {
+        type: UPDATE_USER_DIMENSION,
         data
     };
 }
