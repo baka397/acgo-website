@@ -1,9 +1,18 @@
+//导入配置数据
+import {pageSize} from '../config';
 import {UPDATE_USER_PROFILE,CLEAN_USER,UPDATE_USER_RELATION,UPDATE_USER_DIMENSION} from '../actions/user';
 
 const INIT_STATE={
     profile:{},
     relation:{},
-    dimension:{}
+    dimension:{},
+    follow:{
+        content:{},
+        order:[],
+        page:1,
+        pageSize:pageSize,
+        total:0
+    }
 };
 
 export default function user(state = Object.assign({},INIT_STATE), action) {

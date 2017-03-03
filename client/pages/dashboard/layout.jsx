@@ -22,8 +22,8 @@ let nav=[
         name:'控制台',
         link:'/dashboard/'
     },{
-        name:'探索',
-        link:'/dashboard/discover/search/'
+        name:'发现',
+        link:'/dashboard/discover/square/friend/'
     }
 ];
 

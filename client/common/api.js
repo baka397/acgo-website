@@ -14,6 +14,8 @@ const URLS={
     userFollowRelation:apiPath+'/user/follow/relation/:id', //用户关注关系
     userFollowAdd: apiPath + '/user/follow/', //添加用户关注
     userFollowDelete: apiPath + '/user/follow/:id', //取消用户关注
+    userFollow:apiPath+'/user/follow/:id', //获取用户订阅列表
+    userFans:apiPath+'/user/fans/:id', //获取用户粉丝列表
     animeSearch:apiPath+'/anime/', //动画搜索
     animeDetail:apiPath+'/anime/detail/', //动画详情
     animeAdd:apiPath+'/anime/add/', //动画添加
@@ -38,6 +40,8 @@ const URLS={
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签
     analyticsDimension:apiPath+'/analytics/dimension/:id', //获取统计数据
+    timelineAll:apiPath+'/timeline/', //获取整站时间轴数据
+    timeline:apiPath+'/timeline/:id', //获取个人时间轴数据
     upload:uploadPath+'/' //上传文件地址
 };
 let customHeader={

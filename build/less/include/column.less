@@ -1,0 +1,11 @@
+.app-column{
+    .flex(row,flex-start,center,wrap);
+    .app-column-item{
+        width: @column-item-width;
+    }
+    &.app-column-short{
+        .app-column-item{
+            width: @column-item-width-short;
+        }
+    }
+}

@@ -34,7 +34,9 @@ const URL = {
     animeGroupTaskDetail:'/anime-group/task/:id',
     uploadToken:'/upload/token/',
     tag:'/tag/',
-    analyticsDimension:'/analytics/dimension/:id'
+    analyticsDimension:'/analytics/dimension/:id',
+    timeline:'/timeline/:id',
+    timelineAll:'/timeline/'
 };
 
 /**

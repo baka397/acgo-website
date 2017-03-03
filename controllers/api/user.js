@@ -113,4 +113,20 @@ router.delete('/follow/:id', function(req, res, next){
     });
 });
 
+router.get('/follow/:id', function(req, res, next){
+    api.request(req.token,'userFollowList',req.params).then(function(data){
+        res.send(tool.buildResJson('获取关注列表成功',data));
+    }).catch(function(err){
+        next(err);
+    });
+});
+
+router.get('/fans/:id', function(req, res, next){
+    api.request(req.token,'userFansList',req.params).then(function(data){
+        res.send(tool.buildResJson('获取粉丝列表成功',data));
+    }).catch(function(err){
+        next(err);
+    });
+});
+
 exports.router = router;

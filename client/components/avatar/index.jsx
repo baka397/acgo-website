@@ -3,9 +3,6 @@ import {getImageUrl} from '../../common/tool';
 
 //封装组件
 class Avatar extends Component {
-    constructor(props){
-        super(props);
-    }
     shouldComponentUpdate(nextProps){
         const {avatar,avatarClip,size} = this.props;
         let validClip=Array.isArray(avatarClip)&&Array.isArray(nextProps.avatarClip);

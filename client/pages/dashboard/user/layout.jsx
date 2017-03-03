@@ -18,9 +18,6 @@ function propMap(state,ownProps){
 
 //封装组件
 class UserLayout extends Component {
-    constructor(props){
-        super(props);
-    }
     componentDidMount(){
         this.handleUpdateUserProfile();
     }
@@ -45,14 +42,14 @@ class UserLayout extends Component {
                 name:'喜好',
                 link:'/dashboard/user/'+params.id
             },{
-                name:'订阅',
+                name:'动态',
                 link:'/dashboard/user/'+params.id+'/timeline'
             },{
                 name:'关注',
                 link:'/dashboard/user/'+params.id+'/follow'
             },{
                 name:'粉丝',
-                link:'/dashboard/user/'+params.id+'/fans'
+                link:'/dashboard/user/'+params.id+'/fan'
             }
         ];
         //当为非本人时

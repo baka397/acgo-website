@@ -16,9 +16,6 @@ function propMap(state,ownProps){
 
 //封装组件
 class UserIndex extends Component {
-    constructor(props){
-        super(props);
-    }
     componentDidMount(){
         this.handleUpdateUserAnalytics();
     }
@@ -84,20 +81,20 @@ class UserIndex extends Component {
             });
         }
         return (
-            <div className="app-analytics">
-                <div className="app-block app-block-round">
+            <div className="app-analytics app-column">
+                <div className="app-block app-block-round app-column-item">
                     <div className="app-block-title">标签TOP10</div>
                     <div className="app-block-content">
                         <Pie data={tagsData} options={chartConfig} />
                     </div>
                 </div>
-                <div className="app-block app-block-round">
+                <div className="app-block app-block-round app-column-item">
                     <div className="app-block-title">制作TOP10</div>
                     <div className="app-block-content">
                         <Pie data={staffsData} options={chartConfig} />
                     </div>
                 </div>
-                <div className="app-block app-block-round">
+                <div className="app-block app-block-round app-column-item">
                     <div className="app-block-title">声优TOP10</div>
                     <div className="app-block-content">
                         <Pie data={cvsData} options={chartConfig} />

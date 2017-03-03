@@ -16,9 +16,12 @@
  * center：交叉轴的中点对齐。
  * baseline: 项目的第一行文字的基线对齐。
  * stretch：如果项目未设置高度或设为auto，将占满整个容器的高度。
- * 
+ * @param  {string} @flex-wrap:nowrap     是否强制单行
+ * nowrap: 单行显示
+ * wrap: 多行显示
+ * wrap-reverse: 反向多行
  */
-.flex(@flex-direction:column,@justify-content:center,@align-items:center){
+.flex(@flex-direction:column,@justify-content:center,@align-items:center,@flex-wrap:nowrap){
     display: -webkit-box; /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
     display: -moz-box; /* 老版本语法: Firefox (buggy) */
     display: -ms-flexbox; /* 混合版本语法: IE 10 */
@@ -27,6 +30,7 @@
     .flex-direction(@flex-direction);
     .flex-justify-content(@justify-content);
     .flex-align-items(@align-items);
+    .flex-wrap(@flex-wrap)
 }
 //主轴的方向
 .flex-direction(@flex-direction) when (@flex-direction=row){
@@ -84,6 +88,7 @@
     -webkit-justify-content: @justify-content;
     justify-content: @justify-content;
 }
+
 //交叉轴对齐方式
 .flex-align-items(@align-items) when (@align-items=flex-start){
     -webkit-box-align: start;
@@ -114,6 +119,16 @@
     -moz-align-items: @align-items;
     -webkit-align-items: @align-items;
     align-items: @align-items;
+}
+.flex-wrap(@flex-wrap) when (@flex-wrap=wrap){
+    -webkit-flex-wrap:@flex-wrap;
+    -ms-flex-wrap:@flex-wrap;
+    flex-wrap:@flex-wrap;
+}
+.flex-wrap(@flex-wrap) when (@flex-wrap=wrap-reverse){
+    -webkit-flex-wrap:@flex-wrap;
+    -ms-flex-wrap:@flex-wrap;
+    flex-wrap:@flex-wrap;
 }
 
 /**

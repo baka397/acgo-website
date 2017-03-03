@@ -25,6 +25,10 @@
 <script type="text/javascript">
     var electron = window.require?require('electron'):{};
     var profile=<%- user?JSON.stringify(user):'{}' %>
+    //检测客户端版本请求
+    if(electron.ipcRenderer){
+        electron.ipcRenderer.send('checkVersion','<%= clientVersionLimit %>');
+    }
 </script>
 <script type="text/javascript" src="/js/app.min.js?version=<%= version %>"></script>
 <% include ./common/ga.html %>

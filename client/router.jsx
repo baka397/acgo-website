@@ -90,7 +90,17 @@ export default (
                                 callback(null, {
                                     component: loadComponent.default
                                 });
-                            },'dashboard-search');
+                            },'dashboard-discover-search');
+                        }} />
+                        <Route path="square/:type" getIndexRoute={(partialNextState, callback)=>{
+                            loadPage();
+                            require.ensure([], function (require) {
+                                let loadComponent=require('./pages/dashboard/discover/square.jsx');
+                                loadPage(true);
+                                callback(null, {
+                                    component: loadComponent.default
+                                });
+                            },'dashboard-discover-square');
                         }} />
                     </Route>
                     <Route path="anime">
@@ -233,13 +243,43 @@ export default (
                     <Route path="user/:id" component={UserLayout} getIndexRoute={(partialNextState, callback)=>{
                         loadPage();
                         require.ensure([], function (require) {
-                            let loadComponent=require('./pages/dashboard/user/index.jsx');
+                            let loadComponent=require('./pages/dashboard/user/analytics.jsx');
                             loadPage(true);
                             callback(null, {
                                 component: loadComponent.default
                             });
-                        },'dashboard-user-index');
+                        },'dashboard-user-analytics');
                     }}>
+                        <Route path="timeline" getIndexRoute={(partialNextState, callback)=>{
+                            loadPage();
+                            require.ensure([], function (require) {
+                                let loadComponent=require('./pages/dashboard/user/timeline.jsx');
+                                loadPage(true);
+                                callback(null, {
+                                    component: loadComponent.default
+                                });
+                            },'dashboard-user-timeline');
+                        }} />
+                        <Route path="follow" getIndexRoute={(partialNextState, callback)=>{
+                            loadPage();
+                            require.ensure([], function (require) {
+                                let loadComponent=require('./pages/dashboard/user/follow.jsx');
+                                loadPage(true);
+                                callback(null, {
+                                    component: loadComponent.default
+                                });
+                            },'dashboard-user-follow');
+                        }} />
+                        <Route path="fan" getIndexRoute={(partialNextState, callback)=>{
+                            loadPage();
+                            require.ensure([], function (require) {
+                                let loadComponent=require('./pages/dashboard/user/fan.jsx');
+                                loadPage(true);
+                                callback(null, {
+                                    component: loadComponent.default
+                                });
+                            },'dashboard-user-fan');
+                        }} />
                     </Route>
                 </Route>
                 <Route path="*" component={NotFound} />

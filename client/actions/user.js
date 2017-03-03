@@ -6,6 +6,8 @@ import {modalUpdate,modalClean} from './modal';
 export const UPDATE_USER_PROFILE = 'UPDATE_USER_PROFILE';
 export const UPDATE_USER_RELATION = 'UPDATE_USER_RELATION';
 export const UPDATE_USER_DIMENSION = 'UPDATE_USER_DIMENSION';
+export const UPDATE_USER_FOLLOW = 'UPDATE_USER_FOLLOW';
+export const CLEAN_USER_FOLLOW = 'CLEAN_USER_FOLLOW';
 export const CLEAN_USER = 'CLEAN_USER';
 
 /**
@@ -112,6 +114,54 @@ export function getUserRelation(userId,friendId){
 }
 
 /**
+ * 获取用户订阅列表
+ * @param  {String}   id 用户ID
+ * @return {Function}    Thunk函数
+ */
+export function getUserFollow(id){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('userFollow',{
+            id
+        }).then((res)=>{
+            dispatch(updateUserFollow(res.data));
+            dispatch(modalClean('loading'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }));
+        });
+    };
+}
+
+/**
+ * 获取用户粉丝列表
+ * @param  {String}   id 用户ID
+ * @return {Function}    Thunk函数
+ */
+export function getUserFans(id){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        fetch('userFans',{
+            id
+        }).then((res)=>{
+            dispatch(updateUserFollow(res.data));
+            dispatch(modalClean('loading'));
+        }).catch((err)=>{
+            dispatch(modalUpdate({
+                tip:err.message,
+                loading:null
+            }));
+        });
+    };
+}
+
+/**
  * 关注用户
  * @param  {String}   userId       用户ID
  * @param  {String}   followUserId 关注用户ID
@@ -198,11 +248,33 @@ export function updateUserRelation(data){
 }
 
 /**
+ * 更新用户订阅列表
+ * @param  {Object} data 用户数据
+ * @return {Object}      action数据
+ */
+export function updateUserFollow(data){
+    return {
+        type: UPDATE_USER_FOLLOW,
+        data
+    };
+}
+
+/**
  * 清除用户数据
  * @return {Object} action数据
  */
 export function cleanUser(){
     return {
         type: CLEAN_USER
+    };
+}
+
+/**
+ * 清除用户订阅列表
+ * @return {Object} action数据
+ */
+export function cleanUserFollow(){
+    return {
+        type: CLEAN_USER_FOLLOW
     };
 }
