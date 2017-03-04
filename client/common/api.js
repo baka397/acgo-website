@@ -75,16 +75,19 @@ function fetchPost(action,data,method){
         option.credentials='include';
         option.headers=customHeader;
     }
-    if(!isObjEmpty(data)){
-        switch(option.method){
-        case 'file':
-            option.method='post';
-            option.body=data;
-            break;
-        case 'get':
+    
+    switch(option.method){
+    case 'file':
+        option.method='post';
+        option.body=data;
+        break;
+    case 'get':
+        if(!isObjEmpty(data)){
             path+=(/\?/.test(path) ? '&' : '?')+serialize(data);
-            break;
-        default:
+        }
+        break;
+    default:
+        if(!isObjEmpty(data)){
             option.body=JSON.stringify(data);
         }
     }
