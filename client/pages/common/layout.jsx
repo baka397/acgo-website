@@ -10,7 +10,7 @@ import {isObjEmpty,isClient} from '../../common/tool';
 
 function propMap(state,ownProps){
     return {
-        user:state.user,
+        profile:state.profile,
         routing:ownProps
     };
 }
@@ -24,13 +24,13 @@ class CommonLayout extends Component {
         };
     }
     componentDidMount(){
-        const {user, dispatch} = this.props;
-        dispatch(authLoginStatus(user,false));
+        const {profile, dispatch} = this.props;
+        dispatch(authLoginStatus(profile,false));
     }
     render() {
-        const {user,routing,children} = this.props;
+        const {profile,routing,children} = this.props;
         const {icons} = this.state;
-        if(!isObjEmpty(user)){
+        if(!isObjEmpty(profile)){
             return null;
         }
         return (
@@ -46,7 +46,7 @@ class CommonLayout extends Component {
 }
 
 CommonLayout.propTypes={
-    user:PropTypes.object.isRequired,
+    profile:PropTypes.object.isRequired,
     routing:PropTypes.object.isRequired,
     children:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired

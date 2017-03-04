@@ -1,40 +1,38 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {getQuery,getObjCompareResult,isObjEmpty} from '../../common/tool';
-import {typeTip} from '../../enums/anime_group';
+import {getQuery,getEnumArray,getObjCompareResult} from '../../../common/tool';
+import {taskPeriod,taskStatus,typeTip} from '../../../enums/anime_group';
 
-import FormList from '../../components/form/index.jsx';
+import FormList from '../../../components/form/index.jsx';
 
-import {modalUpdate} from '../../actions/modal';
-import {getAnimeGroupDetail,cleanAnimeGroup} from '../../actions/anime_group';
-import {addAnimeItem,editAnimeItem,getAnimeItemDetail,cleanAnimeItem} from '../../actions/anime_item';
+import {modalUpdate} from '../../../actions/modal';
+import {getAnimeGroupDetail,cleanAnimeGroup} from '../../../actions/anime_group';
+import {getAnimeTaskDetail,editAnimeTask,addAnimeTask,cleanAnimeTask} from '../../../actions/anime_task';
+
 
 function propMap(state,ownProps){
     return {
-        animeItemDetail:state.animeItem.detail,
+        animeTaskDetail:state.animeTask.detail,
         animeGroupDetail:state.animeGroup.detail,
         routing:ownProps
     };
 }
 
+const TASK_PERIOD_ARRAY = getEnumArray(taskPeriod);
+const TASK_STATUS_ARRAY = getEnumArray(taskStatus);
+
 const FORM_RULE=[
     {
-        name:'episodeName',
-        label:'分集名称',
-        placeholder:'填写分集名称',
-        type:'text'
-    },
-    {
-        name:'episodeNo',
-        label:'分集集数',
-        placeholder:'填写分集集数,最小为1.',
-        type:'text'
-    },
-    {
         name:'url',
-        label:'分集地址',
-        placeholder:'填写分集地址.',
+        label:'抓取地址',
+        placeholder:'填写抓取地址.',
         type:'text'
+    },
+    {
+        name:'taskPeriod',
+        label:'更新周期',
+        type:'radio',
+        list:TASK_PERIOD_ARRAY
     },
     {
         label:'提交',
@@ -42,9 +40,17 @@ const FORM_RULE=[
         icon:'confirm'
     }
 ];
+const FORM_RULE_EDIT=[
+    {
+        name:'taskStatus',
+        label:'任务状态',
+        type:'radio',
+        list:TASK_STATUS_ARRAY
+    }
+];
 
 //封装组件
-class animeGroupItemEdit extends Component {
+class animeGroupTaskEdit extends Component {
     constructor(props){
         super(props);
         this.state={
@@ -59,49 +65,42 @@ class animeGroupItemEdit extends Component {
             dispatch(getAnimeGroupDetail({
                 id:query.groupId
             }));
-        }else if(query.id){
-            dispatch(getAnimeItemDetail({
-                id:query.id
+            dispatch(getAnimeTaskDetail({
+                id:query.groupId
             }));
         }
     }
     componentDidUpdate(){
-        const {animeItemDetail,animeGroupDetail,routing,dispatch} = this.props;
+        const {animeTaskDetail,animeGroupDetail} = this.props;
         const {formRule} = this.state;
-        let query=getQuery(routing);
-        //当为编辑时
-        if(animeItemDetail._id&&isObjEmpty(animeGroupDetail)){
-            return dispatch(getAnimeGroupDetail({
-                id:animeItemDetail.group_id
-            }));
-        }
-        if(formRule.length===0&&animeGroupDetail._id){
+        if(formRule.length===0&&animeTaskDetail.done&&animeGroupDetail._id){
             let newFormRule=FORM_RULE.map(rule=>{
                 switch(rule.name){
                 case 'url':
                     return Object.assign({},rule,{
-                        placeholder:rule.placeholder+'支持形式:'+typeTip[animeGroupDetail.type].item
+                        placeholder:rule.placeholder+'支持形式:'+typeTip[animeGroupDetail.type].task
                     });
                 default:
                     return Object.assign({},rule);
                 }
             });
             //如果为编辑
-            if(query.id){
-                newFormRule=newFormRule.map(rule=>{
+            if(animeTaskDetail._id){
+                let resultFormRule=[].concat(newFormRule.slice(0,newFormRule.length-1),FORM_RULE_EDIT,newFormRule.slice(newFormRule.length-1));
+                newFormRule=resultFormRule.map(rule=>{
                     switch(rule.name){
-                    case 'episodeNo':
+                    case 'taskPeriod':
                         return Object.assign({},rule,{
-                            value:animeItemDetail.episode_no
+                            value:animeTaskDetail['task_period']
                         });
-                    case 'episodeName':
+                    case 'taskStatus':
                         return Object.assign({},rule,{
-                            value:animeItemDetail.episode_name
+                            value:animeTaskDetail['task_status']
                         });
                     default:
                         if(rule.name){
                             return Object.assign({},rule,{
-                                value:animeItemDetail[rule.name]
+                                value:animeTaskDetail[rule.name]
                             });
                         }
                         return Object.assign({},rule);
@@ -114,12 +113,9 @@ class animeGroupItemEdit extends Component {
         }
     }
     componentWillUnmount(){
-        const {routing,dispatch} = this.props;
-        let query=getQuery(routing);
-        if(query.id){
-            dispatch(cleanAnimeItem());
-        }
+        const {dispatch} = this.props;
         dispatch(cleanAnimeGroup());
+        dispatch(cleanAnimeTask());
     }
     render() {
         const {formRule} = this.state;
@@ -129,8 +125,7 @@ class animeGroupItemEdit extends Component {
                 <div className="app-notice m-b">
                     <h2>注意事项</h2>
                     <ol className="app-list app-list-order">
-                        <li>所有的动画剧集分集信息均由本站用户添加维护,将会记录并显示创建人信息.</li>
-                        <li>添加后管理员才可修改信息,如果有问题请联系管理员.</li>
+                        <li>每个剧集只能添加一个计划任务,计划任务会根据更新周期进行自动更新.</li>
                     </ol>
                 </div>
                 <FormList rules={formRule} longlabel={true} onSubmit={this.handleSubmit} />
@@ -138,32 +133,26 @@ class animeGroupItemEdit extends Component {
         );
     }
     handleSubmit(data){
-        const {animeItemDetail,routing,dispatch} = this.props;
-        if(!data.episodeName){
-            dispatch(modalUpdate({
-                tip:'请填写分集名称'
-            }));
-            return;
-        }
-        if(!(parseInt(data.episodeNo)>0)){
-            dispatch(modalUpdate({
-                tip:'请填写有效的分集集数'
-            }));
-            return;
-        }
+        const {animeTaskDetail,routing,dispatch} = this.props;
         if(!data.url){
             dispatch(modalUpdate({
-                tip:'请填写分集地址'
+                tip:'请填写抓取地址'
+            }));
+            return;
+        }
+        if(!data.taskPeriod){
+            dispatch(modalUpdate({
+                tip:'请选择更新周期'
             }));
             return;
         }
         let sendData=Object.assign({},data);
         //检测是否为编辑
-        if(animeItemDetail._id){
-            let compareData=getObjCompareResult(sendData,animeItemDetail);
+        if(animeTaskDetail._id){
+            let compareData=getObjCompareResult(sendData,animeTaskDetail);
             if(compareData){
-                dispatch(editAnimeItem(Object.assign({},compareData,{
-                    id:animeItemDetail._id
+                dispatch(editAnimeTask(Object.assign({},compareData,{
+                    id:animeTaskDetail._id
                 })));
             }else{
                 dispatch(modalUpdate({
@@ -174,14 +163,15 @@ class animeGroupItemEdit extends Component {
         else{
             let query=getQuery(routing);
             sendData.groupId=query.groupId;
-            dispatch(addAnimeItem(sendData));
+            dispatch(addAnimeTask(sendData));
         }
     }
 }
-animeGroupItemEdit.propTypes={
-    animeItemDetail:PropTypes.object.isRequired,
+
+animeGroupTaskEdit.propTypes={
+    animeTaskDetail:PropTypes.object.isRequired,
     animeGroupDetail:PropTypes.object.isRequired,
     routing:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired
 };
-export default connect(propMap)(animeGroupItemEdit);
+export default connect(propMap)(animeGroupTaskEdit);

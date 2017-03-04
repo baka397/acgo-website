@@ -45,7 +45,7 @@ class Form extends Component {
                     case 'textarea':
                         return <Textarea key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} placeholder={rule.placeholder} onChangeVal={this.handleChangeVal} />;
                     case 'upload':
-                        return <Upload key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} onChangeVal={this.handleChangeVal} />;
+                        return <Upload key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} cropperType={rule.cropperType} label={rule.label} onChangeVal={this.handleChangeVal} />;
                     case 'radio':
                         return <Radio key={index} disabled={rule.disabled} value={result[rule.name]} name={rule.name} label={rule.label} list={rule.list} onChangeVal={this.handleChangeVal} />;
                     case 'tag':

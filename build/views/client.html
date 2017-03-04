@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
-    <title>ACGO</title>
+    <title>ACGO-个性化的动漫推荐网站</title>
     <meta name="keywords" content="acgo">
     <meta name="description" content="ACGO">
     <link rel="stylesheet" href="/css/main.css?version=<%= version %>" />
@@ -24,7 +24,11 @@
 </div>
 <script type="text/javascript">
     var electron = window.require?require('electron'):{};
-    var user=<%- user?JSON.stringify(user):'{}' %>
+    var profile=<%- user?JSON.stringify(user):'{}' %>
+    //检测客户端版本请求
+    if(electron.ipcRenderer){
+        electron.ipcRenderer.send('checkVersion','<%= clientVersionLimit %>');
+    }
 </script>
 <script type="text/javascript" src="/js/app.min.js?version=<%= version %>"></script>
 <% include ./common/ga.html %>

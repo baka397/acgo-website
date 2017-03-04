@@ -1,13 +1,13 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {getQuery,getEnumArray,getObjCompareResult} from '../../common/tool';
-import {showStatus} from '../../enums/anime';
-import {type,typeMax} from '../../enums/tag';
+import {getQuery,getEnumArray,getObjCompareResult} from '../../../common/tool';
+import {showStatus} from '../../../enums/anime';
+import {type,typeMax} from '../../../enums/tag';
 
-import FormList from '../../components/form/index.jsx';
+import FormList from '../../../components/form/index.jsx';
 
-import {modalUpdate} from '../../actions/modal';
-import {addAnime,editAnime,getAnimeDetail,cleanAnime} from '../../actions/anime';
+import {modalUpdate} from '../../../actions/modal';
+import {addAnime,editAnime,getAnimeDetail,cleanAnime} from '../../../actions/anime';
 
 function propMap(state,ownProps){
     return {
@@ -40,7 +40,8 @@ const FORM_RULE=[
     {
         name:'cover',
         label:'展示图',
-        type:'upload'
+        type:'upload',
+        cropperType:'cover'
     },
     {
         name:'tag',

@@ -1,10 +1,10 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 
-import FormList from '../../components/form/index.jsx';
+import FormList from '../../../components/form/index.jsx';
 
-import {modalUpdate} from '../../actions/modal';
-import {userChangePassword} from '../../actions/user';
+import {modalUpdate} from '../../../actions/modal';
+import {profileChangePassword} from '../../../actions/profile';
 
 const FORM_RULE = [
     {
@@ -71,7 +71,7 @@ class ConfigPassword extends Component {
             }));
             return;
         }
-        dispatch(userChangePassword(data));
+        dispatch(profileChangePassword(data));
     }
 }
 

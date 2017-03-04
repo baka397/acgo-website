@@ -1,12 +1,12 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
-import {getQuery,getEnumArray,getObjCompareResult} from '../../common/tool';
-import {type,status} from '../../enums/anime_group';
+import {getQuery,getEnumArray,getObjCompareResult} from '../../../common/tool';
+import {type,status} from '../../../enums/anime_group';
 
-import FormList from '../../components/form/index.jsx';
+import FormList from '../../../components/form/index.jsx';
 
-import {modalUpdate} from '../../actions/modal';
-import {addAnimeGroup,editAnimeGroup,getAnimeGroupDetail,cleanAnimeGroup} from '../../actions/anime_group';
+import {modalUpdate} from '../../../actions/modal';
+import {addAnimeGroup,editAnimeGroup,getAnimeGroupDetail,cleanAnimeGroup} from '../../../actions/anime_group';
 
 function propMap(state,ownProps){
     return {

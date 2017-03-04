@@ -2,17 +2,17 @@ import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {push} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
-import {clientPath} from '../../config';
-import {getParams,getImageUrl,isObjEmpty,authRole} from '../../common/tool';
-import {copperWidth,copperHeight} from '../../config';
-import {fetch} from '../../common/api';
+import {clientPath} from '../../../config';
+import {getParams,getImageUrl,isObjEmpty,authRole} from '../../../common/tool';
+import {copperWidth,copperHeight} from '../../../config';
+import {fetch} from '../../../common/api';
 
-import AnimeGroup from '../../components/anime/group.jsx';
+import AnimeGroup from '../../../components/anime/group.jsx';
 
-import {getAnimeDetail,cleanAnime} from '../../actions/anime';
-import {subAnime} from '../../actions/anime_sub';
-import {getAnimeGroupList,cleanAnimeGroup} from '../../actions/anime_group';
-import {modalUpdate,modalClean} from '../../actions/modal';
+import {getAnimeDetail,cleanAnime} from '../../../actions/anime';
+import {subAnime} from '../../../actions/anime_sub';
+import {getAnimeGroupList,cleanAnimeGroup} from '../../../actions/anime_group';
+import {modalUpdate,modalClean} from '../../../actions/modal';
 
 function propMap(state,ownProps){
     return {
@@ -20,7 +20,7 @@ function propMap(state,ownProps){
         animeSub:state.animeSub.content,
         animeGroup:state.animeGroup,
         animeWatch:state.animeWatch,
-        user:state.user,
+        profile:state.profile,
         routing:ownProps
     };
 }
@@ -29,7 +29,7 @@ function propMap(state,ownProps){
 class Anime extends Component {
     constructor(props){
         super(props);
-        const {role} = this.props.user;
+        const {role} = this.props.profile;
         let groupBtns=[];
         if(authRole('admin',role)){
             groupBtns=groupBtns.concat(['add','task','edit']);
@@ -144,8 +144,8 @@ class Anime extends Component {
                     <div className="ep app-block">{epContent}</div>
                 </div>
                 <div className="app-anime-desc app-block m-t">
-                    <div className="app-title"><i className="icon icon-list m-r-sm"></i>动画详情</div>
-                    <div className="app-content">
+                    <div className="app-block-title"><i className="icon icon-list m-r-sm"></i>动画详情</div>
+                    <div className="app-block-content">
                         <p>{animeDetail.desc}</p>
                         <ul className="m-t-hg app-list-label">
                             <li>
@@ -206,7 +206,7 @@ Anime.propTypes={
     animeSub:PropTypes.object.isRequired,
     animeGroup:PropTypes.object.isRequired,
     animeWatch:PropTypes.object.isRequired,
-    user:PropTypes.object.isRequired,
+    profile:PropTypes.object.isRequired,
     routing:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired
 };

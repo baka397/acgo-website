@@ -2,21 +2,21 @@ import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {replace} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
-import {clientPath} from '../../config';
-import {getQuery,getPage,authRole,serialize} from '../../common/tool';
+import {clientPath} from '../../../config';
+import {getQuery,getPage,authRole,serialize} from '../../../common/tool';
 
-import Player from '../../components/player/index.jsx';
-import Playlist from '../../components/player/playlist.jsx';
+import Player from '../../../components/player/index.jsx';
+import Playlist from '../../../components/player/playlist.jsx';
 
-import {getAnimeGroupDetail,cleanAnimeGroup} from '../../actions/anime_group';
-import {getAnimeItemList,cleanAnimeItem} from '../../actions/anime_item';
-import {addAnimeWatch} from '../../actions/anime_watch';
+import {getAnimeGroupDetail,cleanAnimeGroup} from '../../../actions/anime_group';
+import {getAnimeItemList,cleanAnimeItem} from '../../../actions/anime_item';
+import {addAnimeWatch} from '../../../actions/anime_watch';
 
 function propMap(state,ownProps){
     return {
         animeGroupDetail:state.animeGroup.detail,
         animeItem:state.animeItem,
-        user:state.user,
+        profile:state.profile,
         routing:ownProps
     };
 }
@@ -25,7 +25,7 @@ function propMap(state,ownProps){
 class AnimePlay extends Component {
     constructor(props){
         super(props);
-        const {role} = this.props.user;
+        const {role} = this.props.profile;
         let playBtns=[];
         if(authRole('admin',role)){
             playBtns=playBtns.concat(['edit']);
@@ -148,7 +148,7 @@ class AnimePlay extends Component {
 AnimePlay.propTypes={
     animeGroupDetail:PropTypes.object.isRequired,
     animeItem:PropTypes.object.isRequired,
-    user:PropTypes.object.isRequired,
+    profile:PropTypes.object.isRequired,
     routing:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired
 };

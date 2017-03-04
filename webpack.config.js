@@ -38,7 +38,7 @@ module.exports = {
         ]
     },
     externals:{
-        'user':'user',
+        'profile':'profile',
         'electron':'electron'
     },
     plugins: [

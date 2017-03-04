@@ -30,8 +30,11 @@ function getTitle(channel,service){
         switch(service){
         case '':
             return '控制台';
-        case '/search':
-            return '探索';
+        case '/discover/search':
+            return '搜索';
+        case '/discover/square/friend':
+        case '/discover/square/all':
+            return '发现';
         case '/anime/add':
             return '添加动画';
         case '/anime/edit':
@@ -58,6 +61,10 @@ function getTitle(channel,service){
             return '客户端配置';
         default:
             if(/\/anime\/\w+$/.test(service)) return '动画详情';
+            if(/\/user\/\w+$/.test(service)) return '用户主页';
+            if(/\/user\/\w+\/timeline(\/|)$/.test(service)) return '用户动态';
+            if(/\/user\/\w+\/follow(\/|)$/.test(service)) return '用户关注';
+            if(/\/user\/\w+\/fan(\/|)$/.test(service)) return '用户粉丝';
         }
         break;
     }
@@ -76,11 +83,13 @@ function getBackStatus(channel,service){
         case '/anime-group/item/add':
         case '/anime-group/item/edit':
         case '/anime-group/task':
+        case '/discover/search':
             return true;
         case '/anime/audit':
             return false;
         default:
-            if(/\/anime\/\w+$/.test(service)) return true;
+            if(/\/(anime)\/\w+$/.test(service)) return true;
+            if(/\/(user)\/[\w\/]+$/.test(service)) return true;
         }
         break;
     }

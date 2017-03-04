@@ -6,11 +6,16 @@ const authTool = require('./auth');
 const tool = require('./tool');
 const STATUS_CODE = require('../enums/status_code');
 const URL = {
-    userInfo: '/user/me',
+    userInfo: '/user/:id',
     register: '/user/',
     login:'/user/login/',
     sendPwdMail:'/user/send/',
     resetPwd:'/user/reset/',
+    userFollow: '/user-follow/',
+    userFollowDetail: '/user-follow/:id',
+    userFollowList: '/user-follow/follow/:id',
+    userFansList: '/user-follow/fans/:id',
+    userFansRelation:'/user-follow/relation/:id',
     anime:'/anime/',
     animeEdit:'/anime/:id',
     animeSub:'/anime/sub/:id',
@@ -19,6 +24,7 @@ const URL = {
     animeAuditGet:'/anime/audit/me',
     animeAuditPost:'/anime/audit/:id',
     animeWatch:'/anime-group/watch/',
+    animeWatchHistory:'/anime-group/watch/me',
     animeGroup:'/anime-group/',
     animeGroupDetail:'/anime-group/:id',
     animeGroupItem:'/anime-group/item',
@@ -27,9 +33,11 @@ const URL = {
     animeGroupTaskGroupDetail:'/anime-group/task/group/:id',
     animeGroupTaskDetail:'/anime-group/task/:id',
     uploadToken:'/upload/token/',
-    tag:'/tag/'
+    tag:'/tag/',
+    analyticsDimension:'/analytics/dimension/:id',
+    timeline:'/timeline/:id',
+    timelineAll:'/timeline/'
 };
-let apiTokenParams=authTool.getTokenParams(global.CONFIG.apiKey,global.CONFIG.apiAlias);
 
 /**
  * 请求接口数据
@@ -58,7 +66,7 @@ function apiRequest(token,action,data,method){
     }
     global.LOG.info(method.toUpperCase(),url);
     return new Promise(function(resolve,reject){
-        let apiLoginParams=Object.assign({},apiTokenParams);
+        let apiLoginParams=authTool.getTokenParams(global.CONFIG.apiKey,global.CONFIG.apiAlias);
         if(token) apiLoginParams['x-req-key']=token;
         let requestObj=request[method](url)
         .timeout({

@@ -223,3 +223,49 @@ export function getPage(no,start=0){
 export function isClient(){
     return IS_CLIENT;
 }
+
+/**
+ * 格式化日期
+ * @param  {string} dateString  日期字符串
+ * @param  {string} format      日期格式
+ * @return {string}             格式化后的日期
+ */
+export function formatDate(dateString,format){
+    if(!dateString) return '';
+    var date=new Date(dateString);
+    var year=date.getFullYear();
+    var month=(date.getMonth()+1).toString();
+    var day=date.getDate().toString();
+    var hour=date.getHours().toString();
+    var min=date.getMinutes().toString();
+    var sec=date.getSeconds().toString();
+    if(month.length<2) month='0'+month;
+    if(day.length<2) day='0'+day;
+    if(hour.length<2) hour='0'+hour;
+    if(min.length<2) min='0'+min;
+    if(sec.length<2) sec='0'+sec;
+    var return_date=format.replace('YYYY',year);
+    return_date=return_date.replace('MM',month);
+    return_date=return_date.replace('DD',day);
+    return_date=return_date.replace('hh',hour);
+    return_date=return_date.replace('mm',min);
+    return_date=return_date.replace('ss',sec);
+    return return_date;
+}
+
+/**
+ * 截取字符串内容
+ * @param  {string} str    源字符串
+ * @param  {number} length 截取长度（中文算1）
+ * @return {string}        结果字符串
+ */
+export function strIntercept(str,length,removeMore){
+    if(!length) length=10;
+    str=str.replace(/\n/g,'');
+    var reg=new RegExp('[\\S]{0,'+length+'}');
+    var result=str.match(reg)[0];
+    if(str.length>result.length&&!removeMore){
+        result+='...';
+    }
+    return result;
+}

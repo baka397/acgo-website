@@ -2,7 +2,7 @@ import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {upload,getImageUrl,getSizeInfo} from '../../common/tool';
 import {modalUpdate,modalClean} from '../../actions/modal';
-import {copperWidth,copperHeight,acceptType,maxUploadSize} from '../../config';
+import {coverCopperWidth,coverCopperHeight,avatarCopperWidth,avatarCopperHeight,acceptType,maxUploadSize} from '../../config';
 
 import Cropper from 'react-cropper';
 
@@ -24,9 +24,21 @@ class Upload extends Component {
         return true;
     }
     render() {
-        const {label} = this.props;
+        const {label,cropperType} = this.props;
         const {value} = this.state;
-        let labelContent,upload,cropper,imageInfo;
+        let labelContent,upload,cropper,imageInfo,cropperWidth,cropperHeight;
+        switch(cropperType){
+        case 'cover':
+            cropperWidth=coverCopperWidth;
+            cropperHeight=coverCopperHeight;
+            break;
+        case 'avatar':
+            cropperWidth=avatarCopperWidth;
+            cropperHeight=avatarCopperHeight;
+            break;
+        default:
+            return <p>无效的裁剪类型</p>;
+        }
         if(label) labelContent=<div className="app-form-label">{label}</div>;
         //检测是否已经上传
         if(value[0]&&value[1]){
@@ -45,7 +57,7 @@ class Upload extends Component {
                     <p className="m-b">
                         <button type="button" className="btn btn-primary" onClick={this.handleCropper}><i className="icon icon-crop m-r-sm"></i>确认裁剪</button>
                     </p>
-                    <Cropper ref="cropper" src={getImageUrl(value[0])} style={{height: 360, width: 600}} viewMode={1} aspectRatio={copperWidth/copperHeight} autoCropArea={1} minCropBoxWidth={copperWidth} minCropBoxHeight={copperHeight} />
+                    <Cropper ref="cropper" src={getImageUrl(value[0])} style={{height: 360, width: 600}} viewMode={1} aspectRatio={cropperWidth/cropperHeight} autoCropArea={1} minCropBoxWidth={cropperWidth} minCropBoxHeight={cropperHeight} />
                 </div>
             );
         }else{
@@ -55,7 +67,7 @@ class Upload extends Component {
                         <i className="icon icon-image m-r-sm"></i>选择图片
                         <input type="file" ref="upload" onChange={this.handleChangeVal} accept={acceptType} />
                     </label>
-                    <p className="m-t text-light">支持{acceptType}类型上传,最大支持{getSizeInfo(maxUploadSize)},为保证显示质量尺寸建议大于{copperWidth}px <i className="icon icon-close"></i> {copperHeight}px</p>
+                    <p className="m-t text-light">支持{acceptType}类型上传,最大支持{getSizeInfo(maxUploadSize)},为保证显示质量尺寸建议大于{cropperWidth}px <i className="icon icon-close"></i> {cropperHeight}px</p>
                 </div>
             );
         }
@@ -123,6 +135,7 @@ Upload.propTypes={
     name:PropTypes.string.isRequired,
     label:PropTypes.string,
     value:PropTypes.string,
+    cropperType:PropTypes.oneOf(['avatar','cover']).isRequired,
     onChangeVal:PropTypes.func.isRequired,
     dispatch:PropTypes.func.isRequired
 };

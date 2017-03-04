@@ -5,15 +5,15 @@ import {authLoginStatus} from '../actions/auth';
 
 function propMap(state){
     return {
-        user:state.user
+        profile:state.profile
     };
 }
 
 //封装组件
 class Home extends Component {
     componentDidMount(){
-        const { user, dispatch } = this.props;
-        dispatch(authLoginStatus(user,null,true));
+        const { profile, dispatch } = this.props;
+        dispatch(authLoginStatus(profile,null,true));
     }
     render() {
         return null;
@@ -21,7 +21,7 @@ class Home extends Component {
 }
 
 Home.propTypes={
-    user:PropTypes.object.isRequired,
+    profile:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired
 };
 

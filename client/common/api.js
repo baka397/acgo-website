@@ -1,15 +1,21 @@
 import fetch from 'isomorphic-fetch';
 import {apiPath,uploadPath} from '../config';
-import {nextPromise,serialize} from './tool';
+import {nextPromise,serialize,isObjEmpty} from './tool';
 const URLS={
-    register:apiPath+'/register', //用户注册
-    login:apiPath+'/login', //用户登录
-    changePassword:apiPath+'/changePassword', //用户重置密码
-    sendPwdMail:apiPath+'/sendPwdMail', //用户发送重置密码邮件
-    resetPwd:apiPath+'/resetPwd', //用户重置密码
-    profile:apiPath+'/profile', //用户资料
-    logout:apiPath+'/logout', //用户登出
-    me:apiPath+'/me', //用户自有信息
+    register:apiPath+'/user/register', //用户注册
+    login:apiPath+'/user/login', //用户登录
+    changePassword:apiPath+'/user/changePassword', //用户重置密码
+    sendPwdMail:apiPath+'/user/sendPwdMail', //用户发送重置密码邮件
+    resetPwd:apiPath+'/user/resetPwd', //用户重置密码
+    profile:apiPath+'/user/profile', //用户资料
+    logout:apiPath+'/user/logout', //用户登出
+    me:apiPath+'/user/me', //用户自有信息
+    userProfile: apiPath +'/user/:id', //用户数据
+    userFollowRelation:apiPath+'/user/follow/relation/:id', //用户关注关系
+    userFollowAdd: apiPath + '/user/follow/', //添加用户关注
+    userFollowDelete: apiPath + '/user/follow/:id', //取消用户关注
+    userFollow:apiPath+'/user/follow/:id', //获取用户订阅列表
+    userFans:apiPath+'/user/fans/:id', //获取用户粉丝列表
     animeSearch:apiPath+'/anime/', //动画搜索
     animeDetail:apiPath+'/anime/detail/', //动画详情
     animeAdd:apiPath+'/anime/add/', //动画添加
@@ -33,6 +39,9 @@ const URLS={
     uploadToken:apiPath+'/uploadToken/', //获取上传token
     tag:apiPath+'/tag/', //获取标签
     tagAdd:apiPath+'/tag/add', //增加标签
+    analyticsDimension:apiPath+'/analytics/dimension/:id', //获取统计数据
+    timelineAll:apiPath+'/timeline/', //获取整站时间轴数据
+    timeline:apiPath+'/timeline/:id', //获取个人时间轴数据
     upload:uploadPath+'/' //上传文件地址
 };
 let customHeader={
@@ -50,6 +59,11 @@ let customHeader={
 function fetchPost(action,data,method){
     let path = URLS[action];
     if(!path) return nextPromise(new Error('无效的API地址'));
+    let idReg=/\:id/;
+    if(idReg.test(path)){
+        path=path.replace(idReg,data.id);
+        delete data.id;
+    }
     let option={
         method:method?method.toLowerCase():'get'
     };
@@ -61,7 +75,7 @@ function fetchPost(action,data,method){
         option.credentials='include';
         option.headers=customHeader;
     }
-    if(data){
+    if(!isObjEmpty(data)){
         switch(option.method){
         case 'file':
             option.method='post';

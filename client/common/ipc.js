@@ -19,7 +19,7 @@ export function windowChange(type,height){
     if(!isClient()) return;
     switch(type){
     case 'dashboard':
-        ipcRenderer.send('window','change',1200,800);
+        ipcRenderer.send('window','dashboard');
         break;
     case 'common':
         ipcRenderer.send('window','change',400,height);

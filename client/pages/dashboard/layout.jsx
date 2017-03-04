@@ -5,14 +5,14 @@ import HeaderPage from '../../components/common/headerPage.jsx';
 import Footer from '../../components/common/footer.jsx';
 
 import {authLoginStatus} from '../../actions/auth';
-import {userLogout} from '../../actions/user';
+import {profileLogout} from '../../actions/profile';
 
 import {isObjEmpty,authRole,isClient} from '../../common/tool';
 import {windowChange} from '../../common/ipc';
 
 function propMap(state,ownProps){
     return {
-        user:state.user,
+        profile:state.profile,
         routing:ownProps
     };
 }
@@ -22,8 +22,8 @@ let nav=[
         name:'控制台',
         link:'/dashboard/'
     },{
-        name:'探索',
-        link:'/dashboard/search/'
+        name:'发现',
+        link:'/dashboard/discover/square/friend/'
     }
 ];
 
@@ -38,10 +38,10 @@ class DashboardLayout extends Component {
         this.handleToolbarClick = this.handleToolbarClick.bind(this);
     }
     componentDidMount(){
-        const {user,dispatch} = this.props;
+        const {profile,dispatch} = this.props;
         const {nav} = this.state;
-        dispatch(authLoginStatus(user,true));
-        if(authRole('admin',user.role)){
+        dispatch(authLoginStatus(profile,true));
+        if(authRole('admin',profile.role)){
             let adminNav=nav.concat([{
                 name:'审核',
                 link:'/dashboard/anime/audit/'
@@ -53,9 +53,9 @@ class DashboardLayout extends Component {
         windowChange('dashboard');
     }
     render() {
-        const {user,routing} = this.props;
+        const {profile,routing} = this.props;
         const {nav,icons} = this.state;
-        if(isObjEmpty(user)){
+        if(isObjEmpty(profile)){
             return null;
         }
         return (
@@ -64,7 +64,7 @@ class DashboardLayout extends Component {
                 <div className="app-content">
                     {this.props.children}
                 </div>
-                <Footer nav={nav} onToolbarClick={this.handleToolbarClick} />
+                <Footer nav={nav} onToolbarClick={this.handleToolbarClick} avatar={profile.avatar} avatarClip={profile.avatar_clip} userId={profile._id} />
             </div>
         );
     }
@@ -72,14 +72,14 @@ class DashboardLayout extends Component {
         const {dispatch} = this.props;
         switch(toolName){
         case 'logout':
-            dispatch(userLogout());
+            dispatch(profileLogout());
             break;
         }
     }
 }
 
 DashboardLayout.propTypes={
-    user:PropTypes.object.isRequired,
+    profile:PropTypes.object.isRequired,
     routing:PropTypes.object.isRequired,
     children:PropTypes.object.isRequired,
     dispatch:PropTypes.func.isRequired

@@ -7,6 +7,7 @@ import PageSimple from './simple.jsx';
 class Page extends Component {
     render() {
         const {type,page,pageSize,total,onPageClick} = this.props;
+        if(total<=pageSize) return null;
         switch(type){
         case 'simple':
             return <PageSimple page={page} pageSize={pageSize} total={total} onPageClick={onPageClick} />;

@@ -6,7 +6,7 @@
     height: 100%;
     .flex();
 }
-.app-common,.app-dashboard,.app-tip{
+.app-common,.app-dashboard{
     background: @color-content-block;
     overflow: hidden;
 }
@@ -128,18 +128,21 @@
         }
     }
 }
+.app-analytics{
+    .app-block{
+        margin:10px;
+    }
+}
 
 //通用
 .app-tip{
     margin: 0 auto;
+    padding: 0 0 15px;
     text-align: center;
     .app-tip-title{
         padding: 0 0 10px;
         font-size: 50px;
         line-height: 50px;
-    }
-    .app-tip-message{
-        padding: 0 0 20px;
     }
 }
 
@@ -162,11 +165,16 @@
     overflow: hidden;
     background: @color-content-dark;
     .cround();
-    .app-title{
-        margin: 10px;
+    .app-block-title{
+        margin: 5px 10px;
         font-size: 1.1em;
+        .ellipsis();
     }
-    .app-content{
-        padding: 10px;
+    .app-block-content{
+        margin: 10px;
+        word-break:break-all;
+    }
+    &.app-block-round{
+        .cround();
     }
 }

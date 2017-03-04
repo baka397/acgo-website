@@ -1,0 +1,50 @@
+.app-avatar{
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    overflow: hidden;
+    text-align: center;
+    background: lighten(@color-content-block, 20%);
+    vertical-align: middle;
+    img{
+        position: relative;
+        z-index: 3;
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    &::after{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        z-index: 2;
+        .getIcon();
+        .getIcon('\e643');
+    }
+    &.app-avatar-small{
+        width: @avatar-size;
+        height: @avatar-size;
+        line-height: @avatar-size;
+        &::after{
+            font-size: @avatar-size - 10px;
+        }
+    }
+    &.app-avatar-middle{
+        width: @avatar-size*2;
+        height: @avatar-size*2;
+        line-height: @avatar-size*2;
+        &::after{
+            font-size: @avatar-size*2 - 10px;
+        }
+    }
+    &.app-avatar-large{
+        width: @avatar-size*4;
+        height: @avatar-size*4;
+        line-height: @avatar-size*4;
+        &::after{
+            font-size: @avatar-size*4 - 10px;
+        }
+    }
+}

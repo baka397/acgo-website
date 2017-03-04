@@ -9,7 +9,7 @@ class Tab extends Component {
     }
     shouldComponentUpdate(nextProps){
         const {tab} = this.props;
-        if(tab.length===nextProps.tab.length) return false;
+        if(tab.length===nextProps.tab.length&&tab[0].link===nextProps.tab[0].link) return false;
         return true;
     }
     render() {
