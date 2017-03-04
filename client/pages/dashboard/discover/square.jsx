@@ -77,7 +77,7 @@ class Square extends Component {
                     </div>
                     <div className="app-tip-message">
                         <p className="m-b">暂无好友动态</p>
-                        <p><Link to={clientPath+'/dashboard/discover/square?type=all'} className="btn btn-info"><i className="icon icon-list m-r-sm"></i>查看更多动态</Link></p>
+                        <p><Link to={clientPath+'/dashboard/discover/square/all'} className="btn btn-info"><i className="icon icon-list m-r-sm"></i>查看更多动态</Link></p>
                     </div>
                 </div>
             );
