@@ -94,10 +94,13 @@ class ConfigProfile extends Component {
             }));
             return;
         }
-        let sendData=Object.assign({},data,{
-            avatar:avatarArray[0],
-            avatarClip:avatarArray[1]
-        });
+        let sendData=Object.assign({},data);
+        if(avatarArray){
+            Object.assign(sendData,{
+                avatar:avatarArray[0],
+                avatarClip:avatarArray[1]
+            });
+        }
         let compareData=getObjCompareResult(sendData,profile);
         if(compareData){
             dispatch(profileChangeProfile(compareData));
