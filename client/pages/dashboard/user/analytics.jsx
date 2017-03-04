@@ -6,6 +6,7 @@ import {chartColors,chartConfig} from '../../../config';
 import {Pie} from 'react-chartjs-2';
 
 import {getUserDimension} from '../../../actions/user';
+import Tip from '../../../components/tip/index.jsx';
 
 function propMap(state,ownProps){
     return {
@@ -29,17 +30,7 @@ class UserIndex extends Component {
     }
     render() {
         const {user} = this.props;
-        let tagChart,staffChart,cvChart,emptyChart;
-        emptyChart=(
-            <div className="app-tip">
-                <div className="app-tip-title">
-                    <p><i className="icon icon-chart"></i></p>
-                </div>
-                <div className="app-tip-message">
-                    <p className="m-b">暂无统计数据</p>
-                </div>
-            </div>
-        );
+        let tagChart,staffChart,cvChart;
         if(user.dimension.dtag&&user.dimension.dtag.length>0){
             let tagsData={
                 labels:[],
@@ -99,19 +90,19 @@ class UserIndex extends Component {
                 <div className="app-block app-block-round app-column-item">
                     <div className="app-block-title">标签TOP10</div>
                     <div className="app-block-content">
-                        {tagChart?tagChart:emptyChart}
+                        {tagChart?tagChart:<Tip type="analytics" />}
                     </div>
                 </div>
                 <div className="app-block app-block-round app-column-item">
                     <div className="app-block-title">制作TOP10</div>
                     <div className="app-block-content">
-                        {staffChart?staffChart:emptyChart}
+                        {staffChart?staffChart:<Tip type="analytics" />}
                     </div>
                 </div>
                 <div className="app-block app-block-round app-column-item">
                     <div className="app-block-title">声优TOP10</div>
                     <div className="app-block-content">
-                        {cvChart?cvChart:emptyChart}
+                        {cvChart?cvChart:<Tip type="analytics" />}
                     </div>
                 </div>
             </div>

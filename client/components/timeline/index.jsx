@@ -1,11 +1,12 @@
 import React, {PropTypes,Component} from 'react';
 
 import TimelineItem from './item.jsx';
+import Tip from '../tip/index.jsx';
 
 //封装组件
 class Timeline extends Component {
     render() {
-        const {data,order,closeTip} = this.props;
+        const {data,order} = this.props;
         return (
             <div className="app-timeline app-column">
                 {
@@ -13,7 +14,7 @@ class Timeline extends Component {
                         return <TimelineItem key={key} data={data[key]} />;
                     })
                 }
-                {order.length===0&&!closeTip?<div className="m-t m-b">暂无数据</div>:''}
+                {order.length===0?<Tip type="timeline" />:''}
             </div>
         );
     }
@@ -22,8 +23,7 @@ class Timeline extends Component {
 
 Timeline.propTypes={
     data: PropTypes.object.isRequired,
-    order: PropTypes.array.isRequired,
-    closeTip: PropTypes.bool
+    order: PropTypes.array.isRequired
 };
 
 export default Timeline;

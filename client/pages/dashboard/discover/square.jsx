@@ -66,31 +66,15 @@ class Square extends Component {
         dispatch(cleanTimeline());
     }
     render() {
-        const {timeline,routing} = this.props;
-        let emptyTip;
-        let params=getParams(routing);
-        if(params.type==='friend'&&timeline.total===0){
-            emptyTip=(
-                <div className="app-tip">
-                    <div className="app-tip-title">
-                        <p><i className="icon icon-star-empty"></i></p>
-                    </div>
-                    <div className="app-tip-message">
-                        <p className="m-b">暂无好友动态</p>
-                        <p><Link to={clientPath+'/dashboard/discover/square/all'} className="btn btn-info"><i className="icon icon-list m-r-sm"></i>查看更多动态</Link></p>
-                    </div>
-                </div>
-            );
-        }
+        const {timeline} = this.props;
         return (
             <div className="app-square m">
                 <div className="m-t-hg m-b-hg">
                     <FormSearch rules={formRule} onSubmit={this.handleSubmit} />
                 </div>
                 <Tab tab={tab} />
-                <Timline data={timeline.content} order={timeline.order} closeTip={true} />
+                <Timline data={timeline.content} order={timeline.order} />
                 <Page page={timeline.page} pageSize={timeline.pageSize} total={timeline.total} onPageClick={this.handlePageClick} />
-                {emptyTip}
             </div>
         );
     }

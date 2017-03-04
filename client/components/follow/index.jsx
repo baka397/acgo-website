@@ -1,6 +1,7 @@
 import React, {PropTypes,Component} from 'react';
 
 import FollowItem from './item.jsx';
+import Tip from '../tip/index.jsx';
 
 //封装组件
 class Follow extends Component {
@@ -13,7 +14,7 @@ class Follow extends Component {
                         return <FollowItem key={key} data={data[key]} type={type} />;
                     })
                 }
-                {order.length===0?<div className="m-t m-b">暂无数据</div>:''}
+                {order.length===0?<Tip type="timeline" />:''}
             </div>
         );
     }
