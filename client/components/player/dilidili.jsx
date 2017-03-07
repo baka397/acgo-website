@@ -2,7 +2,6 @@ import React, {PropTypes,Component} from 'react';
 
 import WebView from '../webview/index.jsx';
 import scriptText from './scripts/dilidili.text';
-import scriptText2 from './scripts/dilidili2.text';
 import styleText from './styles/page.text';
 
 let timer;
@@ -11,9 +10,9 @@ let timer;
 class PlayerDilidili extends Component {
     constructor(props){
         super(props);
-        this.state={
-            loadTime:0
-        };
+        // this.state={
+        //     loadTime:0
+        // };
         this.handleLoad = this.handleLoad.bind(this);
     }
     shouldComponentUpdate(nextProps){
@@ -31,19 +30,11 @@ class PlayerDilidili extends Component {
     }
     handleLoad(){
         const {onLoad} = this.props;
-        const {loadTime} = this.state;
-        if(loadTime===0){
-            this.setState({
-                loadTime:1
-            });
-            this.refs.player.executeJavaScript(scriptText);
-        }else{
-            this.refs.player.insertCSS(styleText);
-            this.refs.player.executeJavaScript(scriptText2);
-            timer=setTimeout(function(){
-                onLoad();
-            },500);
-        }
+        this.refs.player.insertCSS(styleText);
+        this.refs.player.executeJavaScript(scriptText);
+        timer=setTimeout(function(){
+            onLoad();
+        },500);
     }
     componentWillUnmount(){
         if(timer) clearTimeout(timer);

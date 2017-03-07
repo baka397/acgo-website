@@ -1,5 +1,7 @@
 (function getPlayer(){
-    let player=document.getElementById('player_iframe');
-    let playerLink=player.src;
-    window.location.href=playerLink;
+    let frame=document.querySelector('.player_main');
+    let content=frame.children[0];
+    content.setAttribute('width','100%');
+    content.setAttribute('height','100%');
+    document.write(frame.innerHTML);
 })();
