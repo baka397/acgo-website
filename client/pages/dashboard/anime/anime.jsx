@@ -116,7 +116,7 @@ class Anime extends Component {
         }else{
             epContent=(
                 <div className="app-content">
-                    该信息还没有审核,暂时没法添加剧集哦
+                    <p className="m">该信息还没有审核,暂时没法添加剧集哦</p>
                 </div>
             );
         }
