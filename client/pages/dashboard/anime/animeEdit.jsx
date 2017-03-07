@@ -2,7 +2,7 @@ import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
 import {getQuery,getEnumArray,getObjCompareResult} from '../../../common/tool';
 import {showStatus} from '../../../enums/anime';
-import {type,typeMax} from '../../../enums/tag';
+import {type,typeMax,typeExample} from '../../../enums/tag';
 
 import FormList from '../../../components/form/index.jsx';
 
@@ -47,7 +47,7 @@ const FORM_RULE=[
         name:'tag',
         label:type[1],
         type:'tag',
-        placeholder:'请选择'+type[1]+',最多选择'+typeMax[1]+'项',
+        placeholder:'请选择'+type[1]+','+typeExample[1]+'.最多选择'+typeMax[1]+'项',
         tagType:1,
         maxSize:typeMax[1]
     },
@@ -55,7 +55,7 @@ const FORM_RULE=[
         name:'staff',
         label:type[2],
         type:'tag',
-        placeholder:'请选择'+type[2]+',最多选择'+typeMax[2]+'项',
+        placeholder:'请选择'+type[2]+','+typeExample[2]+'.最多选择'+typeMax[2]+'项',
         tagType:2,
         maxSize:typeMax[2]
     },
@@ -63,7 +63,7 @@ const FORM_RULE=[
         name:'cv',
         label:type[3],
         type:'tag',
-        placeholder:'请选择'+type[3]+',最多选择'+typeMax[3]+'项',
+        placeholder:'请选择'+type[3]+','+typeExample[3]+'.最多选择'+typeMax[3]+'项',
         tagType:3,
         maxSize:typeMax[3]
     },
