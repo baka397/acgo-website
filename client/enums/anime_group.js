@@ -7,7 +7,7 @@ exports.status={
 exports.type={
     '1':'B站弹幕版',
     '2':'D站无弹幕版',
-    '3':'PPTV'
+    '4':'PPTV'
 };
 //剧集类型说明
 exports.typeTip={
@@ -19,7 +19,7 @@ exports.typeTip={
         'task':'http://www.dilidili.com/anime/selector/,http://www.dilidili.wang/anime/selector/',
         'item':'http://www.dilidili.com/watch/9076/,http://www.dilidili.wang/watch/9076/'
     },
-    '3':{
+    '4':{
         'task':'http://v.pptv.com/page/FR76eOBGtvRX1T0.html',
         'item':'http://v.pptv.com/show/dbueHYXrW5n8euI.html'
     }
