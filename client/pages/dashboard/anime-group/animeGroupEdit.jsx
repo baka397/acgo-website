@@ -178,7 +178,7 @@ class animeGroupEdit extends Component {
         let sendData=Object.assign({},data);
         //检测是否为编辑
         if(animeGroupDetail._id){
-            if(!(parseInt(data.episodeCur)>=1)){
+            if(!(parseInt(data.episodeCur)>=0)){
                 dispatch(modalUpdate({
                     tip:'请输入有效的当前分集数量'
                 }));
