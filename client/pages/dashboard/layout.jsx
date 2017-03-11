@@ -33,7 +33,7 @@ class DashboardLayout extends Component {
         super(props);
         this.state = {
             nav: nav,
-            icons: isClient()?['min','max','close']:[]
+            icons: isClient()?['refresh','min','max','close']:[]
         };
         this.handleToolbarClick = this.handleToolbarClick.bind(this);
     }

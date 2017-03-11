@@ -130,6 +130,9 @@ class HeaderPage extends Component {
         case 'close':
             windowClose();
             break;
+        case 'refresh':
+            window.location.reload();
+            break;
         }
     }
 }

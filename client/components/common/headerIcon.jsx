@@ -14,6 +14,8 @@ class Header extends Component {
                         return (<a className="btn-info header-icon-max" key="max" title="最大化" onClick={()=>{this.handleIconClick('max');}}></a>);
                     case 'close':
                         return (<a className="btn-danger header-icon-close" key="close" title="关闭" onClick={()=>{this.handleIconClick('close');}}></a>);
+                    case 'refresh':
+                        return (<a className="btn-light header-icon-reload" key="refresh" title="刷新" onClick={()=>{this.handleIconClick('refresh');}}></a>);
                     default:
                         return null;
                     }
