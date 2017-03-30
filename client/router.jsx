@@ -12,9 +12,12 @@ import CommonLayout from './pages/common/layout.jsx'; //未登录框架
 import DashboardLayout from './pages/dashboard/layout.jsx'; //登录框架
 import ConfigLayout from './pages/dashboard/config/layout.jsx'; //配置框架
 import UserLayout from './pages/dashboard/user/layout.jsx'; //用户主页框架
+import WindowLayout from './pages/window/layout.jsx'; //窗口框架
 
 import Index from './pages/index.jsx'; //首页
 import NotFound from './pages/notFound.jsx'; //404页面
+import Download from './pages/download.jsx'; //下载页
+import Version from './pages/version.jsx'; //版本提示页
 
 function loadPage(end){
     if(end){
@@ -29,6 +32,20 @@ export default (
     <Provider store={store}>
         <Router history={history}>
             <Route path="client" component={Layout}>
+                <Route path="download" component={Download} />
+                <Route path="version" component={Version} />
+                <Route path="window" component={WindowLayout}>
+                    <Route path="play" getIndexRoute={(partialNextState, callback)=>{
+                        loadPage();
+                        require.ensure([], function (require) {
+                            let loadComponent=require('./pages/dashboard/anime/animePlay.jsx');
+                            loadPage(true);
+                            callback(null, {
+                                component: loadComponent.default
+                            });
+                        },'dashboard-anime-play');
+                    }} />
+                </Route>
                 <IndexRoute component={Index}/>
                 <Route path="common" component={CommonLayout} getIndexRoute={(partialNextState, callback)=>{
                     loadPage();

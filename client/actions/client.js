@@ -1,11 +1,13 @@
 //加载依赖
 import {modalUpdate,modalClean} from './modal';
-import {getCacheSize,clearCacheSize,getCacheDir} from '../common/ipc';
+import {getCacheSize,clearCacheSize,getCacheDir,getConfig,updateConfig} from '../common/ipc';
 
 export const UPDATE_CLIENT_CACHE = 'UPDATE_CLIENT_CACHE';
 export const CLEAN_CLIENT_CACHE = 'CLEAN_CLIENT_CACHE';
 export const CLEAN_CLIENT = 'CLEAN_CLIENT';
 export const UPDATE_CLIENT_CACHE_DIR = 'UPDATE_CLIENT_CACHE_DIR';
+export const UPDATE_CLIENT_DOWNLOAD_PROGRESS = 'UPDATE_CLIENT_DOWNLOAD_PROGRESS';
+export const UPDATE_CLIENT_CONFIG = 'UPDATE_CLIENT_CONFIG';
 
 export function getClientCache(){
     return function(dispatch){
@@ -55,6 +57,31 @@ export function getClientCacheDirSuccess(filePath){
     };
 }
 
+export function getClientConfig(){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        getConfig();
+    };
+}
+
+export function getClientConfigSuccess(data){
+    return function(dispatch){
+        dispatch(updateClientConfig(data));
+        dispatch(modalClean('loading'));
+    };
+}
+
+export function postClientConfig(data){
+    return function(dispatch){
+        dispatch(modalUpdate({
+            loading:true
+        }));
+        updateConfig(data);
+    };
+}
+
 
 /**
  * 更新客户端缓存数据
@@ -97,5 +124,23 @@ export function cleanClientCache(){
 export function cleanClient(){
     return {
         type: CLEAN_CLIENT
+    };
+}
+
+/**
+ * 清除下载进度条
+ * @return {Object} action数据
+ */
+export function updateClientDownloadProgress(percent){
+    return {
+        type: UPDATE_CLIENT_DOWNLOAD_PROGRESS,
+        percent
+    };
+}
+
+export function updateClientConfig(data){
+    return {
+        type: UPDATE_CLIENT_CONFIG,
+        data
     };
 }

@@ -1,0 +1,6 @@
+(function getPlayer(){
+    let player=document.getElementById('flash');
+    player.setAttribute('width','100%');
+    player.setAttribute('height','100%');
+    document.write(player.outerHTML);
+})();

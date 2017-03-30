@@ -1,0 +1,35 @@
+.app-progress{
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    height: 25px;
+    &::before{
+        content:'';
+        position: absolute;
+        top: -5px;
+        bottom: -5px;
+        left: -5px;
+        right: -5px;
+        z-index: -1;
+        background: @color-content-dark;
+        .cround(5px);
+    }
+    .tip{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 2;
+        .flex();
+    }
+    .complete{
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        background: @color-primary;
+        .cround(5px 0 0 5px);
+    }
+}

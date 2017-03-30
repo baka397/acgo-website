@@ -5,6 +5,7 @@ import {fetch} from '../../common/api';
 import Bilibili from './bilibili.jsx';
 import Dilidili from './dilidili.jsx';
 import PPTV from './pptv.jsx';
+import Iqiyi from './iqiyi.jsx';
 import Unable from './unable.jsx';
 import LoadModal from './loadModal.jsx';
 
@@ -74,6 +75,9 @@ class Player extends Component {
                 break;
             case 2: //D站
                 player=<Dilidili url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />;
+                break;
+            case 3: //爱奇艺
+                player=<Iqiyi url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />;
                 break;
             case 4: //PPTV
                 player=<PPTV url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />;
