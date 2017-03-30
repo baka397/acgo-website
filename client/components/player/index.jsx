@@ -4,6 +4,7 @@ import {fetch} from '../../common/api';
 
 import Bilibili from './bilibili.jsx';
 import Dilidili from './dilidili.jsx';
+import PPTV from './pptv.jsx';
 import Unable from './unable.jsx';
 import LoadModal from './loadModal.jsx';
 
@@ -74,6 +75,9 @@ class Player extends Component {
             case 2: //D站
                 player=<Dilidili url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />;
                 break;
+            case 4: //PPTV
+                player=<PPTV url={url} onLoad={this.handleLoad} onLoadError={this.handleLoadError} />;
+                break;
             }
             if(!loaded){
                 loadModal=<LoadModal />;
@@ -107,10 +111,11 @@ class Player extends Component {
             loaded:true
         });
     }
-    handleLoadError(){
-        this.setState({
-            error:true
-        });
+    handleLoadError(err){
+        window.console.log(err);
+        // this.setState({
+        //     error:true
+        // });
     }
 }
 

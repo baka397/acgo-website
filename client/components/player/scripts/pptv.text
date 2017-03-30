@@ -1,0 +1,7 @@
+(function getPlayer(){
+    let player=document.getElementById('pptv_playpage_box');
+    let content=player.firstChild;
+    content.setAttribute('width','100%');
+    content.setAttribute('height','100%');
+    document.write(player.innerHTML);
+})();
