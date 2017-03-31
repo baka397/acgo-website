@@ -6,6 +6,7 @@ import {clientPath} from '../../../config';
 import {getParams,getImageUrl,isObjEmpty,authRole} from '../../../common/tool';
 import {copperWidth,copperHeight} from '../../../config';
 import {fetch} from '../../../common/api';
+import {windowOpen} from '../../../common/ipc';
 
 import AnimeGroup from '../../../components/anime/group.jsx';
 
@@ -16,6 +17,7 @@ import {modalUpdate,modalClean} from '../../../actions/modal';
 
 function propMap(state,ownProps){
     return {
+        client:state.client,
         animeDetail:state.anime.detail,
         animeSub:state.animeSub.content,
         animeGroup:state.animeGroup,
@@ -196,12 +198,16 @@ class Anime extends Component {
         dispatch(subAnime(animeDetail._id,status));
     }
     handleGroupClick(id,ep){
-        const {dispatch} = this.props;
-        dispatch(push(clientPath+'/dashboard/anime/play/?groupId='+id+'&ep='+ep));
+        const {client,dispatch} = this.props;
+        if(client.config&&parseInt(client.config.animeWin)===1){
+            windowOpen('/window/play/?groupId='+id+'&ep='+ep);
+        }
+        else dispatch(push(clientPath+'/dashboard/anime/play/?groupId='+id+'&ep='+ep));
     }
 }
 
 Anime.propTypes={
+    client:PropTypes.object.isRequired,
     animeDetail:PropTypes.object.isRequired,
     animeSub:PropTypes.object.isRequired,
     animeGroup:PropTypes.object.isRequired,

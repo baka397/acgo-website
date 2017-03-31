@@ -1,9 +1,11 @@
 import React, {PropTypes,Component} from 'react';
 import {connect} from 'react-redux';
+import {isClient} from '../common/tool';
 
 import Modal from '../components/modal/index.jsx';
 
 import {modalClean} from '../actions/modal';
+import {getClientCacheDir,getClientConfig} from '../actions/client';
 
 function propMap(state){
     return {
@@ -16,6 +18,14 @@ class Layout extends Component {
     constructor(props){
         super(props);
         this.handleHide = this.handleHide.bind(this);
+    }
+    componentDidMount(){
+        const {dispatch} = this.props;
+        if(isClient()){
+            //初始化client数据
+            dispatch(getClientConfig());
+            dispatch(getClientCacheDir());
+        }
     }
     render() {
         const {modal,children} = this.props;

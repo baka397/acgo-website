@@ -17,7 +17,6 @@ class PlayerUnable extends Component {
                 <div className="app-tip-message">
                     <p className="m-b">播放器仅支持客户端访问</p>
                     <p>
-                        <a className="btn btn-primary m-r" href="/download"><i className="icon icon-tv m-r-sm"></i>下载客户端</a>
                         <a className="btn btn-light" href={url} target="_blank"><i className="icon icon-open m-r-sm"></i>直接访问地址</a>
                     </p>
                 </div>

@@ -39,6 +39,7 @@ module.exports = {
     },
     externals:{
         'profile':'profile',
+        'versionLimit':'versionLimit',
         'electron':'electron'
     },
     plugins: [

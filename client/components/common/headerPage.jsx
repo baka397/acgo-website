@@ -67,6 +67,12 @@ function getTitle(channel,service){
             if(/\/user\/\w+\/fan(\/|)$/.test(service)) return '用户粉丝';
         }
         break;
+    case 'window':
+        switch(service){
+        case '/play':
+            return '播放动画';
+        }
+        break;
     }
     return '';
 }
@@ -129,6 +135,15 @@ class HeaderPage extends Component {
             break;
         case 'close':
             windowClose();
+            break;
+        case 'submin':
+            windowMin(true);
+            break;
+        case 'submax':
+            windowMax(true);
+            break;
+        case 'subclose':
+            windowClose(true);
             break;
         case 'refresh':
             window.location.reload();
