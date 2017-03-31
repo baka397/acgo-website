@@ -1,12 +1,19 @@
 import React, {PropTypes,Component} from 'react';
+import {connect} from 'react-redux';
 
 import Simple from './simple.jsx';
 import Sub from './sub.jsx';
 
+function propMap(state){
+    return {
+        client:state.client
+    };
+}
+
 //封装组件
 class Anime extends Component {
     render() {
-        const {order,datas,watchDatas,type} = this.props;
+        const {order,datas,watchDatas,type,client} = this.props;
         return (
             <div className="app-anime-list">
             {order.map(id=>{
@@ -32,7 +39,7 @@ class Anime extends Component {
                         });
                     }
                     //处理观看记录
-                    return <Sub key={id} data={animeData} watchData={watchData} />;
+                    return <Sub key={id} data={animeData} watchData={watchData} openWin={client.config&&parseInt(client.config.animeWin)===1} />;
                 default:
                     return null;
                 }
@@ -43,10 +50,11 @@ class Anime extends Component {
 }
 
 Anime.propTypes={
+    client:PropTypes.object.isRequired,
     order:PropTypes.array.isRequired,
     datas:PropTypes.object.isRequired,
     watchDatas:PropTypes.object,
     type:PropTypes.string.isRequired
 };
 
-export default Anime;
+export default connect(propMap)(Anime);
