@@ -4,6 +4,7 @@ import {replace} from 'react-router-redux'; //router跳转方法
 import {Link} from 'react-router';
 import {clientPath} from '../../../config';
 import {getQuery,getPage,authRole,serialize} from '../../../common/tool';
+import {windowOpen} from '../../../common/ipc';
 
 import Player from '../../../components/player/index.jsx';
 import Playlist from '../../../components/player/playlist.jsx';
@@ -14,6 +15,7 @@ import {addAnimeWatch} from '../../../actions/anime_watch';
 
 function propMap(state,ownProps){
     return {
+        client:state.client,
         animeGroupDetail:state.animeGroup.detail,
         animeItem:state.animeItem,
         profile:state.profile,
@@ -124,7 +126,7 @@ class AnimePlay extends Component {
         }));
     }
     handleGroupItemClick(id,ep){
-        const {animeItem,routing,dispatch} = this.props;
+        const {animeItem,routing,client,dispatch} = this.props;
         let query=getQuery(routing);
         let curItem=animeItem.content[id];
         this.setState({
@@ -132,7 +134,12 @@ class AnimePlay extends Component {
             curEpisodeNo:curItem.episode_no,
             curEpisodeName:curItem.episode_name
         });
-        dispatch(replace(clientPath+'/dashboard/anime/play/?'+serialize(Object.assign({},query,{
+        if(client.config&&parseInt(client.config.animeWin)===1){
+            dispatch(replace(clientPath+'/window/play/?'+serialize(Object.assign({},query,{
+                ep
+            }))));
+        }
+        else dispatch(replace(clientPath+'/dashboard/anime/play/?'+serialize(Object.assign({},query,{
             ep
         }))));
     }
@@ -146,6 +153,7 @@ class AnimePlay extends Component {
     }
 }
 AnimePlay.propTypes={
+    client:PropTypes.object.isRequired,
     animeGroupDetail:PropTypes.object.isRequired,
     animeItem:PropTypes.object.isRequired,
     profile:PropTypes.object.isRequired,

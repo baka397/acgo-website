@@ -198,7 +198,7 @@ class Anime extends Component {
         dispatch(subAnime(animeDetail._id,status));
     }
     handleGroupClick(id,ep){
-        const {dispatch,client} = this.props;
+        const {client,dispatch} = this.props;
         if(client.config&&parseInt(client.config.animeWin)===1){
             windowOpen('/window/play/?groupId='+id+'&ep='+ep);
         }
