@@ -23,9 +23,6 @@ class Version extends Component {
     }
     handleUpdate(){
         updateClientVersion(versionLimit);
-        setTimeout(function(){
-            window.close();
-        },1000);
     }
 }
 
